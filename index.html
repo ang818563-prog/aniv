@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aang & Amanda ♡ 1 Year Together</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito:wght@300;400;600&family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -22,575 +25,391 @@
             --text-mid: #6A8A9A;
         }
 
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--cream); }
         ::-webkit-scrollbar-thumb { background: var(--powder-blue); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--deep-blue); }
 
         body {
-            font-family: 'Nunito', sans-serif;
-            background: var(--cream);
-            color: var(--text-dark);
-            overflow-x: hidden;
-            overflow-y: hidden; /* Dikunci dulu sampai amplop dibuka */
+            font-family: 'Nunito', sans-serif; background: var(--cream);
+            color: var(--text-dark); overflow-x: hidden; overflow-y: hidden;
             cursor: default;
         }
 
-        /* ===================== ENVELOPE SCREEN (GERBANG PEMBUKA) ===================== */
+        /* ===================== ENVELOPE SCREEN ===================== */
         .envelope-screen {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100vh;
-            background: var(--cream);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1); /* Efek slide ke atas */
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--light-blue) 100%);
+            z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
         }
-
-        .envelope-content {
-            text-align: center;
-            animation: pulse-envelope 2s infinite ease-in-out;
-        }
-
-        @keyframes pulse-envelope {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-        }
-
-        .envelope-screen h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            color: var(--dark-blue);
-            margin-bottom: 10px;
-        }
-
-        .envelope-screen p {
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.5rem;
-            color: var(--accent-pink);
-            margin-bottom: 30px;
-        }
-
+        .envelope-content { text-align: center; animation: pulse-envelope 2s infinite ease-in-out; padding: 20px; }
+        @keyframes pulse-envelope { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
+        .envelope-screen h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: var(--dark-blue); margin-bottom: 10px; }
+        .envelope-screen p { font-family: 'Dancing Script', cursive; font-size: 1.5rem; color: var(--accent-pink); margin-bottom: 40px; }
         .btn-open {
-            background: linear-gradient(135deg, var(--powder-blue), var(--deep-blue));
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-family: 'Nunito', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(90, 143, 168, 0.3);
-            transition: transform 0.3s, box-shadow 0.3s;
+            background: linear-gradient(135deg, var(--powder-blue), var(--deep-blue)); color: white; border: none;
+            padding: 15px 45px; font-family: 'Nunito', sans-serif; font-size: 1.1rem; font-weight: 600; border-radius: 30px;
+            cursor: pointer; box-shadow: 0 10px 20px rgba(90, 143, 168, 0.3); transition: all 0.3s ease;
         }
+        .btn-open:hover { transform: translateY(-5px); box-shadow: 0 15px 25px rgba(90, 143, 168, 0.5); }
 
-        .btn-open:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 25px rgba(90, 143, 168, 0.4);
-        }
-
-        /* ===================== FLOATING MUSIC BUTTON ===================== */
+        /* ===================== MUSIC BUTTON ===================== */
         .music-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background: var(--white);
-            border: 2px solid var(--powder-blue);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9998;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-            opacity: 0; /* Sembunyi sebelum amplop dibuka */
+            position: fixed; bottom: 25px; right: 25px; width: 55px; height: 55px; background: var(--white);
+            border: 2px solid var(--powder-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            z-index: 9998; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.15); transition: transform 0.3s, opacity 0.5s ease;
+            opacity: 0; pointer-events: none;
         }
+        .music-btn.show { pointer-events: auto; }
         .music-btn:hover { transform: scale(1.1); }
         .music-icon { font-size: 24px; }
         .music-btn.playing .music-icon { animation: rotateMusic 4s linear infinite; }
-
-        @keyframes rotateMusic {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+        @keyframes rotateMusic { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         /* ===================== HERO ===================== */
         .hero {
-            min-height: 100vh;
-            background: linear-gradient(150deg, #C2DDEF 0%, #EAF4FB 45%, #FCEEF3 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
+            min-height: 100vh; background: linear-gradient(150deg, #C2DDEF 0%, #EAF4FB 45%, #FCEEF3 100%);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 2rem;
         }
-
-        /* Animated particles */
-        .particles {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            animation: floatParticle linear infinite;
-            opacity: 0;
-        }
-
-        @keyframes floatParticle {
-            0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10%  { opacity: 1; }
-            90%  { opacity: 0.4; }
-            100% { transform: translateY(-120px) rotate(360deg); opacity: 0; }
-        }
-
-        /* Soft glow circles in background */
-        .glow-circle {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            animation: pulse 6s ease-in-out infinite;
-        }
-        .glow-1 { width: 500px; height: 500px; background: rgba(184,212,232,0.35); top: -100px; right: -150px; animation-delay: 0s; }
+        .particles { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+        .particle { position: absolute; border-radius: 50%; animation: floatParticle linear infinite; opacity: 0; }
+        @keyframes floatParticle { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 0.4; } 100% { transform: translateY(-120px) rotate(360deg); opacity: 0; } }
+        .glow-circle { position: absolute; border-radius: 50%; filter: blur(80px); animation: pulse 6s ease-in-out infinite; }
+        .glow-1 { width: 500px; height: 500px; background: rgba(184,212,232,0.35); top: -100px; right: -150px; }
         .glow-2 { width: 400px; height: 400px; background: rgba(242,181,197,0.25); bottom: -80px; left: -100px; animation-delay: 3s; }
         .glow-3 { width: 300px; height: 300px; background: rgba(197,223,240,0.3); top: 40%; left: 10%; animation-delay: 1.5s; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.7; } 50% { transform: scale(1.1); opacity: 1; } }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.7; }
-            50%        { transform: scale(1.1); opacity: 1; }
-        }
+        .hero-content { text-align: center; z-index: 10; animation: heroReveal 1.5s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
+        .start-anim .hero-content, .start-anim .hero-badge, .start-anim .hero-names, .start-anim .hero-ampersand, .start-anim .hero-divider, .start-anim .hero-date, .start-anim .countdown { animation-play-state: running; }
+        @keyframes heroReveal { from { opacity: 0; transform: translateY(50px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
-        /* Hero content */
-        .hero-content {
-            text-align: center;
-            z-index: 10;
-            padding: 2rem;
-            animation: heroReveal 1.5s cubic-bezier(0.23,1,0.32,1) both;
-            animation-play-state: paused; /* Pause animasi sampai amplop dibuka */
-        }
-        .start-anim .hero-content, .start-anim .hero-badge, .start-anim .hero-names, .start-anim .hero-ampersand, .start-anim .hero-divider, .start-anim .hero-date, .start-anim .countdown {
-             animation-play-state: running;
-        }
-
-        @keyframes heroReveal {
-            from { opacity: 0; transform: translateY(50px) scale(0.95); }
-            to   { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        .hero-badge {
-            display: inline-block;
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.3rem;
-            color: var(--deep-blue);
-            letter-spacing: 2px;
-            margin-bottom: 1.5rem;
-            padding: 0.5rem 2rem;
-            border: 1px solid rgba(90,143,168,0.3);
-            border-radius: 50px;
-            background: rgba(255,255,255,0.6);
-            backdrop-filter: blur(10px);
-            animation: heroReveal 1.5s 0.2s cubic-bezier(0.23,1,0.32,1) both;
-            animation-play-state: paused;
-        }
-
-        .hero-names {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3.5rem, 11vw, 7.5rem);
-            color: var(--text-dark);
-            line-height: 1.05;
-            font-style: italic;
-            animation: heroReveal 1.5s 0.4s cubic-bezier(0.23,1,0.32,1) both;
-            animation-play-state: paused;
-        }
-
-        .hero-ampersand {
-            display: block;
-            font-family: 'Dancing Script', cursive;
-            font-size: 0.35em;
-            font-style: normal;
-            color: var(--accent-pink);
-            letter-spacing: 0.5em;
-            margin: 0.3em 0;
-            animation: heroReveal 1.5s 0.6s cubic-bezier(0.23,1,0.32,1) both;
-            animation-play-state: paused;
-        }
-
-        .hero-divider {
-            margin: 2rem auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            animation: heroReveal 1.5s 0.7s cubic-bezier(0.23,1,0.32,1) both;
-            animation-play-state: paused;
-        }
-
-        .hero-divider::before,
-        .hero-divider::after {
-            content: '';
-            width: 80px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--deep-blue));
-        }
+        .hero-badge { display: inline-block; font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: var(--deep-blue); letter-spacing: 2px; margin-bottom: 1.5rem; padding: 0.5rem 2rem; border: 1px solid rgba(90,143,168,0.3); border-radius: 50px; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); animation: heroReveal 1.5s 0.2s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
+        .hero-names { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 10vw, 7.5rem); color: var(--text-dark); line-height: 1.1; font-style: italic; animation: heroReveal 1.5s 0.4s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
+        .hero-ampersand { display: block; font-family: 'Dancing Script', cursive; font-size: 0.35em; font-style: normal; color: var(--accent-pink); letter-spacing: 0.5em; margin: 0.3em 0; animation: heroReveal 1.5s 0.6s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
+        .hero-divider { margin: 2rem auto; display: flex; align-items: center; justify-content: center; gap: 1rem; animation: heroReveal 1.5s 0.7s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
+        .hero-divider::before, .hero-divider::after { content: ''; width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--deep-blue)); }
         .hero-divider::after { transform: scaleX(-1); }
+        .hero-heart { color: var(--accent-pink); font-size: 3rem; animation: heartbeat 1.5s ease infinite; }
+        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
 
-        .hero-heart {
-            color: var(--accent-pink);
-            font-size: 1.2rem;
-            animation: heartbeat 1.5s ease infinite;
-        }
+        .hero-date { font-size: 1rem; color: var(--text-mid); letter-spacing: 5px; text-transform: uppercase; font-weight: 600; animation: heroReveal 1.5s 0.8s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
 
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50%        { transform: scale(1.2); }
-        }
-
-        .hero-date {
-            font-size: 1rem;
-            color: var(--text-mid);
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            font-weight: 300;
-            animation: heroReveal 1.5s 0.8s cubic-bezier(0.23,1,0.32,1) both;
-            animation-play-state: paused;
-        }
-
-        /* Countdown */
-        .countdown {
-            margin-top: 3.5rem;
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            animation: heroReveal 1.5s 1s cubic-bezier(0.23,1,0.32,1) both;
-            animation-play-state: paused;
-        }
-
-        .cd-item {
-            text-align: center;
-            background: rgba(255,255,255,0.65);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(184,212,232,0.5);
-            border-radius: 20px;
-            padding: 1.2rem 1.8rem;
-            min-width: 90px;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-
-        .cd-item::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.3), transparent);
-            pointer-events: none;
-        }
-
-        .cd-item:hover { transform: translateY(-4px); }
-
-        .cd-num {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            font-weight: 600;
-            color: var(--dark-blue);
-            display: block;
-            line-height: 1;
-            transition: all 0.3s ease;
-        }
-
-        .cd-label {
-            font-size: 0.65rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--text-mid);
-            margin-top: 0.3rem;
-            display: block;
-        }
-
-        /* Scroll hint */
-        .scroll-hint {
-            position: absolute;
-            bottom: 2.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            z-index: 10;
-            animation: fadeIn 2s 2s both;
-        }
-
-        .scroll-hint span {
-            font-size: 0.65rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: var(--text-mid);
-        }
-
-        .scroll-mouse {
-            width: 22px;
-            height: 35px;
-            border: 1.5px solid var(--text-mid);
-            border-radius: 12px;
-            display: flex;
-            justify-content: center;
-            padding-top: 6px;
-        }
-
-        .scroll-wheel {
-            width: 3px;
-            height: 8px;
-            background: var(--deep-blue);
-            border-radius: 2px;
-            animation: scrollWheel 1.5s ease infinite;
-        }
-
-        @keyframes scrollWheel {
-            0%   { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(10px); opacity: 0; }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to   { opacity: 1; }
-        }
+        .countdown { margin-top: 3rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; animation: heroReveal 1.5s 1s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
+        .cd-item { text-align: center; background: rgba(255,255,255,0.7); backdrop-filter: blur(15px); border: 1px solid rgba(184,212,232,0.5); border-radius: 16px; padding: 1rem 1.5rem; min-width: 80px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease; }
+        .cd-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 600; color: var(--dark-blue); display: block; line-height: 1; }
+        .cd-label { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-mid); margin-top: 0.5rem; display: block; font-weight: 600;}
 
         /* ===================== SHARED ===================== */
-        .section-tag {
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.25rem;
-            color: var(--accent-pink);
-            display: block;
-            margin-bottom: 0.5rem;
-        }
+        .section-tag { font-family: 'Dancing Script', cursive; font-size: 1.25rem; color: var(--accent-pink); display: block; margin-bottom: 0.5rem; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.5rem); color: var(--text-dark); line-height: 1.3; }
+        .section-inner { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+        .fade-up { opacity: 0; transform: translateY(40px) scale(0.9); transition: opacity 0.6s ease-out, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .fade-up.visible { opacity: 1; transform: translateY(0) scale(1); }
 
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            color: var(--text-dark);
-            line-height: 1.2;
-        }
-
-        .section-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .fade-up {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ===================== GALLERY ===================== */
-        .gallery-section { padding: 7rem 2rem; background: var(--white); }
-        .gallery-header { text-align: center; margin-bottom: 4rem; }
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.2rem;
-        }
-
+        /* ===================== GALERI (ZIG-ZAG) & LIGHTBOX ===================== */
+        .gallery-section { padding: 6rem 0; background: var(--white); }
+        .gallery-header { text-align: center; margin-bottom: 5rem; padding: 0 1.5rem; }
+        .gallery-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; padding: 0 1.5rem; }
         .photo-card {
-            border-radius: 18px;
-            overflow: hidden;
-            background: linear-gradient(135deg, var(--light-blue), var(--sky-blue));
-            aspect-ratio: 4/5;
-            position: relative;
-            transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), box-shadow 0.4s ease;
-            cursor: pointer;
+            background: var(--white); border-radius: 8px; padding: 12px 12px 60px 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.1); 
+            position: relative; cursor: zoom-in; transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), box-shadow 0.4s ease;
+            width: calc(33% - 2rem); min-width: 250px; max-width: 320px;
         }
+        .photo-card:nth-child(odd) { margin-top: -40px; transform: rotate(-2deg); }
+        .photo-card:nth-child(even) { margin-top: 40px; transform: rotate(3deg); }
+        .photo-card:hover { transform: translateY(-15px) scale(1.05) rotate(0deg); box-shadow: 0 20px 40px rgba(90,143,168,0.25); z-index: 2; margin-top: 0; }
+        .photo-card img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 4px; pointer-events: none; }
+        .photo-caption { position: absolute; bottom: 15px; left: 0; width: 100%; text-align: center; color: var(--text-dark); font-family: 'Dancing Script', cursive; font-size: 1.5rem; font-weight: 600; pointer-events: none; }
 
-        .photo-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(90,143,168,0.25);
-            z-index: 2;
+        /* Styling buat pop-up foto (Lightbox) */
+        .lightbox-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: rgba(0, 0, 0, 0.85); z-index: 10000;
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
         }
+        .lightbox-overlay.active { opacity: 1; pointer-events: auto; }
+        .lightbox-img { max-width: 90%; max-height: 85vh; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: scale(0.8); transition: transform 0.3s ease; }
+        .lightbox-overlay.active .lightbox-img { transform: scale(1); }
+        .lightbox-close { position: absolute; top: 20px; right: 30px; color: white; font-size: 3rem; cursor: pointer; background: none; border: none; outline: none; transition: color 0.3s; }
+        .lightbox-close:hover { color: var(--accent-pink); }
 
-        .photo-card.big { grid-column: span 2; aspect-ratio: 16/9; }
-
-        .photo-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-        .photo-card:hover img { transform: scale(1.05); }
-
-        .photo-placeholder {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 0.8rem;
-            color: var(--deep-blue);
-        }
-        .photo-placeholder .ph-icon { width: 50px; height: 50px; opacity: 0.5; }
-        .photo-placeholder p {
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.1rem;
-            opacity: 0.6;
-        }
-
-        .photo-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(45,74,92,0.7) 0%, transparent 60%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            display: flex;
-            align-items: flex-end;
-            padding: 1.5rem;
-        }
-        .photo-card:hover .photo-overlay { opacity: 1; }
-        .photo-caption { color: white; font-family: 'Dancing Script', cursive; font-size: 1.2rem; }
-
-        /* ===================== TIMELINE ===================== */
-        .timeline-section {
-            padding: 7rem 2rem;
-            background: linear-gradient(180deg, #EFF8FD 0%, var(--cream) 100%);
-        }
-        .timeline-header { text-align: center; margin-bottom: 5rem; }
+        /* ===================== TIMELINE & MODAL ===================== */
+        .timeline-section { padding: 6rem 0; background: linear-gradient(180deg, #EFF8FD 0%, var(--cream) 100%); }
+        .timeline-header { text-align: center; margin-bottom: 4rem; padding: 0 1.5rem; }
         .timeline-header p { margin-top: 1rem; color: var(--text-mid); font-size: 1rem; }
-
-        .timeline { position: relative; max-width: 800px; margin: 0 auto; }
-        .timeline-line {
-            position: absolute; left: 50%; transform: translateX(-50%);
-            top: 0; bottom: 0; width: 2px;
-            background: linear-gradient(to bottom, transparent, var(--powder-blue) 15%, var(--powder-blue) 85%, transparent);
-        }
-
-        .tl-item {
-            display: grid; grid-template-columns: 1fr 60px 1fr;
-            align-items: start; margin-bottom: 4rem;
-            opacity: 0; transform: translateY(30px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-        .tl-item.visible { opacity: 1; transform: translateY(0); }
-
-        .tl-item:nth-child(odd) .tl-card  { grid-column: 1; }
+        .timeline { position: relative; max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+        .timeline-line { position: absolute; left: 50%; transform: translateX(-50%); top: 0; bottom: 0; width: 3px; background: rgba(184,212,232,0.6); border-radius: 5px; }
+        .tl-item { display: grid; grid-template-columns: 1fr 60px 1fr; align-items: center; margin-bottom: 3rem; }
+        .tl-item:nth-child(odd) .tl-card  { grid-column: 1; text-align: right; margin-left: auto; }
         .tl-item:nth-child(odd) .tl-dot   { grid-column: 2; }
-        .tl-item:nth-child(odd) .tl-empty { grid-column: 3; }
-        .tl-item:nth-child(even) .tl-empty { grid-column: 1; }
-        .tl-item:nth-child(even) .tl-dot   { grid-column: 2; }
-        .tl-item:nth-child(even) .tl-card  { grid-column: 3; }
+        .tl-item:nth-child(even) .tl-dot  { grid-column: 2; }
+        .tl-item:nth-child(even) .tl-card { grid-column: 3; text-align: left; margin-right: auto; }
+        .tl-dot { display: flex; justify-content: center; z-index: 2; }
+        .tl-dot-inner { width: 22px; height: 22px; background: var(--white); border: 5px solid var(--deep-blue); border-radius: 50%; box-shadow: 0 0 0 4px rgba(184,212,232,0.5); transition: all 0.3s ease; }
+        .tl-item:hover .tl-dot-inner { box-shadow: 0 0 0 8px rgba(242,181,197,0.4); }
+        .tl-card { 
+            background: var(--white); border-radius: 20px; padding: 3rem 2rem; 
+            border: 1px solid rgba(184,212,232,0.4); box-shadow: 0 4px 20px rgba(90, 143, 168, 0.08); 
+            transition: box-shadow 0.3s ease, transform 0.3s ease; max-width: 380px; width: 100%;
+        }
+        .tl-card:hover { box-shadow: 0 10px 40px rgba(90, 143, 168, 0.15); transform: translateY(-3px); }
+        .tl-month { font-family: 'Dancing Script', cursive; font-size: 1.2rem; color: var(--accent-pink); display: block; margin-bottom: 0.5rem; font-weight: 600; }
+        .tl-card h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--text-dark); margin-bottom: 0.8rem; line-height: 1.3;}
+        .tl-card p { font-size: 0.95rem; color: var(--text-mid); line-height: 1.6; }
+        
+        .tl-detail { display: none; } 
 
-        .tl-dot { display: flex; justify-content: center; padding-top: 0.8rem; }
-        .tl-dot-inner {
-            width: 16px; height: 16px; background: var(--white);
-            border: 3px solid var(--deep-blue); border-radius: 50%;
-            box-shadow: 0 0 0 4px rgba(90,143,168,0.2);
-            transition: box-shadow 0.3s ease; z-index: 2;
-        }
-        .tl-item.visible .tl-dot-inner { box-shadow: 0 0 0 6px rgba(90,143,168,0.3); }
+        .tl-more { background: none; border: 1px solid var(--deep-blue); color: var(--deep-blue); padding: 8px 18px; border-radius: 20px; font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; margin-top: 1rem; transition: all 0.3s ease; outline: none; display: inline-block; }
+        .tl-item:nth-child(odd) .tl-more { float: right;} 
+        .tl-more:hover { background: var(--deep-blue); color: var(--white); }
 
-        .tl-card {
-            background: var(--white); border-radius: 16px; padding: 1.5rem 1.8rem;
-            border: 1px solid rgba(184,212,232,0.4);
-            box-shadow: 0 4px 20px rgba(90,143,168,0.08);
-            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        /* --- STYLING MODAL CERITA --- */
+        .story-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: rgba(45, 74, 92, 0.6); backdrop-filter: blur(5px);
+            z-index: 10000; display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
         }
-        .tl-card:hover { box-shadow: 0 8px 30px rgba(90,143,168,0.15); transform: translateY(-2px); }
+        .story-modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .story-modal-content {
+            background: var(--cream); width: 90%; max-width: 650px; max-height: 85vh;
+            border-radius: 24px; padding: 3rem 2.5rem; position: relative;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+            transform: scale(0.8) translateY(30px); transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            display: flex; flex-direction: column; border: 5px solid white;
+        }
+        .story-modal-overlay.active .story-modal-content { transform: scale(1) translateY(0); }
+        .close-modal {
+            position: absolute; top: 15px; right: 20px; background: none; border: none;
+            font-size: 2.5rem; color: var(--text-mid); cursor: pointer; transition: color 0.3s;
+            line-height: 1; outline: none;
+        }
+        .close-modal:hover { color: var(--accent-pink); }
+        .modal-title { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--dark-blue); margin-bottom: 0.2rem; padding-right: 30px; }
+        .modal-date { font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: var(--accent-pink); margin-bottom: 1.5rem; display: block; font-weight: 600; }
+        .modal-body { overflow-y: auto; padding-right: 15px; font-size: 1.05rem; color: var(--text-dark); line-height: 1.8; }
+        .modal-body::-webkit-scrollbar { width: 6px; }
+        .modal-body::-webkit-scrollbar-track { background: transparent; }
+        .modal-body::-webkit-scrollbar-thumb { background: var(--powder-blue); border-radius: 10px; }
+        .modal-body p { margin-bottom: 1rem; }
 
-        .tl-month { font-family: 'Dancing Script', cursive; font-size: 1.05rem; color: var(--accent-pink); display: block; margin-bottom: 0.3rem; }
-        .tl-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--text-dark); margin-bottom: 0.5rem; }
-        .tl-card p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.8; }
-        .tl-empty { /* spacer */ }
+        /* ===================== SURAT CINTA (AMPLOP 3D EPIC) ===================== */
+        .letter-section { 
+            padding: 6rem 1.5rem 10rem 1.5rem; 
+            background: var(--white); 
+            overflow: visible; 
+            transition: padding-bottom 1.2s ease; 
+        }
+        .letter-header { text-align: center; margin-bottom: 5rem; }
+        
+        .env-container {
+            perspective: 1200px; 
+            width: 100%; display: flex; justify-content: center;
+        }
 
-        /* ===================== LOVE LETTER ===================== */
-        .letter-section { padding: 7rem 2rem; background: var(--white); }
-        .letter-inner { max-width: 720px; margin: 0 auto; text-align: center; }
-        .letter-paper {
-            margin-top: 3.5rem; background: var(--cream);
-            border: 1px solid rgba(184,212,232,0.4); border-radius: 24px;
-            padding: 4rem 3.5rem; position: relative;
-            box-shadow: 0 8px 40px rgba(90,143,168,0.1), inset 0 1px 0 rgba(255,255,255,0.8);
-            text-align: left;
+        .env-wrapper {
+            position: relative; width: 340px; height: 220px; margin: 2rem auto;
+            cursor: pointer; transform-style: preserve-3d;
+            transition: transform 0.8s ease, box-shadow 0.8s ease;
+            z-index: 10;
         }
-        .letter-deco-q {
-            font-family: 'Playfair Display', serif; font-size: 10rem; line-height: 1;
-            color: var(--light-blue); position: absolute; top: -1.5rem; left: 2rem;
-            pointer-events: none; user-select: none;
+        
+        .env-hint {
+            position: absolute; top: -50px; left: 0; width: 100%; text-align: center;
+            font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--text-mid);
+            animation: bounce-hint 2s infinite; transition: opacity 0.4s;
         }
-        .letter-text {
-            font-family: 'Playfair Display', serif; font-size: 1.1rem; font-style: italic;
-            line-height: 2.1; color: var(--text-dark); position: relative; z-index: 1;
+        @keyframes bounce-hint { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+        .env-wrapper.zoomed { 
+            transform: scale(1.05) translateY(-10px) rotateX(8deg); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            z-index: 100; 
         }
-        .letter-text .salutation { font-style: normal; font-weight: 600; color: var(--dark-blue); display: block; margin-bottom: 1.2rem; }
-        .letter-signature {
-            font-family: 'Dancing Script', cursive; font-size: 2rem;
-            color: var(--deep-blue); margin-top: 2.5rem; display: block; text-align: right;
+
+        .env-wrapper.open { 
+            transform: scale(1) translateY(10px) rotateX(0deg); 
+            z-index: 100; cursor: default; 
         }
+
+        .env-back { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #A5C9E0; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); z-index: 1; }
+        .env-front { position: absolute; top: 0; left: 0; width: 0; height: 0; border-style: solid; border-width: 110px 170px; border-color: transparent var(--powder-blue) var(--powder-blue) var(--powder-blue); border-radius: 0 0 8px 8px; z-index: 3; }
+        .env-flap { position: absolute; top: 0; left: 0; width: 0; height: 0; border-style: solid; border-width: 120px 170px 0 170px; border-color: var(--light-blue) transparent transparent transparent; transform-origin: top; transition: transform 0.6s ease, z-index 0.2s; z-index: 4; }
+        .env-seal { position: absolute; top: -130px; left: -20px; width: 40px; height: 40px; background: var(--accent-pink); border-radius: 50%; z-index: 5; display: flex; justify-content: center; align-items: center; color: white; font-size: 1.2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: opacity 0.3s; }
+        
+        .env-wrapper.open .env-flap { transform: rotateX(180deg); z-index: 1; }
+        .env-wrapper.open .env-seal { opacity: 0; }
+
+        .env-paper {
+            position: absolute; top: 10px; left: 10px; 
+            width: 320px; height: 200px;
+            background: #FDFBF7; 
+            border-radius: 5px; padding: 40px 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1), inset 0 0 0 4px #FDFBF7, inset 0 0 0 5px rgba(242,181,197,0.7); 
+            z-index: 2; 
+            overflow: hidden; 
+        }
+
+        .paper-deco {
+            text-align: center; color: rgba(242,181,197,0.8); font-size: 1.2rem; margin-bottom: 15px; letter-spacing: 5px; margin-top: -10px;
+        }
+        
+        .env-paper.extracted {
+            animation: pullOut 1.5s forwards;
+        }
+
+        .env-paper.returned {
+            animation: putBack 1.5s forwards;
+        }
+        
+        @keyframes pullOut {
+            0%   { transform: translateY(0); z-index: 2; height: 200px; width: 320px; left: 10px; }
+            40%  { transform: translateY(-350px); z-index: 2; height: 200px; width: 320px; left: 10px; }
+            50%  { transform: translateY(-350px); z-index: 10; height: max-content; width: 320px; left: 10px; }
+            100% { 
+                transform: translateY(-20px); 
+                z-index: 10; 
+                height: max-content; 
+                width: 460px; 
+                left: -60px; 
+                box-shadow: 0 20px 45px rgba(0,0,0,0.2), inset 0 0 0 4px #FDFBF7, inset 0 0 0 5px rgba(242,181,197,0.7); 
+            }
+        }
+
+        @keyframes putBack {
+            0%   { transform: translateY(-20px); z-index: 10; height: max-content; width: 460px; left: -60px; }
+            40%  { transform: translateY(-350px); z-index: 10; height: max-content; width: 460px; left: -60px; }
+            50%  { transform: translateY(-350px); z-index: 2; height: 200px; width: 320px; left: 10px; }
+            100% { transform: translateY(0); z-index: 2; height: 200px; width: 320px; left: 10px; }
+        }
+
+        .letter-content { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-style: italic; line-height: 1.9; color: var(--text-dark); text-align: left; }
+        .letter-content .salutation { font-style: normal; font-weight: 600; color: var(--dark-blue); display: block; margin-bottom: 1rem; }
+        .letter-content .signature { font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: var(--deep-blue); margin-top: 2rem; display: block; text-align: right; }
+
+        /* ===================== PAPAN DOA ===================== */
+        .wishwall-section { padding: 5rem 1.5rem; background: linear-gradient(180deg, var(--white) 0%, var(--cream) 100%); overflow: hidden; position: relative; z-index: 5;}
+        .wishwall-header { text-align: center; margin-bottom: 3rem; }
+        .wish-form { max-width: 500px; margin: 0 auto 3rem auto; background: var(--white); padding: 2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(90,143,168,0.1); }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; font-family: 'Nunito', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--text-dark); margin-bottom: 0.5rem; }
+        .wish-form input, .wish-form textarea { width: 100%; padding: 12px 15px; border: 1px solid var(--powder-blue); border-radius: 8px; font-family: 'Nunito', sans-serif; font-size: 1rem; color: var(--text-dark); outline: none; transition: border 0.3s; }
+        .wish-form input:focus, .wish-form textarea:focus { border-color: var(--deep-blue); }
+        .wish-form textarea { resize: vertical; min-height: 100px; }
+        .btn-submit { background: var(--deep-blue); color: var(--white); border: none; padding: 12px 25px; border-radius: 8px; font-family: 'Nunito', sans-serif; font-weight: 600; cursor: pointer; width: 100%; transition: background 0.3s; }
+        .btn-submit:hover { background: var(--dark-blue); }
+
+        .sticky-board { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; max-width: 1000px; margin: 0 auto; padding-top: 2rem; }
+        .sticky-note { 
+            width: 220px; padding: 1.5rem; background: #FEF9C3; border-radius: 2px 15px 15px 15px; 
+            box-shadow: 3px 6px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s ease, z-index 0.3s; 
+        }
+        .sticky-note:nth-child(even) { background: #FCE8EF; transform: rotate(3deg); }
+        .sticky-note:nth-child(odd) { transform: rotate(-4deg); }
+        .sticky-note:nth-child(3n) { background: #E0F2FE; transform: rotate(1deg); }
+        
+        /* Efek pop-up maju pas diklik/ditekan */
+        .sticky-note:hover, .sticky-note:active { 
+            transform: scale(1.15) rotate(0deg) !important; 
+            z-index: 50; 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2); 
+        }
+        
+        .pin { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 12px; height: 12px; background: #EF4444; border-radius: 50%; box-shadow: inset -2px -2px 4px rgba(0,0,0,0.3), 1px 2px 4px rgba(0,0,0,0.2); }
+        .note-text { font-family: 'Dancing Script', cursive; font-size: 1.4rem; color: #333; line-height: 1.4; margin-bottom: 1rem; margin-top: 10px; }
+        .note-author { font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 600; color: #666; text-align: right; }
 
         /* ===================== FOOTER ===================== */
-        .footer {
-            background: linear-gradient(150deg, #3A6680 0%, var(--dark-blue) 100%);
-            color: rgba(255,255,255,0.85); padding: 5rem 2rem; text-align: center; position: relative; overflow: hidden;
-        }
-        .footer::before {
-            content: ''; position: absolute; width: 600px; height: 600px;
-            border-radius: 50%; background: rgba(184,212,232,0.1); top: -200px; right: -200px;
-        }
-        .footer-names { font-family: 'Playfair Display', serif; font-style: italic; font-size: 3rem; color: var(--white); display: block; margin-bottom: 0.5rem; position: relative; }
-        .footer-date { font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: var(--powder-blue); display: block; position: relative; }
+        .footer { background: linear-gradient(150deg, #3A6680 0%, var(--dark-blue) 100%); color: rgba(255,255,255,0.85); padding: 4rem 1.5rem; text-align: center; position: relative; overflow: hidden; }
+        .footer-names { font-family: 'Playfair Display', serif; font-style: italic; font-size: 2.5rem; color: var(--white); display: block; margin-bottom: 0.5rem; position: relative; }
+        .footer-date { font-family: 'Dancing Script', cursive; font-size: 1.2rem; color: var(--powder-blue); display: block; position: relative; }
         .footer-hearts { display: flex; justify-content: center; gap: 1rem; margin: 1.5rem 0; position: relative; }
-        .footer-heart {
-            width: 12px; height: 12px; background: var(--accent-pink); transform: rotate(-45deg); position: relative; animation: heartbeat 2s ease infinite;
-        }
+        .footer-heart { width: 10px; height: 10px; background: var(--accent-pink); transform: rotate(-45deg); position: relative; animation: heartbeat 2s ease infinite; }
         .footer-heart:nth-child(2) { animation-delay: 0.3s; }
         .footer-heart:nth-child(3) { animation-delay: 0.6s; }
-        .footer-heart::before, .footer-heart::after {
-            content: ''; position: absolute; width: 12px; height: 12px; background: var(--accent-pink); border-radius: 50%;
-        }
-        .footer-heart::before { top: -6px; left: 0; }
-        .footer-heart::after  { left: 6px; top: 0; }
-        .footer-caption { margin-top: 2.5rem; font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; opacity: 0.4; position: relative; }
+        .footer-heart::before, .footer-heart::after { content: ''; position: absolute; width: 10px; height: 10px; background: var(--accent-pink); border-radius: 50%; }
+        .footer-heart::before { top: -5px; left: 0; }
+        .footer-heart::after  { left: 5px; top: 0; }
+        .footer-caption { margin-top: 2rem; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; opacity: 0.4; position: relative; }
 
-        /* ===================== RESPONSIVE ===================== */
+        /* ===================== RESPONSIVE (MOBILE) ===================== */
         @media (max-width: 768px) {
-            .countdown { gap: 0.8rem; }
-            .cd-item { padding: 1rem 1.2rem; min-width: 70px; }
-            .cd-num { font-size: 2rem; }
-            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-            .photo-card.big { grid-column: span 2; aspect-ratio: 4/3; }
-            .timeline-line { left: 1.5rem; }
-            .tl-item { grid-template-columns: 40px 1fr !important; grid-template-rows: auto; }
-            .tl-item:nth-child(odd) .tl-card, .tl-item:nth-child(even) .tl-card { grid-column: 2 !important; grid-row: 1; }
-            .tl-item:nth-child(odd) .tl-dot, .tl-item:nth-child(even) .tl-dot   { grid-column: 1 !important; grid-row: 1; }
-            .tl-item .tl-empty { display: none; }
-            .letter-paper { padding: 3rem 2rem; }
+            .countdown { gap: 0.5rem; }
+            .cd-item { padding: 1rem; min-width: 70px; }
+            .cd-num { font-size: 1.8rem; }
+            
+            .gallery-grid { flex-direction: column; align-items: center; gap: 1.5rem; }
+            .photo-card { width: 85%; max-width: 300px; margin-top: 0 !important; }
+            .photo-card:nth-child(even) { transform: translateX(15px) rotate(3deg); }
+            .photo-card:nth-child(odd) { transform: translateX(-15px) rotate(-2deg); }
+
+            .timeline-line { left: calc(1.5rem + 10px); }
+            .tl-item { grid-template-columns: 30px 1fr !important; grid-template-rows: auto; gap: 15px; }
+            .tl-item:nth-child(odd) .tl-card, .tl-item:nth-child(even) .tl-card { grid-column: 2 !important; text-align: left; padding: 2.5rem 1.5rem; max-width: 100%; }
+            .tl-item:nth-child(odd) .tl-dot, .tl-item:nth-child(even) .tl-dot { grid-column: 1 !important; justify-content: flex-start; }
+            .tl-empty { display: none; }
+            .tl-item:nth-child(odd) .tl-more { float: none;} 
+
+            .story-modal-content { width: 95%; padding: 2.5rem 1.5rem; }
+            .modal-title { font-size: 1.6rem; }
+
+            .env-wrapper { width: 300px; height: 190px; }
+            .env-front { border-width: 95px 150px; }
+            .env-flap { border-width: 110px 150px 0 150px; }
+            .env-seal { left: -15px; }
+            .env-paper { width: 280px; height: 170px; padding: 25px 15px; }
+            .env-wrapper.zoomed { transform: scale(1.02) translateY(-5px) rotateX(8deg); }
+            .env-wrapper.open { transform: scale(1) translateY(10px) rotateX(0deg); }
+
+            @keyframes pullOut {
+                0%   { transform: translateY(0); z-index: 2; height: 170px; width: 280px; left: 10px; }
+                40%  { transform: translateY(-280px); z-index: 2; height: 170px; width: 280px; left: 10px; }
+                50%  { transform: translateY(-280px); z-index: 10; height: max-content; width: 280px; left: 10px; }
+                100% { 
+                    transform: translateY(-20px); 
+                    z-index: 10; 
+                    height: max-content; 
+                    width: 320px; 
+                    left: -10px; 
+                    box-shadow: 0 15px 35px rgba(0,0,0,0.2), inset 0 0 0 3px #FDFBF7, inset 0 0 0 4px rgba(242,181,197,0.7); 
+                }
+            }
+
+            @keyframes putBack {
+                0%   { transform: translateY(-20px); z-index: 10; height: max-content; width: 320px; left: -10px; }
+                40%  { transform: translateY(-280px); z-index: 10; height: max-content; width: 320px; left: -10px; }
+                50%  { transform: translateY(-280px); z-index: 2; height: 170px; width: 280px; left: 10px; }
+                100% { transform: translateY(0); z-index: 2; height: 170px; width: 280px; left: 10px; }
+            }
+
+            /* --- MODIFIKASI KHUSUS HP (GUESTBOOK) --- */
+            .wish-form { padding: 1.5rem; margin-bottom: 2rem; }
+            .wish-form input, .wish-form textarea { padding: 10px; font-size: 0.95rem; }
+            
+            .sticky-board { gap: 0; padding-top: 1rem; }
+            .sticky-note { 
+                width: 140px; 
+                padding: 1rem; 
+                margin: -10px -15px; /* Efek saling menumpuk/ketimpa */
+                box-shadow: 2px 5px 12px rgba(0,0,0,0.15);
+            }
+            .note-text { font-size: 1.05rem; margin-top: 5px; margin-bottom: 0.5rem; }
+            .note-author { font-size: 0.75rem; }
+
             .footer-names { font-size: 2rem; }
-        }
-        @media (max-width: 480px) {
-            .gallery-grid { grid-template-columns: 1fr; }
-            .photo-card.big { grid-column: span 1; aspect-ratio: 4/3; }
         }
     </style>
 </head>
 <body id="body-content">
+
+<div class="lightbox-overlay" id="lightbox-overlay" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <img src="" alt="Fullscreen Photo" class="lightbox-img" id="lightbox-img" onclick="event.stopPropagation()">
+</div>
 
 <audio id="bg-music" loop>
     <source src="amanda.mp3" type="audio/mpeg">
@@ -598,6 +417,16 @@
 
 <div class="music-btn" id="music-toggle" onclick="toggleMusic()">
     <span class="music-icon" id="music-icon">🎵</span>
+</div>
+
+<div class="story-modal-overlay" id="story-modal" onclick="closeStoryModal()">
+    <div class="story-modal-content" onclick="event.stopPropagation()">
+        <button class="close-modal" onclick="closeStoryModal()">&times;</button>
+        <h3 class="modal-title" id="modal-title">Judul Cerita</h3>
+        <span class="modal-date" id="modal-date">Bulan & Tahun</span>
+        <div class="modal-body" id="modal-body">
+            </div>
+    </div>
 </div>
 
 <div class="envelope-screen" id="envelope-screen">
@@ -624,95 +453,145 @@
             <div class="cd-item"><span class="cd-num" id="cd-days">—</span><span class="cd-label">Days</span></div>
             <div class="cd-item"><span class="cd-num" id="cd-hours">—</span><span class="cd-label">Hours</span></div>
             <div class="cd-item"><span class="cd-num" id="cd-mins">—</span><span class="cd-label">Minutes</span></div>
-            <div class="cd-item"><span class="cd-num" id="cd-secs">—</span><span class="cd-label">Seconds</span></div>
-        </div>
-    </div>
-
-    <div class="scroll-hint">
-        <span>scroll</span>
-        <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
-    </div>
-</section>
-
-<section class="gallery-section">
-    <div class="section-inner">
-        <div class="gallery-header fade-up">
-            <span class="section-tag">our memories</span>
-            <h2 class="section-title">Foto Kita Berdua 📸</h2>
-        </div>
-        <div class="gallery-grid">
-            <div class="photo-card big fade-up" style="transition-delay: 0.1s">
-                <div class="photo-placeholder">
-                    <svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-                    <p>Foto Favorit Kita ✨</p>
-                </div>
-                <div class="photo-overlay"><span class="photo-caption">Moment spesial kita...</span></div>
-            </div>
-            <div class="photo-card fade-up" style="transition-delay: 0.2s"><div class="photo-placeholder"><p>Foto 2</p></div><div class="photo-overlay"><span class="photo-caption">Keterangan...</span></div></div>
-            <div class="photo-card fade-up" style="transition-delay: 0.25s"><div class="photo-placeholder"><p>Foto 3</p></div><div class="photo-overlay"><span class="photo-caption">Keterangan...</span></div></div>
-            <div class="photo-card fade-up" style="transition-delay: 0.3s"><div class="photo-placeholder"><p>Foto 4</p></div><div class="photo-overlay"><span class="photo-caption">Keterangan...</span></div></div>
-            <div class="photo-card fade-up" style="transition-delay: 0.35s"><div class="photo-placeholder"><p>Foto 5</p></div><div class="photo-overlay"><span class="photo-caption">Keterangan...</span></div></div>
-            <div class="photo-card fade-up" style="transition-delay: 0.4s"><div class="photo-placeholder"><p>Foto 6</p></div><div class="photo-overlay"><span class="photo-caption">Keterangan...</span></div></div>
+            <div class="cd-item"><span class="cd-num" id="cd-secs">—</span><span class="cd-label">Secs</span></div>
         </div>
     </div>
 </section>
 
-<section class="timeline-section">
-    <div class="section-inner">
-        <div class="timeline-header fade-up">
-            <span class="section-tag">our journey</span>
-            <h2 class="section-title">Perjalanan Kita 🌊</h2>
-            <p>Satu tahun penuh kenangan yang nggak akan pernah terlupakan</p>
+<section class="gallery-section" id="gallery-section">
+    <div class="gallery-header fade-up">
+        <span class="section-tag">our memories</span>
+        <h2 class="section-title">Foto Kita Berdua 📸</h2>
+    </div>
+    <div class="gallery-grid">
+        <div class="photo-card fade-up" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="https://via.placeholder.com/400x300?text=Foto+1+(4:3)" alt="Foto">
+            <div class="photo-caption">Senyum Manis</div>
         </div>
-        <div class="timeline">
-            <div class="timeline-line"></div>
-            <div class="tl-item">
-                <div class="tl-card">
-                    <span class="tl-month">September 2025</span>
-                    <h3>Awal dari Segalanya 🌸</h3>
-                    <p>Cerita awal kita dimulai di sini. Isi dengan momen pertama kalian ya!</p>
+        <div class="photo-card fade-up" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="https://via.placeholder.com/400x300?text=Foto+2+(4:3)" alt="Foto">
+            <div class="photo-caption">Momen Lucu</div>
+        </div>
+        <div class="photo-card fade-up" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="https://via.placeholder.com/400x300?text=Foto+3+(4:3)" alt="Foto">
+            <div class="photo-caption">Jalan Bareng</div>
+        </div>
+        <div class="photo-card fade-up" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="https://via.placeholder.com/400x300?text=Foto+4+(4:3)" alt="Foto">
+            <div class="photo-caption">Main Ke Pantai</div>
+        </div>
+        <div class="photo-card fade-up" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="https://via.placeholder.com/400x300?text=Foto+5+(4:3)" alt="Foto">
+            <div class="photo-caption">Foto Berdua</div>
+        </div>
+    </div>
+</section>
+
+<section class="timeline-section" id="timeline-section">
+    <div class="timeline-header fade-up">
+        <span class="section-tag">our journey</span>
+        <h2 class="section-title">Perjalanan Kita 🌊</h2>
+        <p>Satu tahun penuh kenangan yang nggak akan pernah terlupakan</p>
+    </div>
+    <div class="timeline">
+        <div class="timeline-line"></div>
+        <div class="tl-item fade-up">
+            <div class="tl-card">
+                <span class="tl-month">September 2025</span>
+                <h3>Momen Jadian Kita 🌸</h3>
+                <p>Awal indah cerita kita dimulai. Hari di mana aku berani bilang kalau aku sayang kamu.</p>
+                <div class="tl-detail">
+                    <p>Cerita lengkapnya di sini... Isi dengan detail momen jadian kalian ya! ✨</p>
+                    <p>Lo bisa tambahin paragraf berapapun di sini, nanti pas ditekan "Buka Cerita", semua tulisan ini bakal muncul di dalam Pop-up yang estetik.</p>
                 </div>
-                <div class="tl-dot"><div class="tl-dot-inner"></div></div>
-                <div class="tl-empty"></div>
+                <button class="tl-more" onclick="openStoryModal(this)">Buka Cerita</button>
             </div>
-            <div class="tl-item">
-                <div class="tl-empty"></div>
-                <div class="tl-dot"><div class="tl-dot-inner"></div></div>
-                <div class="tl-card">
-                    <span class="tl-month">Momen Spesial ✨</span>
-                    <h3>Menyusul!</h3>
-                    <p>Di sini nanti diisi dengan cerita momen berkesan kalian berdua.</p>
+            <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+            <div class="tl-empty"></div>
+        </div>
+        <div class="tl-item fade-up">
+            <div class="tl-empty"></div>
+            <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+            <div class="tl-card">
+                <span class="tl-month">Jalan-jalan Pertama 🚗</span>
+                <h3>Menyusul! ✨</h3>
+                <p>Momen tak terlupakan pas kita pertama kali jalan-jalan berdua.</p>
+                <div class="tl-detail">
+                    <p>Isi cerita lengkapnya di sini... Kemana aja kita? Makan apa?</p>
+                </div>
+                <button class="tl-more" onclick="openStoryModal(this)">Buka Cerita</button>
+            </div>
+        </div>
+        <div class="tl-item fade-up">
+            <div class="tl-card">
+                <span class="tl-month">Hari Ini & Selamanya 💙</span>
+                <h3>Satu Tahun & Selamanya</h3>
+                <p>Masih banyak mimpi yang akan kita kejar berdua. Terima kasih sudah bersamaku.</p>
+                <div class="tl-detail">
+                    <p>Harapan-harapan kamu buat masa depan kalian berdua isi di sini ya!</p>
+                </div>
+                <button class="tl-more" onclick="openStoryModal(this)">Buka Cerita</button>
+            </div>
+            <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+            <div class="tl-empty"></div>
+        </div>
+    </div>
+</section>
+
+<section class="letter-section" id="letter-section">
+    <div class="letter-header fade-up">
+        <span class="section-tag">untuk kamu</span>
+        <h2 class="section-title">Surat Cinta 💌</h2>
+    </div>
+    
+    <div class="env-container fade-up">
+        <div class="env-wrapper" id="env-wrapper" onclick="handleEnvelope(event)">
+            <div class="env-hint" id="env-hint">Ketuk untuk mengambil surat &hearts;</div>
+            <div class="env-back"></div>
+            
+            <div class="env-paper" id="env-paper-content">
+                <div class="paper-deco">✧ ✧ ✧</div>
+                <div class="letter-content">
+                    <span class="salutation">Amanda yang kusayang,</span>
+                    Satu tahun berlalu begitu cepat, tapi setiap momennya terasa sangat berharga. Kamu adalah alasan aku tersenyum setiap harinya...<br><br>
+                    Lebar kertas ini sekarang udah gue kecilin biar ada *space* sisa di pinggiran layar HP lo, jadi kelihatannya lebih rapi dan estetik.<br><br>
+                    Terus cobain deh <b>ketuk kertas ini sekarang!</b> Dia bakal langsung nurut ditarik dan dimasukkan kembali ke dalam amplop dengan animasi yang *smooth* banget.<br><br>
+                    Tapi tenang, kalau lo cuma *scroll* ke bawah baca doa temen-temen tanpa ngetuk area suratnya, suratnya bakal tetap *stay* kebuka. Mantap kan?
+                    <span class="signature">— Aang, selamanya 💙</span>
                 </div>
             </div>
-            <div class="tl-item">
-                <div class="tl-card">
-                    <span class="tl-month">Masih banyak lagi...</span>
-                    <h3>Kisah Kita Berlanjut 💙</h3>
-                    <p>Masih banyak bab yang akan kita isi bersama setelah ini.</p>
-                </div>
-                <div class="tl-dot"><div class="tl-dot-inner"></div></div>
-                <div class="tl-empty"></div>
+            
+            <div class="env-front"></div>
+            <div class="env-flap">
+                <div class="env-seal">♡</div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="letter-section">
-    <div class="letter-inner">
-        <div class="fade-up">
-            <span class="section-tag">untuk kamu</span>
-            <h2 class="section-title">Surat Cinta 💌</h2>
-        </div>
-        <div class="letter-paper fade-up" style="transition-delay: 0.2s">
-            <div class="letter-deco-q">"</div>
-            <div class="letter-text">
-                <span class="salutation">Amanda yang kusayang,</span>
-                Satu tahun berlalu begitu cepat, tapi setiap momennya terasa sangat berharga. Kamu adalah alasan aku tersenyum setiap harinya...<br><br>
-                <em style="opacity: 0.6; font-size: 0.95em;">
-                    [ Ini adalah placeholder — nanti kamu isi dengan kata-kata dari hati kamu sendiri ya, Aang! ✨ ]
-                </em>
+<section class="wishwall-section" id="wishwall-section">
+    <div class="wishwall-header fade-up">
+        <span class="section-tag">guestbook</span>
+        <h2 class="section-title">NOTE 📌</h2>
+    </div>
+    <div class="wish-form fade-up">
+        <form id="note-form" onsubmit="submitNote(event)">
+            <div class="form-group">
+                <label for="guest-name">Nama Kamu</label>
+                <input type="text" id="guest-name" placeholder="Isi Nama Mu Disini" required>
             </div>
-            <span class="letter-signature">— Aang, selamanya 💙</span>
+            <div class="form-group">
+                <label for="guest-msg">Pesan</label>
+                <textarea id="guest-msg" placeholder="Kirim Pesan Sesuatu" required></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Kirim Pesan!</button>
+        </form>
+    </div>
+    <div class="sticky-board" id="sticky-board">
+        <div class="sticky-note fade-up">
+            <div class="pin"></div>
+            <p class="note-text">Happy 1st anniversary Aang dan Amanda! Gemes banget kalian berdua 😍</p>
+            <p class="note-author">- Teman Kalian</p>
         </div>
     </div>
 </section>
@@ -727,92 +606,207 @@
 </footer>
 
 <script>
-    // --- Fitur Amplop Kejutan & BGM ---
+    // --- KODE AUTO SCROLL KE ATAS PAS REFRESH ---
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+    // --------------------------------------------
+
     const bgMusic = document.getElementById('bg-music');
     const musicBtn = document.getElementById('music-toggle');
     let isPlaying = false;
 
     function openSurprise() {
-        // Hilangkan amplop (slide up)
         document.getElementById('envelope-screen').style.transform = 'translateY(-100vh)';
-        // Buka kunci scroll
         document.body.style.overflowY = 'auto';
-        // Jalankan animasi Hero yang tadi dipause
+        document.body.style.overflowX = 'hidden'; 
         document.getElementById('hero-section').classList.add('start-anim');
-        // Munculkan tombol musik
+        
+        musicBtn.classList.add('show');
         musicBtn.style.opacity = '1';
         
-        // Play lagu otomatis
-        bgMusic.play();
-        isPlaying = true;
+        setTimeout(() => { 
+            bgMusic.play().catch(e => console.log('Autoplay blocked:', e)); 
+        }, 500);
+        
+        isPlaying = true; 
+        document.getElementById('music-icon').innerHTML = "&#127925;";
         musicBtn.classList.add('playing');
-        document.getElementById('music-icon').innerText = '🎵';
+
+        var duration = 3 * 1000;
+        var end = Date.now() + duration;
+        (function frame() {
+            confetti({
+                particleCount: 5,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 },
+                colors: ['#F2B5C5', '#B8D4E8', '#FFFFFF']
+            });
+            confetti({
+                particleCount: 5,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 },
+                colors: ['#F2B5C5', '#B8D4E8', '#FFFFFF']
+            });
+            if (Date.now() < end) {
+                requestAnimationFrame(frame);
+            }
+        }());
     }
 
     function toggleMusic() {
         if (isPlaying) {
-            bgMusic.pause();
-            musicBtn.classList.remove('playing');
-            document.getElementById('music-icon').innerText = '🔇';
+            bgMusic.pause(); musicBtn.classList.remove('playing'); document.getElementById('music-icon').innerText = '🔇';
         } else {
-            bgMusic.play();
-            musicBtn.classList.add('playing');
-            document.getElementById('music-icon').innerText = '🎵';
+            bgMusic.play(); musicBtn.classList.add('playing'); document.getElementById('music-icon').innerText = '🎵';
         }
         isPlaying = !isPlaying;
     }
 
-    // --- Floating particles ---
-    function spawnParticle() {
-        const container = document.getElementById('particles');
-        const p = document.createElement('div');
-        p.className = 'particle';
-
-        const size  = Math.random() * 12 + 4;
-        const left  = Math.random() * 100;
-        const dur   = Math.random() * 10 + 8;
-        const delay = Math.random() * 4;
-
-        const colors = ['rgba(242,181,197,0.8)', 'rgba(184,212,232,0.8)', 'rgba(197,223,240,0.7)'];
-        const color  = colors[Math.floor(Math.random() * colors.length)];
-
-        p.style.cssText = `left: ${left}%; bottom: -20px; width: ${size}px; height: ${size}px; background: ${color}; animation-duration: ${dur}s; animation-delay: ${delay}s;`;
-        container.appendChild(p);
-        setTimeout(() => p.remove(), (dur + delay) * 1000);
-    }
-    setInterval(spawnParticle, 600);
-    for (let i = 0; i < 12; i++) spawnParticle();
-
-    // --- Countdown ---
-    function updateCountdown() {
-        const start  = new Date('2025-09-04T00:00:00');
-        const now    = new Date();
-        const diff   = now - start;
-
-        const days   = Math.floor(diff / 86400000);
-        const hours  = Math.floor((diff % 86400000) / 3600000);
-        const mins   = Math.floor((diff % 3600000) / 60000);
-        const secs   = Math.floor((diff % 60000) / 1000);
-
-        const pad = n => String(n).padStart(2, '0');
-        document.getElementById('cd-days').textContent  = pad(days);
-        document.getElementById('cd-hours').textContent = pad(hours);
-        document.getElementById('cd-mins').textContent  = pad(mins);
-        document.getElementById('cd-secs').textContent  = pad(secs);
-    }
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-
-    // --- Scroll reveal ---
     const revealObserver = new IntersectionObserver(entries => {
         entries.forEach(e => {
-            if (e.isIntersecting) {
-                e.target.classList.add('visible');
-                revealObserver.unobserve(e.target);
+            if (e.isIntersecting) { 
+                e.target.classList.add('visible'); 
+            } else {
+                e.target.classList.remove('visible'); 
             }
         });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.fade-up, .tl-item').forEach(el => revealObserver.observe(el));
+
+    function openLightbox(src) {
+        document.getElementById('lightbox-img').src = src;
+        document.getElementById('lightbox-overlay').classList.add('active');
+        document.body.style.overflow = 'hidden'; 
+    }
+
+    function closeLightbox() {
+        document.getElementById('lightbox-overlay').classList.remove('active');
+        document.body.style.overflow = 'auto'; 
+    }
+
+    function openStoryModal(button) {
+        const card = button.closest('.tl-card');
+        const title = card.querySelector('h3').innerText;
+        const date = card.querySelector('.tl-month').innerText;
+        const detailHTML = card.querySelector('.tl-detail').innerHTML;
+
+        document.getElementById('modal-title').innerText = title;
+        document.getElementById('modal-date').innerText = date;
+        document.getElementById('modal-body').innerHTML = detailHTML;
+
+        document.getElementById('story-modal').classList.add('active');
+        document.body.style.overflow = 'hidden'; 
+    }
+
+    function closeStoryModal() {
+        document.getElementById('story-modal').classList.remove('active');
+        document.body.style.overflow = 'auto';
+        document.body.style.overflowX = 'hidden'; 
+    }
+
+    let envState = 0; 
+    function handleEnvelope(e) {
+        e.stopPropagation(); 
+        const wrapper = document.getElementById('env-wrapper');
+        const hint = document.getElementById('env-hint');
+        const paper = document.getElementById('env-paper-content');
+        const letterSection = document.getElementById('letter-section');
+        
+        if (envState === 0) {
+            wrapper.classList.add('zoomed');
+            hint.innerText = "Ketuk sekali lagi untuk membuka segel";
+            envState = 1;
+        } else if (envState === 1) {
+            wrapper.classList.remove('zoomed');
+            wrapper.classList.add('open');
+            hint.style.opacity = '0';
+            
+            paper.classList.remove('returned');
+            
+            setTimeout(() => {
+                paper.classList.add('extracted');
+                
+                setTimeout(() => {
+                    const extraHeight = paper.offsetHeight - 220;
+                    if(extraHeight > 0) {
+                        letterSection.style.paddingBottom = `calc(10rem + ${extraHeight}px)`;
+                    }
+                }, 1600); 
+
+            }, 500); 
+
+            envState = 2; 
+            
+        } else if (envState === 2) {
+            paper.classList.remove('extracted');
+            paper.classList.add('returned');
+            
+            letterSection.style.paddingBottom = '';
+            
+            setTimeout(() => {
+                wrapper.classList.remove('open');
+                
+                setTimeout(() => {
+                    hint.style.opacity = '1';
+                    hint.innerText = "Ketuk untuk mengambil surat ♥";
+                    envState = 0; 
+                }, 400); 
+            }, 1500); 
+        }
+    }
+
+    document.addEventListener('click', () => {
+        if (envState === 1) {
+            const wrapper = document.getElementById('env-wrapper');
+            const hint = document.getElementById('env-hint');
+            wrapper.classList.remove('zoomed');
+            hint.style.opacity = '1';
+            hint.innerText = "Ketuk untuk mengambil surat ♥";
+            envState = 0;
+        }
+    });
+
+    function submitNote(event) {
+        event.preventDefault();
+        const name = document.getElementById('guest-name').value;
+        const msg = document.getElementById('guest-msg').value;
+        const board = document.getElementById('sticky-board');
+        
+        const newNote = document.createElement('div');
+        newNote.className = 'sticky-note fade-up visible';
+        newNote.innerHTML = `
+            <div class="pin"></div>
+            <p class="note-text">${msg}</p>
+            <p class="note-author">- ${name}</p>
+        `;
+        board.prepend(newNote);
+        document.getElementById('note-form').reset();
+    }
+
+    function spawnParticle() {
+        const container = document.getElementById('particles');
+        const p = document.createElement('div'); p.className = 'particle';
+        const size  = Math.random() * 12 + 4; const left  = Math.random() * 100;
+        const dur   = Math.random() * 10 + 8; const delay = Math.random() * 4;
+        const colors = ['rgba(242,181,197,0.8)', 'rgba(184,212,232,0.8)', 'rgba(197,223,240,0.7)'];
+        p.style.cssText = `left: ${left}%; bottom: -20px; width: ${size}px; height: ${size}px; background: ${colors[Math.floor(Math.random() * colors.length)]}; animation-duration: ${dur}s; animation-delay: ${delay}s;`;
+        container.appendChild(p); setTimeout(() => p.remove(), (dur + delay) * 1000);
+    }
+    setInterval(spawnParticle, 600); for (let i = 0; i < 12; i++) spawnParticle();
+
+    function updateCountdown() {
+        const start  = new Date('2025-09-04T00:00:00'); const now = new Date(); const diff = now - start;
+        const pad = n => String(n).padStart(2, '0');
+        document.getElementById('cd-days').textContent  = pad(Math.floor(diff / 86400000));
+        document.getElementById('cd-hours').textContent = pad(Math.floor((diff % 86400000) / 3600000));
+        document.getElementById('cd-mins').textContent  = pad(Math.floor((diff % 3600000) / 60000));
+        document.getElementById('cd-secs').textContent  = pad(Math.floor((diff % 60000) / 1000));
+    }
+    updateCountdown(); setInterval(updateCountdown, 1000);
 </script>
 </body>
 </html>
