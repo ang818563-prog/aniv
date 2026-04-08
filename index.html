@@ -37,42 +37,37 @@
             cursor: default;
         }
 
-        /* ===================== ENVELOPE SCREEN (PAGE 1) ===================== */
+        /* ===================== ENVELOPE SCREEN (PAGE 1 - KHUSUS FOTO) ===================== */
         .envelope-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100svh;
             
-            /* Pasang background gambar baru page1.jpg */
-            background-image: url('page1.jpg');
+            /* Kunci background ini pakai foto kelulusan lu */
+            background-image: url('WhatsApp Image 2026-04-08 at 21.39.35.jpeg');
             background-size: cover;
-            background-position: center;
+            background-position: center top; 
             background-repeat: no-repeat;
+            background-color: var(--light-blue); /* Fallback */
             
             z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center;
             transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
         }
 
-        /* Overlay transparan biar teks tetap terbaca jelas */
+        /* Overlay tipis biar tulisan Hai, Amanda tetep jelas */
         .envelope-screen::before {
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(253, 248, 245, 0.7); /* Warna cream dengan transparansi 70% */
+            background: rgba(253, 248, 245, 0.5); /* Bisa dinaikin ke 0.6 kalau foto terlalu terang */
             z-index: -1; 
         }
 
-        .envelope-content { text-align: center; animation: pulse-envelope 2s infinite ease-in-out; padding: 20px; position: relative; z-index: 1; }
+        .envelope-content { 
+            text-align: center; animation: pulse-envelope 2s infinite ease-in-out; padding: 20px; 
+            position: relative; z-index: 1; 
+        }
         @keyframes pulse-envelope { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
         .envelope-screen h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: var(--dark-blue); margin-bottom: 10px; }
-        
-        /* Teks pink disesuaikan biar nggak ketabrak latar */
-        .envelope-screen p { 
-            font-family: 'Dancing Script', cursive; 
-            font-size: 1.5rem; 
-            color: #C06C84; /* Warna pink yang lebih gelap dan kontras */
-            margin-bottom: 40px; 
-            text-shadow: 0 1px 2px rgba(255,255,255,0.6); /* Sedikit shadow putih biar makin jelas */
-        }
-
+        .envelope-screen p { font-family: 'Dancing Script', cursive; font-size: 1.5rem; color: var(--accent-pink); margin-bottom: 40px; }
         .btn-open {
             background: linear-gradient(135deg, var(--powder-blue), var(--deep-blue)); color: white; border: none;
             padding: 15px 45px; font-family: 'Nunito', sans-serif; font-size: 1.1rem; font-weight: 600; border-radius: 30px;
@@ -93,26 +88,44 @@
         .music-btn.playing .music-icon { animation: rotateMusic 4s linear infinite; }
         @keyframes rotateMusic { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        /* ===================== HERO ===================== */
+        /* ===================== HERO (PAGE 2 - KHUSUS VIDEO) ===================== */
         .hero {
-            min-height: 100vh; background: linear-gradient(150deg, #C2DDEF 0%, #EAF4FB 45%, #FCEEF3 100%);
+            min-height: 100svh; /* Pakai svh biar akurat di layar HP */
+            background-color: var(--light-blue); 
             display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 2rem;
         }
-        .particles { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+        
+        /* Mengatur video biar gak terlalu nge-zoom dan proporsional */
+        .hero-bg-video {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center center; /* Pastikan center biar sisi kiri & kanan imbang */
+            z-index: 0;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(253, 248, 245, 0.3); /* Transparan tipis */
+            z-index: 1;
+        }
+
+        .particles { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
         .particle { position: absolute; border-radius: 50%; animation: floatParticle linear infinite; opacity: 0; }
         @keyframes floatParticle { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 0.4; } 100% { transform: translateY(-120px) rotate(360deg); opacity: 0; } }
-        .glow-circle { position: absolute; border-radius: 50%; filter: blur(80px); animation: pulse 6s ease-in-out infinite; }
+        .glow-circle { position: absolute; border-radius: 50%; filter: blur(80px); animation: pulse 6s ease-in-out infinite; z-index: 2;}
         .glow-1 { width: 500px; height: 500px; background: rgba(184,212,232,0.35); top: -100px; right: -150px; }
         .glow-2 { width: 400px; height: 400px; background: rgba(242,181,197,0.25); bottom: -80px; left: -100px; animation-delay: 3s; }
         .glow-3 { width: 300px; height: 300px; background: rgba(197,223,240,0.3); top: 40%; left: 10%; animation-delay: 1.5s; }
         @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.7; } 50% { transform: scale(1.1); opacity: 1; } }
 
-        .hero-content { text-align: center; z-index: 10; animation: heroReveal 1.5s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
+        .hero-content { text-align: center; z-index: 10; position: relative; animation: heroReveal 1.5s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
         .start-anim .hero-content, .start-anim .hero-badge, .start-anim .hero-names, .start-anim .hero-ampersand, .start-anim .hero-divider, .start-anim .hero-date, .start-anim .countdown { animation-play-state: running; }
         @keyframes heroReveal { from { opacity: 0; transform: translateY(50px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
-        .hero-badge { display: inline-block; font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: var(--deep-blue); letter-spacing: 2px; margin-bottom: 1.5rem; padding: 0.5rem 2rem; border: 1px solid rgba(90,143,168,0.3); border-radius: 50px; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); animation: heroReveal 1.5s 0.2s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
-        .hero-names { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 10vw, 7.5rem); color: var(--text-dark); line-height: 1.1; font-style: italic; animation: heroReveal 1.5s 0.4s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
+        .hero-badge { display: inline-block; font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: var(--deep-blue); letter-spacing: 2px; margin-bottom: 1.5rem; padding: 0.5rem 2rem; border: 1px solid rgba(90,143,168,0.3); border-radius: 50px; background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); animation: heroReveal 1.5s 0.2s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
+        .hero-names { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 10vw, 7.5rem); color: var(--text-dark); line-height: 1.1; font-style: italic; text-shadow: 0 4px 15px rgba(255,255,255,0.8); animation: heroReveal 1.5s 0.4s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
         .hero-ampersand { display: block; font-family: 'Dancing Script', cursive; font-size: 0.35em; font-style: normal; color: var(--accent-pink); letter-spacing: 0.5em; margin: 0.3em 0; animation: heroReveal 1.5s 0.6s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
         .hero-divider { margin: 2rem auto; display: flex; align-items: center; justify-content: center; gap: 1rem; animation: heroReveal 1.5s 0.7s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
         .hero-divider::before, .hero-divider::after { content: ''; width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--deep-blue)); }
@@ -120,10 +133,10 @@
         .hero-heart { color: var(--accent-pink); font-size: 2rem; animation: heartbeat 1.5s ease infinite; }
         @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
 
-        .hero-date { font-size: 1rem; color: var(--text-mid); letter-spacing: 5px; text-transform: uppercase; font-weight: 600; animation: heroReveal 1.5s 0.8s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
+        .hero-date { font-size: 1rem; color: var(--text-mid); letter-spacing: 5px; text-transform: uppercase; font-weight: 600; background: rgba(255,255,255,0.5); padding: 5px 15px; border-radius: 20px; animation: heroReveal 1.5s 0.8s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
 
         .countdown { margin-top: 3rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; animation: heroReveal 1.5s 1s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
-        .cd-item { text-align: center; background: rgba(255,255,255,0.7); backdrop-filter: blur(15px); border: 1px solid rgba(184,212,232,0.5); border-radius: 16px; padding: 1rem 1.5rem; min-width: 80px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease; }
+        .cd-item { text-align: center; background: rgba(255,255,255,0.8); backdrop-filter: blur(15px); border: 1px solid rgba(184,212,232,0.5); border-radius: 16px; padding: 1rem 1.5rem; min-width: 80px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease; }
         .cd-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 600; color: var(--dark-blue); display: block; line-height: 1; }
         .cd-label { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-mid); margin-top: 0.5rem; display: block; font-weight: 600;}
 
@@ -135,14 +148,7 @@
         .fade-up.visible { opacity: 1; transform: translateY(0) scale(1); }
 
         /* ===================== GALERI (ZIG-ZAG) & LIGHTBOX ===================== */
-        /* Nambah tekstur kertas di galeri */
-        .gallery-section { 
-            padding: 6rem 0; 
-            background-color: #F8F1E7; /* Warna dasar krem */
-            background-image: url('textures/paper_texture.jpg'); /* Referensi tekstur kertas (perlu file aslinya) */
-            background-blend-mode: multiply; /* Biar tekstur menyatu sama warna dasar */
-            background-size: cover;
-        }
+        .gallery-section { padding: 6rem 0; background: var(--white); }
         .gallery-header { text-align: center; margin-bottom: 5rem; padding: 0 1.5rem; }
         .gallery-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; padding: 0 1.5rem; }
         .photo-card {
@@ -230,10 +236,18 @@
         .modal-body p { margin-bottom: 1rem; }
 
         /* ===================== SURAT CINTA (AMPLOP 3D EPIC) ===================== */
-        .letter-section { padding: 6rem 1.5rem 10rem 1.5rem; background: var(--white); overflow: visible; transition: padding-bottom 1.2s ease; }
+        .letter-section { 
+            padding: 6rem 1.5rem 10rem 1.5rem; 
+            background: var(--white); 
+            overflow: visible; 
+            transition: padding-bottom 1.2s ease; 
+        }
         .letter-header { text-align: center; margin-bottom: 5rem; }
         
-        .env-container { perspective: 1200px; width: 100%; display: flex; justify-content: center; }
+        .env-container {
+            perspective: 1200px; 
+            width: 100%; display: flex; justify-content: center;
+        }
 
         .env-wrapper {
             position: relative; width: 340px; height: 220px; margin: 2rem auto;
@@ -249,8 +263,16 @@
         }
         @keyframes bounce-hint { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 
-        .env-wrapper.zoomed { transform: scale(1.05) translateY(-10px) rotateX(8deg); box-shadow: 0 20px 40px rgba(0,0,0,0.15); z-index: 100; }
-        .env-wrapper.open { transform: scale(1) translateY(10px) rotateX(0deg); z-index: 100; cursor: default; }
+        .env-wrapper.zoomed { 
+            transform: scale(1.05) translateY(-10px) rotateX(8deg); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            z-index: 100; 
+        }
+
+        .env-wrapper.open { 
+            transform: scale(1) translateY(10px) rotateX(0deg); 
+            z-index: 100; cursor: default; 
+        }
 
         .env-back { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #A5C9E0; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); z-index: 1; }
         .env-front { position: absolute; top: 0; left: 0; width: 0; height: 0; border-style: solid; border-width: 110px 170px; border-color: transparent var(--powder-blue) var(--powder-blue) var(--powder-blue); border-radius: 0 0 8px 8px; z-index: 3; }
@@ -261,22 +283,39 @@
         .env-wrapper.open .env-seal { opacity: 0; }
 
         .env-paper {
-            position: absolute; top: 10px; left: 10px; width: 320px; height: 200px;
-            background: #FDFBF7; border-radius: 5px; padding: 40px 30px;
+            position: absolute; top: 10px; left: 10px; 
+            width: 320px; height: 200px;
+            background: #FDFBF7; 
+            border-radius: 5px; padding: 40px 30px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1), inset 0 0 0 4px #FDFBF7, inset 0 0 0 5px rgba(242,181,197,0.7); 
-            z-index: 2; overflow: hidden; 
+            z-index: 2; 
+            overflow: hidden; 
         }
 
-        .paper-deco { text-align: center; color: rgba(242,181,197,0.8); font-size: 1.2rem; margin-bottom: 15px; letter-spacing: 5px; margin-top: -10px; }
+        .paper-deco {
+            text-align: center; color: rgba(242,181,197,0.8); font-size: 1.2rem; margin-bottom: 15px; letter-spacing: 5px; margin-top: -10px;
+        }
         
-        .env-paper.extracted { animation: pullOut 1.5s forwards; }
-        .env-paper.returned { animation: putBack 1.5s forwards; }
+        .env-paper.extracted {
+            animation: pullOut 1.5s forwards;
+        }
+
+        .env-paper.returned {
+            animation: putBack 1.5s forwards;
+        }
         
         @keyframes pullOut {
             0%   { transform: translateY(0); z-index: 2; height: 200px; width: 320px; left: 10px; }
             40%  { transform: translateY(-350px); z-index: 2; height: 200px; width: 320px; left: 10px; }
             50%  { transform: translateY(-350px); z-index: 10; height: max-content; width: 320px; left: 10px; }
-            100% { transform: translateY(-20px); z-index: 10; height: max-content; width: 460px; left: -60px; box-shadow: 0 20px 45px rgba(0,0,0,0.2), inset 0 0 0 4px #FDFBF7, inset 0 0 0 5px rgba(242,181,197,0.7); }
+            100% { 
+                transform: translateY(-20px); 
+                z-index: 10; 
+                height: max-content; 
+                width: 460px; 
+                left: -60px; 
+                box-shadow: 0 20px 45px rgba(0,0,0,0.2), inset 0 0 0 4px #FDFBF7, inset 0 0 0 5px rgba(242,181,197,0.7); 
+            }
         }
 
         @keyframes putBack {
@@ -291,15 +330,7 @@
         .letter-content .signature { font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: var(--deep-blue); margin-top: 2rem; display: block; text-align: right; }
 
         /* ===================== PAPAN DOA ===================== */
-        /* Nambah tekstur papan gabus (corkboard) di Note */
-        .wishwall-section { 
-            padding: 5rem 1.5rem; 
-            background-color: #D2B48C; /* Warna dasar coklat gabus */
-            background-image: url('textures/corkboard.jpg'); /* Referensi tekstur papan gabus (perlu file aslinya) */
-            background-blend-mode: multiply; /* Biar tekstur menyatu sama warna dasar */
-            background-size: cover;
-            overflow: hidden; 
-        }
+        .wishwall-section { padding: 5rem 1.5rem; background: linear-gradient(180deg, var(--white) 0%, var(--cream) 100%); overflow: hidden; position: relative; z-index: 5;}
         .wishwall-header { text-align: center; margin-bottom: 3rem; }
         .wish-form { max-width: 500px; margin: 0 auto 3rem auto; background: var(--white); padding: 2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(90,143,168,0.1); }
         .form-group { margin-bottom: 1.5rem; }
@@ -311,11 +342,20 @@
         .btn-submit:hover { background: var(--dark-blue); }
 
         .sticky-board { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; max-width: 1000px; margin: 0 auto; padding-top: 2rem; }
-        .sticky-note { width: 220px; padding: 1.5rem; background: #FEF9C3; border-radius: 2px 15px 15px 15px; box-shadow: 3px 6px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s ease, z-index 0.3s; }
+        .sticky-note { 
+            width: 220px; padding: 1.5rem; background: #FEF9C3; border-radius: 2px 15px 15px 15px; 
+            box-shadow: 3px 6px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s ease, z-index 0.3s; 
+        }
         .sticky-note:nth-child(even) { background: #FCE8EF; transform: rotate(3deg); }
         .sticky-note:nth-child(odd) { transform: rotate(-4deg); }
         .sticky-note:nth-child(3n) { background: #E0F2FE; transform: rotate(1deg); }
-        .sticky-note:hover { transform: scale(1.08) rotate(0deg) !important; z-index: 2; box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
+        
+        .sticky-note:hover, .sticky-note:active { 
+            transform: scale(1.15) rotate(0deg) !important; 
+            z-index: 50; 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2); 
+        }
+        
         .pin { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 12px; height: 12px; background: #EF4444; border-radius: 50%; box-shadow: inset -2px -2px 4px rgba(0,0,0,0.3), 1px 2px 4px rgba(0,0,0,0.2); }
         .note-text { font-family: 'Dancing Script', cursive; font-size: 1.4rem; color: #333; line-height: 1.4; margin-bottom: 1rem; margin-top: 10px; }
         .note-author { font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 600; color: #666; text-align: right; }
@@ -330,38 +370,71 @@
         .footer-heart:nth-child(3) { animation-delay: 0.6s; }
         .footer-heart::before, .footer-heart::after { content: ''; position: absolute; width: 10px; height: 10px; background: var(--accent-pink); border-radius: 50%; }
         .footer-heart::before { top: -5px; left: 0; }
-        .footer-heart::after { left: 5px; top: 0; }
+        .footer-heart::after  { left: 5px; top: 0; }
         .footer-caption { margin-top: 2rem; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; opacity: 0.4; position: relative; }
 
         /* ===================== RESPONSIVE (MOBILE) ===================== */
         @media (max-width: 768px) {
-            .envelope-screen h2 { font-size: 2rem; }
-            .envelope-screen p { font-size: 1.2rem; }
-            .hero-names { font-size: 3rem; }
-            .hero-date { font-size: 0.8rem; letter-spacing: 3px; }
             .countdown { gap: 0.5rem; }
             .cd-item { padding: 1rem; min-width: 70px; }
             .cd-num { font-size: 1.8rem; }
             
             .gallery-grid { flex-direction: column; align-items: center; gap: 1.5rem; }
-            .photo-card { width: 85%; max-width: 300px; margin-top: 0 !important; transform: none !important; }
-            .photo-card:hover { transform: translateY(-10px) scale(1.02) !important; }
+            .photo-card { width: 85%; max-width: 300px; margin-top: 0 !important; }
+            .photo-card:nth-child(even) { transform: translateX(15px) rotate(3deg); }
+            .photo-card:nth-child(odd) { transform: translateX(-15px) rotate(-2deg); }
 
-            .timeline-line { left: 1.5rem; }
-            .tl-item { grid-template-columns: 3rem 1fr !important; grid-template-rows: auto; gap: 1rem; }
+            .timeline-line { left: calc(1.5rem + 10px); }
+            .tl-item { grid-template-columns: 30px 1fr !important; grid-template-rows: auto; gap: 15px; }
             .tl-item:nth-child(odd) .tl-card, .tl-item:nth-child(even) .tl-card { grid-column: 2 !important; text-align: left; padding: 2.5rem 1.5rem; max-width: 100%; }
-            .tl-item:nth-child(odd) .tl-dot, .tl-item:nth-child(even) .tl-dot { grid-column: 1 !important; justify-content: center; }
+            .tl-item:nth-child(odd) .tl-dot, .tl-item:nth-child(even) .tl-dot { grid-column: 1 !important; justify-content: flex-start; }
             .tl-empty { display: none; }
+            .tl-item:nth-child(odd) .tl-more { float: none;} 
 
-            .env-wrapper { width: 280px; height: 180px; }
-            .env-front { border-width: 90px 140px; }
-            .env-flap { border-width: 100px 140px 0 140px; }
+            .story-modal-content { width: 95%; padding: 2.5rem 1.5rem; }
+            .modal-title { font-size: 1.6rem; }
+
+            .env-wrapper { width: 300px; height: 190px; }
+            .env-front { border-width: 95px 150px; }
+            .env-flap { border-width: 110px 150px 0 150px; }
             .env-seal { left: -15px; }
-            .env-paper { width: 260px; height: 160px; padding: 30px 20px; }
+            .env-paper { width: 280px; height: 170px; padding: 25px 15px; }
             .env-wrapper.zoomed { transform: scale(1.02) translateY(-5px) rotateX(8deg); }
-            @keyframes pullOut { 0% { transform: translateY(0); ... } 100% { transform: translateY(-10px); width: 100%; left: 0; box-shadow: ...; } }
-            @keyframes putBack { 0% { transform: translateY(-10px); width: 100%; left: 0; } 100% { transform: translateY(0); width: 260px; left: 10px; } }
-            .letter-content { font-size: 0.95rem; line-height: 1.7; }
+            .env-wrapper.open { transform: scale(1) translateY(10px) rotateX(0deg); }
+
+            @keyframes pullOut {
+                0%   { transform: translateY(0); z-index: 2; height: 170px; width: 280px; left: 10px; }
+                40%  { transform: translateY(-280px); z-index: 2; height: 170px; width: 280px; left: 10px; }
+                50%  { transform: translateY(-280px); z-index: 10; height: max-content; width: 280px; left: 10px; }
+                100% { 
+                    transform: translateY(-20px); 
+                    z-index: 10; 
+                    height: max-content; 
+                    width: 320px; 
+                    left: -10px; 
+                    box-shadow: 0 15px 35px rgba(0,0,0,0.2), inset 0 0 0 3px #FDFBF7, inset 0 0 0 4px rgba(242,181,197,0.7); 
+                }
+            }
+
+            @keyframes putBack {
+                0%   { transform: translateY(-20px); z-index: 10; height: max-content; width: 320px; left: -10px; }
+                40%  { transform: translateY(-280px); z-index: 10; height: max-content; width: 320px; left: -10px; }
+                50%  { transform: translateY(-280px); z-index: 2; height: 170px; width: 280px; left: 10px; }
+                100% { transform: translateY(0); z-index: 2; height: 170px; width: 280px; left: 10px; }
+            }
+
+            .wish-form { padding: 1.5rem; margin-bottom: 2rem; }
+            .wish-form input, .wish-form textarea { padding: 10px; font-size: 0.95rem; }
+            
+            .sticky-board { gap: 0; padding-top: 1rem; }
+            .sticky-note { 
+                width: 140px; 
+                padding: 1rem; 
+                margin: -10px -15px; 
+                box-shadow: 2px 5px 12px rgba(0,0,0,0.15);
+            }
+            .note-text { font-size: 1.05rem; margin-top: 5px; margin-bottom: 0.5rem; }
+            .note-author { font-size: 0.75rem; }
 
             .footer-names { font-size: 2rem; }
         }
@@ -401,6 +474,11 @@
 </div>
 
 <section class="hero" id="hero-section">
+    <video autoplay loop muted playsinline class="hero-bg-video">
+        <source src="page2.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+
     <div class="glow-circle glow-1"></div>
     <div class="glow-circle glow-2"></div>
     <div class="glow-circle glow-3"></div>
@@ -427,24 +505,24 @@
         <h2 class="section-title">Foto Kita Berdua 📸</h2>
     </div>
     <div class="gallery-grid">
-        <div class="photo-card fade-up" onclick="openLightbox('foto1.jpg')">
-            <img src="foto1.jpg" alt="Foto">
+        <div class="photo-card fade-up" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="https://via.placeholder.com/400x300?text=Foto+1+(4:3)" alt="Foto">
             <div class="photo-caption">Senyum Manis</div>
         </div>
-        <div class="photo-card fade-up" onclick="openLightbox('foto2.jpg')">
-            <img src="foto2.jpg" alt="Foto">
+        <div class="photo-card fade-up" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="https://via.placeholder.com/400x300?text=Foto+2+(4:3)" alt="Foto">
             <div class="photo-caption">Momen Lucu</div>
         </div>
-        <div class="photo-card fade-up" onclick="openLightbox('foto3.jpg')">
-            <img src="foto3.jpg" alt="Foto">
+        <div class="photo-card fade-up" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="https://via.placeholder.com/400x300?text=Foto+3+(4:3)" alt="Foto">
             <div class="photo-caption">Jalan Bareng</div>
         </div>
-        <div class="photo-card fade-up" onclick="openLightbox('foto4.jpg')">
-            <img src="foto4.jpg" alt="Foto">
+        <div class="photo-card fade-up" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="https://via.placeholder.com/400x300?text=Foto+4+(4:3)" alt="Foto">
             <div class="photo-caption">Main Ke Pantai</div>
         </div>
-        <div class="photo-card fade-up" onclick="openLightbox('foto5.jpg')">
-            <img src="foto5.jpg" alt="Foto">
+        <div class="photo-card fade-up" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="https://via.placeholder.com/400x300?text=Foto+5+(4:3)" alt="Foto">
             <div class="photo-caption">Foto Berdua</div>
         </div>
     </div>
@@ -517,8 +595,9 @@
                 <div class="letter-content">
                     <span class="salutation">Amanda yang kusayang,</span>
                     Satu tahun berlalu begitu cepat, tapi setiap momennya terasa sangat berharga. Kamu adalah alasan aku tersenyum setiap harinya...<br><br>
-                    Terima kasih sudah menjadi bagian terindah dalam hidupku. Semoga kita bisa terus bersama mengejar mimpi-mimpi kita berdua.<br><br>
-                    Aku sangat bersyukur memilikimu. Selamat ulang tahun hari jadian kita yang pertama, sayang!
+                    Lebar kertas ini sekarang udah gue kecilin biar ada *space* sisa di pinggiran layar HP lo, jadi kelihatannya lebih rapi dan estetik.<br><br>
+                    Terus cobain deh <b>ketuk kertas ini sekarang!</b> Dia bakal langsung nurut ditarik dan dimasukkan kembali ke dalam amplop dengan animasi yang *smooth* banget.<br><br>
+                    Tapi tenang, kalau lo cuma *scroll* ke bawah baca doa temen-temen tanpa ngetuk area suratnya, suratnya bakal tetap *stay* kebuka. Mantap kan?
                     <span class="signature">— Aang, selamanya 💙</span>
                 </div>
             </div>
@@ -562,12 +641,19 @@
     <div class="footer-hearts">
         <div class="footer-heart"></div><div class="footer-heart"></div><div class="footer-heart"></div>
     </div>
-    <span class="footer-names">Aang & Amanda</span>
-    <span class="footer-date">4 September 2025 — forever & always</span>
+    <span class="footer-names">Aang &amp; Amanda</span>
+    <span class="footer-date">4 September 2025 &mdash; forever &amp; always</span>
     <p class="footer-caption">Happy 1st Anniversary</p>
 </footer>
 
 <script>
+    // --- KODE AUTO SCROLL KE ATAS PAS REFRESH ---
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+    // --------------------------------------------
+
     const bgMusic = document.getElementById('bg-music');
     const musicBtn = document.getElementById('music-toggle');
     let isPlaying = false;
@@ -592,9 +678,23 @@
         var duration = 3 * 1000;
         var end = Date.now() + duration;
         (function frame() {
-            confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#F2B5C5', '#B8D4E8', '#FFFFFF'] });
-            confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#F2B5C5', '#B8D4E8', '#FFFFFF'] });
-            if (Date.now() < end) { requestAnimationFrame(frame); }
+            confetti({
+                particleCount: 5,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 },
+                colors: ['#F2B5C5', '#B8D4E8', '#FFFFFF']
+            });
+            confetti({
+                particleCount: 5,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 },
+                colors: ['#F2B5C5', '#B8D4E8', '#FFFFFF']
+            });
+            if (Date.now() < end) {
+                requestAnimationFrame(frame);
+            }
         }());
     }
 
@@ -609,9 +709,13 @@
 
     const revealObserver = new IntersectionObserver(entries => {
         entries.forEach(e => {
-            if (e.isIntersecting) { e.target.classList.add('visible'); }
+            if (e.isIntersecting) { 
+                e.target.classList.add('visible'); 
+            } else {
+                e.target.classList.remove('visible'); 
+            }
         });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.fade-up, .tl-item').forEach(el => revealObserver.observe(el));
 
     function openLightbox(src) {
@@ -641,7 +745,8 @@
 
     function closeStoryModal() {
         document.getElementById('story-modal').classList.remove('active');
-        document.body.style.overflow = 'auto'; 
+        document.body.style.overflow = 'auto';
+        document.body.style.overflowX = 'hidden'; 
     }
 
     let envState = 0; 
@@ -726,8 +831,8 @@
     function spawnParticle() {
         const container = document.getElementById('particles');
         const p = document.createElement('div'); p.className = 'particle';
-        const size = Math.random() * 12 + 4; const left = Math.random() * 100;
-        const dur = Math.random() * 10 + 8; const delay = Math.random() * 4;
+        const size  = Math.random() * 12 + 4; const left  = Math.random() * 100;
+        const dur   = Math.random() * 10 + 8; const delay = Math.random() * 4;
         const colors = ['rgba(242,181,197,0.8)', 'rgba(184,212,232,0.8)', 'rgba(197,223,240,0.7)'];
         p.style.cssText = `left: ${left}%; bottom: -20px; width: ${size}px; height: ${size}px; background: ${colors[Math.floor(Math.random() * colors.length)]}; animation-duration: ${dur}s; animation-delay: ${delay}s;`;
         container.appendChild(p); setTimeout(() => p.remove(), (dur + delay) * 1000);
@@ -735,12 +840,12 @@
     setInterval(spawnParticle, 600); for (let i = 0; i < 12; i++) spawnParticle();
 
     function updateCountdown() {
-        const start = new Date('2025-09-04T00:00:00'); const now = new Date(); const diff = now - start;
+        const start  = new Date('2025-09-04T00:00:00'); const now = new Date(); const diff = now - start;
         const pad = n => String(n).padStart(2, '0');
-        document.getElementById('cd-days').textContent = pad(Math.floor(diff / 86400000));
+        document.getElementById('cd-days').textContent  = pad(Math.floor(diff / 86400000));
         document.getElementById('cd-hours').textContent = pad(Math.floor((diff % 86400000) / 3600000));
-        document.getElementById('cd-mins').textContent = pad(Math.floor((diff % 3600000) / 60000));
-        document.getElementById('cd-secs').textContent = pad(Math.floor((diff % 60000) / 1000));
+        document.getElementById('cd-mins').textContent  = pad(Math.floor((diff % 3600000) / 60000));
+        document.getElementById('cd-secs').textContent  = pad(Math.floor((diff % 60000) / 1000));
     }
     updateCountdown(); setInterval(updateCountdown, 1000);
 </script>
