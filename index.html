@@ -41,10 +41,10 @@
         .envelope-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100svh;
             
-            /* Kunci background ini pakai foto kelulusan lu */
+            /* Kunci background ini pakai foto kelulusan lu yang udah presisi */
             background-image: url('page1.jpeg');
             background-size: cover;
-            background-position: center top; 
+            background-position: center center; 
             background-repeat: no-repeat;
             background-color: var(--light-blue); /* Fallback */
             
@@ -52,12 +52,12 @@
             transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
         }
 
-        /* Overlay tipis biar tulisan Hai, Amanda tetep jelas */
+        /* Overlay ditipisin banget biar foto gak berkabut / pudar */
         .envelope-screen::before {
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(253, 248, 245, 0.5); /* Bisa dinaikin ke 0.6 kalau foto terlalu terang */
+            background: rgba(255, 255, 255, 0.15); /* Hampir bening 100% */
             z-index: -1; 
         }
 
@@ -66,8 +66,19 @@
             position: relative; z-index: 1; 
         }
         @keyframes pulse-envelope { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
-        .envelope-screen h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: var(--dark-blue); margin-bottom: 10px; }
-        .envelope-screen p { font-family: 'Dancing Script', cursive; font-size: 1.5rem; color: var(--accent-pink); margin-bottom: 40px; }
+        
+        /* Tulisan dikasih shadow (glow) putih biar gak nabrak sama background foto yang rame */
+        .envelope-screen h2 { 
+            font-family: 'Playfair Display', serif; font-size: 2.8rem; 
+            color: var(--dark-blue); margin-bottom: 10px; 
+            text-shadow: 0 0 15px rgba(255, 255, 255, 1), 0 0 5px rgba(255, 255, 255, 1);
+        }
+        .envelope-screen p { 
+            font-family: 'Dancing Script', cursive; font-size: 1.5rem; 
+            color: #C06C84; margin-bottom: 40px; 
+            text-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 5px rgba(255, 255, 255, 1);
+        }
+        
         .btn-open {
             background: linear-gradient(135deg, var(--powder-blue), var(--deep-blue)); color: white; border: none;
             padding: 15px 45px; font-family: 'Nunito', sans-serif; font-size: 1.1rem; font-weight: 600; border-radius: 30px;
@@ -95,19 +106,19 @@
             display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 2rem;
         }
         
-        /* Mengatur video biar gak terlalu nge-zoom dan proporsional */
+        /* Mengatur video biar proporsional dan fokus di tengah */
         .hero-bg-video {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover;
-            object-position: center center; /* Pastikan center biar sisi kiri & kanan imbang */
+            object-position: center center; /* Pastikan animasi stiker kanan-kiri seimbang */
             z-index: 0;
         }
         
         .hero-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(253, 248, 245, 0.3); /* Transparan tipis */
+            background: rgba(253, 248, 245, 0.25); /* Transparan tipis buat video */
             z-index: 1;
         }
 
@@ -125,15 +136,15 @@
         @keyframes heroReveal { from { opacity: 0; transform: translateY(50px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
         .hero-badge { display: inline-block; font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: var(--deep-blue); letter-spacing: 2px; margin-bottom: 1.5rem; padding: 0.5rem 2rem; border: 1px solid rgba(90,143,168,0.3); border-radius: 50px; background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); animation: heroReveal 1.5s 0.2s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
-        .hero-names { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 10vw, 7.5rem); color: var(--text-dark); line-height: 1.1; font-style: italic; text-shadow: 0 4px 15px rgba(255,255,255,0.8); animation: heroReveal 1.5s 0.4s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
+        .hero-names { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 10vw, 7.5rem); color: var(--text-dark); line-height: 1.1; font-style: italic; text-shadow: 0 0 15px rgba(255,255,255,0.9); animation: heroReveal 1.5s 0.4s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
         .hero-ampersand { display: block; font-family: 'Dancing Script', cursive; font-size: 0.35em; font-style: normal; color: var(--accent-pink); letter-spacing: 0.5em; margin: 0.3em 0; animation: heroReveal 1.5s 0.6s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
         .hero-divider { margin: 2rem auto; display: flex; align-items: center; justify-content: center; gap: 1rem; animation: heroReveal 1.5s 0.7s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
         .hero-divider::before, .hero-divider::after { content: ''; width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--deep-blue)); }
         .hero-divider::after { transform: scaleX(-1); }
-        .hero-heart { color: var(--accent-pink); font-size: 2rem; animation: heartbeat 1.5s ease infinite; }
+        .hero-heart { color: var(--accent-pink); font-size: 3rem; animation: heartbeat 1.5s ease infinite; }
         @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
 
-        .hero-date { font-size: 1rem; color: var(--text-mid); letter-spacing: 5px; text-transform: uppercase; font-weight: 600; background: rgba(255,255,255,0.5); padding: 5px 15px; border-radius: 20px; animation: heroReveal 1.5s 0.8s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
+        .hero-date { font-size: 1rem; color: var(--text-mid); letter-spacing: 5px; text-transform: uppercase; font-weight: 600; background: rgba(255,255,255,0.7); padding: 5px 15px; border-radius: 20px; animation: heroReveal 1.5s 0.8s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
 
         .countdown { margin-top: 3rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; animation: heroReveal 1.5s 1s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
         .cd-item { text-align: center; background: rgba(255,255,255,0.8); backdrop-filter: blur(15px); border: 1px solid rgba(184,212,232,0.5); border-radius: 16px; padding: 1rem 1.5rem; min-width: 80px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease; }
