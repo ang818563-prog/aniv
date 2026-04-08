@@ -37,26 +37,26 @@
             cursor: default;
         }
 
-        /* ===================== ENVELOPE SCREEN (DENGAN GAMBAR BACKGROUND) ===================== */
+        /* ===================== ENVELOPE SCREEN (PAGE 1 - GAMBAR) ===================== */
         .envelope-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            position: fixed; top: 0; left: 0; width: 100%; 
+            height: 100vh; height: 100svh; /* Support layar HP biar presisi */
             
-            /* Pasang background gambar dari repository lo */
-            background-image: url('WhatsApp Image 2026-04-08 at 21.39.35.jpg'); /* Cek lagi nama aslinya .jpg atau .jpeg */
+            /* Background gambar */
+            background-image: url('WhatsApp Image 2026-04-08 at 21.39.35.jpg');
             background-size: cover;
-            background-position: top center; /* Fokusin ke atas biar foto yg di atas nggak kepotong */
+            background-position: top center; 
             background-repeat: no-repeat;
             
             z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center;
             transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
         }
 
-        /* Overlay transparan biar teks tetap terbaca jelas */
+        /* Overlay transparan biar teks tetap terbaca jelas di atas gambar */
         .envelope-screen::before {
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            /* OPASITAS DIKURANGIN DARI 0.75 JADI 0.4 biar foto tetep nyala warnanya */
             background: rgba(253, 248, 245, 0.4); 
             z-index: -1; 
         }
@@ -88,26 +88,27 @@
         .music-btn.playing .music-icon { animation: rotateMusic 4s linear infinite; }
         @keyframes rotateMusic { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        /* ===================== HERO (BERANDA DENGAN VIDEO BACKGROUND) ===================== */
+        /* ===================== HERO (PAGE 2 - VIDEO BACKGROUND) ===================== */
         .hero {
-            min-height: 100vh; 
-            background-color: var(--light-blue); /* Fallback kalau video lama loading */
+            min-height: 100vh; min-height: 100svh; /* Tinggi akurat layar HP */
+            background-color: var(--light-blue); 
             display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 2rem;
         }
         
-        /* Styling untuk video background di hero */
+        /* Styling untuk video background di hero - Mengurangi Zoom / crop */
         .hero-bg-video {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover;
+            object-position: center center; /* Memaksa stiker kiri-kanan tetap rata di tengah */
             z-index: 0;
         }
         
-        /* Overlay tipis buat Hero biar tulisan nggak nabrak animasi stiker */
+        /* Overlay tipis buat Hero biar tulisan nggak nabrak animasi stiker video */
         .hero-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(253, 248, 245, 0.5); /* Cream transparan */
+            background: rgba(253, 248, 245, 0.5); 
             z-index: 1;
         }
 
