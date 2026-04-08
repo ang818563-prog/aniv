@@ -42,9 +42,9 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
             
             /* Pasang background gambar dari repository lo */
-            background-image: url('WhatsApp Image 2026-04-08 at 21.39.35.jpeg');
+            background-image: url('WhatsApp Image 2026-04-08 at 21.39.35.jpg'); /* Cek lagi nama aslinya .jpg atau .jpeg */
             background-size: cover;
-            background-position: center;
+            background-position: top center; /* Fokusin ke atas biar foto yg di atas nggak kepotong */
             background-repeat: no-repeat;
             
             z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -56,13 +56,14 @@
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(253, 248, 245, 0.75); /* Warna cream dengan transparansi 75% */
+            /* OPASITAS DIKURANGIN DARI 0.75 JADI 0.4 biar foto tetep nyala warnanya */
+            background: rgba(253, 248, 245, 0.4); 
             z-index: -1; 
         }
 
         .envelope-content { 
             text-align: center; animation: pulse-envelope 2s infinite ease-in-out; padding: 20px; 
-            position: relative; z-index: 1; /* Pastikan di atas overlay */
+            position: relative; z-index: 1; 
         }
         @keyframes pulse-envelope { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
         .envelope-screen h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: var(--dark-blue); margin-bottom: 10px; }
@@ -87,26 +88,44 @@
         .music-btn.playing .music-icon { animation: rotateMusic 4s linear infinite; }
         @keyframes rotateMusic { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        /* ===================== HERO ===================== */
+        /* ===================== HERO (BERANDA DENGAN VIDEO BACKGROUND) ===================== */
         .hero {
-            min-height: 100vh; background: linear-gradient(150deg, #C2DDEF 0%, #EAF4FB 45%, #FCEEF3 100%);
+            min-height: 100vh; 
+            background-color: var(--light-blue); /* Fallback kalau video lama loading */
             display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 2rem;
         }
-        .particles { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+        
+        /* Styling untuk video background di hero */
+        .hero-bg-video {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        
+        /* Overlay tipis buat Hero biar tulisan nggak nabrak animasi stiker */
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(253, 248, 245, 0.5); /* Cream transparan */
+            z-index: 1;
+        }
+
+        .particles { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
         .particle { position: absolute; border-radius: 50%; animation: floatParticle linear infinite; opacity: 0; }
         @keyframes floatParticle { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 0.4; } 100% { transform: translateY(-120px) rotate(360deg); opacity: 0; } }
-        .glow-circle { position: absolute; border-radius: 50%; filter: blur(80px); animation: pulse 6s ease-in-out infinite; }
+        .glow-circle { position: absolute; border-radius: 50%; filter: blur(80px); animation: pulse 6s ease-in-out infinite; z-index: 2;}
         .glow-1 { width: 500px; height: 500px; background: rgba(184,212,232,0.35); top: -100px; right: -150px; }
         .glow-2 { width: 400px; height: 400px; background: rgba(242,181,197,0.25); bottom: -80px; left: -100px; animation-delay: 3s; }
         .glow-3 { width: 300px; height: 300px; background: rgba(197,223,240,0.3); top: 40%; left: 10%; animation-delay: 1.5s; }
         @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.7; } 50% { transform: scale(1.1); opacity: 1; } }
 
-        .hero-content { text-align: center; z-index: 10; animation: heroReveal 1.5s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
+        .hero-content { text-align: center; z-index: 10; position: relative; animation: heroReveal 1.5s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
         .start-anim .hero-content, .start-anim .hero-badge, .start-anim .hero-names, .start-anim .hero-ampersand, .start-anim .hero-divider, .start-anim .hero-date, .start-anim .countdown { animation-play-state: running; }
         @keyframes heroReveal { from { opacity: 0; transform: translateY(50px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
-        .hero-badge { display: inline-block; font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: var(--deep-blue); letter-spacing: 2px; margin-bottom: 1.5rem; padding: 0.5rem 2rem; border: 1px solid rgba(90,143,168,0.3); border-radius: 50px; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); animation: heroReveal 1.5s 0.2s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
-        .hero-names { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 10vw, 7.5rem); color: var(--text-dark); line-height: 1.1; font-style: italic; animation: heroReveal 1.5s 0.4s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
+        .hero-badge { display: inline-block; font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: var(--deep-blue); letter-spacing: 2px; margin-bottom: 1.5rem; padding: 0.5rem 2rem; border: 1px solid rgba(90,143,168,0.3); border-radius: 50px; background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); animation: heroReveal 1.5s 0.2s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
+        .hero-names { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 10vw, 7.5rem); color: var(--text-dark); line-height: 1.1; font-style: italic; text-shadow: 0 4px 15px rgba(255,255,255,0.8); animation: heroReveal 1.5s 0.4s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
         .hero-ampersand { display: block; font-family: 'Dancing Script', cursive; font-size: 0.35em; font-style: normal; color: var(--accent-pink); letter-spacing: 0.5em; margin: 0.3em 0; animation: heroReveal 1.5s 0.6s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
         .hero-divider { margin: 2rem auto; display: flex; align-items: center; justify-content: center; gap: 1rem; animation: heroReveal 1.5s 0.7s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
         .hero-divider::before, .hero-divider::after { content: ''; width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--deep-blue)); }
@@ -114,10 +133,10 @@
         .hero-heart { color: var(--accent-pink); font-size: 2rem; animation: heartbeat 1.5s ease infinite; }
         @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
 
-        .hero-date { font-size: 1rem; color: var(--text-mid); letter-spacing: 5px; text-transform: uppercase; font-weight: 600; animation: heroReveal 1.5s 0.8s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
+        .hero-date { font-size: 1rem; color: var(--text-mid); letter-spacing: 5px; text-transform: uppercase; font-weight: 600; background: rgba(255,255,255,0.5); padding: 5px 15px; border-radius: 20px; animation: heroReveal 1.5s 0.8s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
 
         .countdown { margin-top: 3rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; animation: heroReveal 1.5s 1s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
-        .cd-item { text-align: center; background: rgba(255,255,255,0.7); backdrop-filter: blur(15px); border: 1px solid rgba(184,212,232,0.5); border-radius: 16px; padding: 1rem 1.5rem; min-width: 80px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease; }
+        .cd-item { text-align: center; background: rgba(255,255,255,0.8); backdrop-filter: blur(15px); border: 1px solid rgba(184,212,232,0.5); border-radius: 16px; padding: 1rem 1.5rem; min-width: 80px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease; }
         .cd-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 600; color: var(--dark-blue); display: block; line-height: 1; }
         .cd-label { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-mid); margin-top: 0.5rem; display: block; font-weight: 600;}
 
@@ -455,6 +474,11 @@
 </div>
 
 <section class="hero" id="hero-section">
+    <video autoplay loop muted playsinline class="hero-bg-video">
+        <source src="page2.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+
     <div class="glow-circle glow-1"></div>
     <div class="glow-circle glow-2"></div>
     <div class="glow-circle glow-3"></div>
@@ -683,7 +707,6 @@
         isPlaying = !isPlaying;
     }
 
-    // --- REVISI ANIMASI SCROLL (MUNCUL BERKALI-KALI) ---
     const revealObserver = new IntersectionObserver(entries => {
         entries.forEach(e => {
             if (e.isIntersecting) { 
