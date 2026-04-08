@@ -41,8 +41,8 @@
         .envelope-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100svh;
             
-            /* Kunci background ini pakai foto kelulusan lu yang udah presisi */
-            background-image: url('page1.jpeg');
+            /* Kunci background ini pakai foto kelulusan lu */
+            background-image: url('page1.jpeg'); /* Pastikan sesuai nama di GitHub */
             background-size: cover;
             background-position: center center; 
             background-repeat: no-repeat;
@@ -52,39 +52,58 @@
             transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
         }
 
-        /* Overlay ditipisin banget biar foto gak berkabut / pudar */
+        /* Overlay transparan dihilangkan agar foto asli 100% jernih */
         .envelope-screen::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.15); /* Hampir bening 100% */
-            z-index: -1; 
+            display: none; 
         }
 
+        /* INI FITUR BARU: Efek Kotak Kaca Buram biar teks super jelas */
         .envelope-content { 
-            text-align: center; animation: pulse-envelope 2s infinite ease-in-out; padding: 20px; 
-            position: relative; z-index: 1; 
+            text-align: center; 
+            animation: pulse-envelope 2s infinite ease-in-out; 
+            padding: 40px 30px; 
+            position: relative; 
+            z-index: 1; 
+            
+            background: rgba(255, 255, 255, 0.5); /* Putih transparan */
+            backdrop-filter: blur(8px); /* Efek kaca buram */
+            -webkit-backdrop-filter: blur(8px); /* Untuk Safari */
+            border-radius: 24px; /* Sudut melengkung */
+            border: 1px solid rgba(255, 255, 255, 0.7); /* Garis tepi putih halus */
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15); /* Bayangan kotak */
+            max-width: 90%;
         }
+
         @keyframes pulse-envelope { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
         
-        /* Tulisan dikasih shadow (glow) putih biar gak nabrak sama background foto yang rame */
+        /* Warna teks dibuat lebih gelap & tegas agar nyala di atas kotak kaca */
         .envelope-screen h2 { 
-            font-family: 'Playfair Display', serif; font-size: 2.8rem; 
-            color: var(--dark-blue); margin-bottom: 10px; 
-            text-shadow: 0 0 15px rgba(255, 255, 255, 1), 0 0 5px rgba(255, 255, 255, 1);
-        }
-        .envelope-screen p { 
-            font-family: 'Dancing Script', cursive; font-size: 1.5rem; 
-            color: #C06C84; margin-bottom: 40px; 
-            text-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 5px rgba(255, 255, 255, 1);
+            font-family: 'Playfair Display', serif; 
+            font-size: 3.2rem; /* Dibesarin dikit */
+            color: var(--dark-blue); 
+            margin-bottom: 10px; 
         }
         
-        .btn-open {
-            background: linear-gradient(135deg, var(--powder-blue), var(--deep-blue)); color: white; border: none;
-            padding: 15px 45px; font-family: 'Nunito', sans-serif; font-size: 1.1rem; font-weight: 600; border-radius: 30px;
-            cursor: pointer; box-shadow: 0 10px 20px rgba(90, 143, 168, 0.3); transition: all 0.3s ease;
+        .envelope-screen p { 
+            font-family: 'Dancing Script', cursive; 
+            font-size: 1.6rem; 
+            color: #A84C65; /* Warna pink gelap elegan */
+            margin-bottom: 35px; 
+            font-weight: 600;
         }
-        .btn-open:hover { transform: translateY(-5px); box-shadow: 0 15px 25px rgba(90, 143, 168, 0.5); }
+
+        /* Tombol dibuat solid dan kontras */
+        .btn-open {
+            background: var(--dark-blue); /* Solid dark blue biar elegan */
+            color: white; border: none;
+            padding: 15px 45px; font-family: 'Nunito', sans-serif; font-size: 1.1rem; font-weight: 600; border-radius: 30px;
+            cursor: pointer; box-shadow: 0 8px 20px rgba(45, 74, 92, 0.4); transition: all 0.3s ease;
+        }
+        .btn-open:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 12px 25px rgba(45, 74, 92, 0.6); 
+            background: #1f3542; /* Lebih gelap saat di-hover */
+        }
 
         /* ===================== MUSIC BUTTON ===================== */
         .music-btn {
@@ -101,24 +120,23 @@
 
         /* ===================== HERO (PAGE 2 - KHUSUS VIDEO) ===================== */
         .hero {
-            min-height: 100svh; /* Pakai svh biar akurat di layar HP */
+            min-height: 100svh; 
             background-color: var(--light-blue); 
             display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 2rem;
         }
         
-        /* Mengatur video biar proporsional dan fokus di tengah */
         .hero-bg-video {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover;
-            object-position: center center; /* Pastikan animasi stiker kanan-kiri seimbang */
+            object-position: center center; 
             z-index: 0;
         }
         
         .hero-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(253, 248, 245, 0.25); /* Transparan tipis buat video */
+            background: rgba(253, 248, 245, 0.3); 
             z-index: 1;
         }
 
@@ -136,15 +154,15 @@
         @keyframes heroReveal { from { opacity: 0; transform: translateY(50px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
         .hero-badge { display: inline-block; font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: var(--deep-blue); letter-spacing: 2px; margin-bottom: 1.5rem; padding: 0.5rem 2rem; border: 1px solid rgba(90,143,168,0.3); border-radius: 50px; background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); animation: heroReveal 1.5s 0.2s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
-        .hero-names { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 10vw, 7.5rem); color: var(--text-dark); line-height: 1.1; font-style: italic; text-shadow: 0 0 15px rgba(255,255,255,0.9); animation: heroReveal 1.5s 0.4s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
+        .hero-names { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 10vw, 7.5rem); color: var(--text-dark); line-height: 1.1; font-style: italic; text-shadow: 0 4px 15px rgba(255,255,255,0.8); animation: heroReveal 1.5s 0.4s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
         .hero-ampersand { display: block; font-family: 'Dancing Script', cursive; font-size: 0.35em; font-style: normal; color: var(--accent-pink); letter-spacing: 0.5em; margin: 0.3em 0; animation: heroReveal 1.5s 0.6s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
         .hero-divider { margin: 2rem auto; display: flex; align-items: center; justify-content: center; gap: 1rem; animation: heroReveal 1.5s 0.7s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
         .hero-divider::before, .hero-divider::after { content: ''; width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--deep-blue)); }
         .hero-divider::after { transform: scaleX(-1); }
-        .hero-heart { color: var(--accent-pink); font-size: 3rem; animation: heartbeat 1.5s ease infinite; }
+        .hero-heart { color: var(--accent-pink); font-size: 2rem; animation: heartbeat 1.5s ease infinite; }
         @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
 
-        .hero-date { font-size: 1rem; color: var(--text-mid); letter-spacing: 5px; text-transform: uppercase; font-weight: 600; background: rgba(255,255,255,0.7); padding: 5px 15px; border-radius: 20px; animation: heroReveal 1.5s 0.8s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
+        .hero-date { font-size: 1rem; color: var(--text-mid); letter-spacing: 5px; text-transform: uppercase; font-weight: 600; background: rgba(255,255,255,0.5); padding: 5px 15px; border-radius: 20px; animation: heroReveal 1.5s 0.8s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
 
         .countdown { margin-top: 3rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; animation: heroReveal 1.5s 1s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
         .cd-item { text-align: center; background: rgba(255,255,255,0.8); backdrop-filter: blur(15px); border: 1px solid rgba(184,212,232,0.5); border-radius: 16px; padding: 1rem 1.5rem; min-width: 80px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease; }
@@ -386,6 +404,10 @@
 
         /* ===================== RESPONSIVE (MOBILE) ===================== */
         @media (max-width: 768px) {
+            
+            .envelope-screen h2 { font-size: 2.4rem; }
+            .envelope-screen p { font-size: 1.3rem; }
+            
             .countdown { gap: 0.5rem; }
             .cd-item { padding: 1rem; min-width: 70px; }
             .cd-num { font-size: 1.8rem; }
@@ -471,16 +493,15 @@
         <button class="close-modal" onclick="closeStoryModal()">&times;</button>
         <h3 class="modal-title" id="modal-title">Judul Cerita</h3>
         <span class="modal-date" id="modal-date">Bulan & Tahun</span>
-        <div class="modal-body" id="modal-body">
-            </div>
+        <div class="modal-body" id="modal-body"></div>
     </div>
 </div>
 
 <div class="envelope-screen" id="envelope-screen">
     <div class="envelope-content">
-        <h2>Hai, Amanda ✨</h2>
-        <p>Ada sesuatu yang spesial untukmu...</p>
-        <button class="btn-open" onclick="openSurprise()">Buka Kejutan</button>
+        <h2>Aang & Amanda</h2>
+        <p>Satu tahun perjalanan, sejuta kenangan ✨</p>
+        <button class="btn-open" onclick="openSurprise()">Buka Kisah Kami</button>
     </div>
 </div>
 
@@ -658,12 +679,10 @@
 </footer>
 
 <script>
-    // --- KODE AUTO SCROLL KE ATAS PAS REFRESH ---
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
     window.scrollTo(0, 0);
-    // --------------------------------------------
 
     const bgMusic = document.getElementById('bg-music');
     const musicBtn = document.getElementById('music-toggle');
@@ -689,23 +708,9 @@
         var duration = 3 * 1000;
         var end = Date.now() + duration;
         (function frame() {
-            confetti({
-                particleCount: 5,
-                angle: 60,
-                spread: 55,
-                origin: { x: 0 },
-                colors: ['#F2B5C5', '#B8D4E8', '#FFFFFF']
-            });
-            confetti({
-                particleCount: 5,
-                angle: 120,
-                spread: 55,
-                origin: { x: 1 },
-                colors: ['#F2B5C5', '#B8D4E8', '#FFFFFF']
-            });
-            if (Date.now() < end) {
-                requestAnimationFrame(frame);
-            }
+            confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#F2B5C5', '#B8D4E8', '#FFFFFF'] });
+            confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#F2B5C5', '#B8D4E8', '#FFFFFF'] });
+            if (Date.now() < end) { requestAnimationFrame(frame); }
         }());
     }
 
