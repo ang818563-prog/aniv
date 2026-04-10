@@ -51,9 +51,9 @@
 
         .envelope-screen::before { display: none; }
 
+        /* FOKUS: Animasi Kaca dan Isinya */
         .envelope-content { 
             text-align: center; 
-            animation: pulse-envelope 2s infinite ease-in-out; 
             padding: 40px 25px; 
             position: relative; 
             z-index: 1; 
@@ -64,10 +64,45 @@
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.3); 
             box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+            
+            /* Animasi masuk Kotak Kaca */
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInGlass 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            animation-delay: 0.2s; /* Muncul sedikit setelah background load */
         }
 
-        @keyframes pulse-envelope { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
-        
+        /* Keyframe Kaca */
+        @keyframes fadeInGlass {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Teks & Tombol di Dalam Kotak */
+        .envelope-content h2,
+        .envelope-content p,
+        .envelope-content button {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* Delay berurutan (Staggered Effect) */
+        .envelope-content h2 { 
+            animation: fadeInItem 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards; 
+            animation-delay: 0.6s; 
+        }
+        .envelope-content p { 
+            animation: fadeInItem 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards; 
+            animation-delay: 0.9s; 
+        }
+        .envelope-content button { 
+            animation: fadeInItem 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards; 
+            animation-delay: 1.2s; 
+        }
+
+        @keyframes fadeInItem {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .envelope-screen h2 { 
             font-family: 'Playfair Display', serif; 
             font-size: 3.2rem; 
@@ -92,6 +127,8 @@
             cursor: pointer; box-shadow: 0 8px 20px rgba(45, 74, 92, 0.3); 
             transition: all 0.3s ease;
         }
+        
+        /* Modifikasi Hover: Tombol agak loncat dikit */
         .btn-open:hover { 
             transform: translateY(-5px); 
             box-shadow: 0 12px 25px rgba(45, 74, 92, 0.5); 
@@ -317,8 +354,13 @@
             text-align: center; color: rgba(242,181,197,0.8); font-size: 1.2rem; margin-bottom: 15px; letter-spacing: 5px; margin-top: -10px;
         }
         
-        .env-paper.extracted { animation: pullOut 1.5s forwards; }
-        .env-paper.returned { animation: putBack 1.5s forwards; }
+        .env-paper.extracted {
+            animation: pullOut 1.5s forwards;
+        }
+
+        .env-paper.returned {
+            animation: putBack 1.5s forwards;
+        }
         
         @keyframes pullOut {
             0%   { transform: translateY(0); z-index: 2; height: 200px; width: 320px; left: 10px; }
@@ -667,18 +709,15 @@
 </footer>
 
 <script>
-    // --- KODE AUTO SCROLL KE ATAS PAS REFRESH ---
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
     
-    // Pastikan di-scroll ke paling atas setiap di-load (Fix tambahan buat Mobile)
     window.onload = function() {
         setTimeout(function() {
             window.scrollTo(0, 0);
         }, 100); 
     }
-    // --------------------------------------------
 
     const bgMusic = document.getElementById('bg-music');
     const musicBtn = document.getElementById('music-toggle');
@@ -686,7 +725,6 @@
 
     function openSurprise() {
         
-        // TRIK AMPUH HP: Paksa nembak ke paling atas secara instant pas tombol ditekan
         document.documentElement.style.scrollBehavior = 'auto';
         window.scrollTo(0, 0);
         document.documentElement.style.scrollBehavior = 'smooth';
