@@ -127,21 +127,16 @@
 
         @keyframes item-reveal-up { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ===================== SHARED ===================== */
+        /* ===================== SHARED & REVEAL ===================== */
         .section-tag { font-family: 'Dancing Script', cursive; font-size: 1.25rem; color: var(--accent-pink); display: block; margin-bottom: 0.5rem; }
         .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.5rem); color: var(--text-dark); line-height: 1.3; }
 
-        /* ===================== SCROLL REVEAL (MUNCUL PERTAMA KALI) ===================== */
         .reveal-wrap { opacity: 0; visibility: hidden; } 
         .reveal-wrap.visible { visibility: visible; }
         .reveal-wrap.visible.anim-up { animation: animFadeUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
-        .reveal-wrap.visible.anim-left { animation: animFadeLeft 1s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
-        .reveal-wrap.visible.anim-right { animation: animFadeRight 1s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
         .reveal-wrap.visible.anim-masonry-item { animation: animMasonryReveal 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
 
-        @keyframes animFadeUp { 0% { opacity: 0; transform: translateY(80px); } 100% { opacity: 1; transform: translateY(0); } }
-        @keyframes animFadeLeft { 0% { opacity: 0; transform: translateX(-80px); } 100% { opacity: 1; transform: translateX(0); } }
-        @keyframes animFadeRight { 0% { opacity: 0; transform: translateX(80px); } 100% { opacity: 1; transform: translateX(0); } }
+        @keyframes animFadeUp { 0% { opacity: 0; transform: translateY(60px); } 100% { opacity: 1; transform: translateY(0); } }
         @keyframes animMasonryReveal { 0% { opacity: 0; transform: scale(0.9) translateY(40px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
 
         .delay-1 { animation-delay: 0.15s; }
@@ -150,68 +145,69 @@
         .delay-4 { animation-delay: 0.6s; }
         .delay-5 { animation-delay: 0.75s; }
 
-        /* ===================== PERJALANAN (TIMELINE) SUPER RAPI & INTERAKTIF ===================== */
+        /* ===================== PERJALANAN (TIMELINE) FIX TOTAL ===================== */
         .timeline-section { padding: 6rem 0; background: linear-gradient(180deg, #EFF8FD 0%, var(--cream) 100%); overflow-x: hidden; position: relative;}
         .timeline-header { text-align: center; margin-bottom: 4rem; padding: 0 1.5rem; }
+        
         .timeline { position: relative; max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
         
-        /* Garis Pudar di Belakang */
+        /* FIX GARIS: Dikunci mati di tengah (PC) */
         .timeline-line { 
             position: absolute; left: 50%; transform: translateX(-50%); 
             top: 0; bottom: 0; width: 4px; background: rgba(184,212,232,0.4); 
             border-radius: 5px; z-index: 1; overflow: hidden;
         }
-        /* Garis Nyala Pink ngikutin Scroll */
+        /* Garis Nyala Pink */
         .timeline-progress {
-            position: absolute; top: 0; left: 0; width: 100%; height: 0%; 
+            position: absolute; top: 0; left: 50%; transform: translateX(-50%); 
+            width: 4px; height: 0%; 
             background: var(--accent-pink); 
             box-shadow: 0 0 10px rgba(242, 181, 197, 0.8);
             transition: height 0.1s ease-out; 
-            border-radius: 5px;
+            border-radius: 5px; z-index: 2;
         }
 
-        /* FIX ALIGNMENT KOTAK & TITIK (Pakai class .left dan .right) */
-        .tl-item { display: grid; grid-template-columns: 1fr 60px 1fr; align-items: center; margin-bottom: 4rem; position: relative; z-index: 2;}
+        /* GRID FIX: Kolom tengah 60px pasti sejajar garis */
+        .tl-item { display: grid; grid-template-columns: 1fr 60px 1fr; align-items: center; margin-bottom: 4rem; position: relative; z-index: 3;}
         
         .tl-item.left .tl-card-wrap { grid-column: 1; text-align: right; margin-left: auto; margin-right: 0;}
-        .tl-item.left .tl-dot-wrap { grid-column: 2; display: flex; justify-content: center; align-items: center; }
+        .tl-item.left .tl-dot-wrap { grid-column: 2; display: flex; justify-content: center; align-items: center; position: relative;}
         
-        .tl-item.right .tl-dot-wrap { grid-column: 2; display: flex; justify-content: center; align-items: center; }
+        .tl-item.right .tl-dot-wrap { grid-column: 2; display: flex; justify-content: center; align-items: center; position: relative;}
         .tl-item.right .tl-card-wrap { grid-column: 3; text-align: left; margin-left: 0; margin-right: auto; }
 
         /* DOT BAWAAN (Redup) */
         .tl-dot-inner { 
-            width: 22px; height: 22px; background: var(--cream); 
+            width: 20px; height: 20px; background: var(--cream); 
             border: 4px solid rgba(184,212,232,0.8); border-radius: 50%; 
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); 
-            box-shadow: 0 0 0 4px rgba(253, 248, 245, 0.5); z-index: 3;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); 
+            position: relative; z-index: 4;
         }
 
-        /* KOTAK BAWAAN (Redup & Transparan) */
+        /* KOTAK BAWAAN (Redup & Transparan, Gak Pake Reveal Biar Aman Animasi Nyalanya) */
         .tl-card-wrap { width: 100%; max-width: 380px; }
         .tl-card { 
-            background: rgba(255, 255, 255, 0.5); border-radius: 20px; padding: 3rem 2rem; 
+            background: rgba(255, 255, 255, 0.4); border-radius: 20px; padding: 3rem 2rem; 
             border: 1px solid rgba(184,212,232,0.2); 
-            box-shadow: none; 
-            transform: scale(0.9); opacity: 0.5; /* Efek meredup */
-            transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1); 
+            opacity: 0.4; transform: scale(0.9); 
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1); 
         }
 
-        /* EFEK MENYALA SAAT DI-SCROLL (Class .active di-trigger JS) */
+        /* ===================== EFEK NYALA PAS DI TENGAH SCROLL ===================== */
         .tl-item.active .tl-card {
             background: var(--white);
-            transform: scale(1); opacity: 1;
-            border: 1px solid rgba(184,212,232,0.8);
-            box-shadow: 0 15px 40px rgba(90, 143, 168, 0.15); 
+            opacity: 1; transform: scale(1);
+            border: 1px solid var(--powder-blue);
+            box-shadow: 0 15px 40px rgba(90, 143, 168, 0.2); 
         }
         .tl-item.active .tl-dot-inner {
             background: var(--accent-pink);
-            border-color: var(--deep-blue);
-            transform: scale(1.4);
-            box-shadow: 0 0 15px var(--accent-pink), 0 0 0 4px rgba(255,255,255,0.6); 
+            border-color: var(--accent-pink);
+            transform: scale(1.5);
+            box-shadow: 0 0 15px rgba(242, 181, 197, 0.8); 
         }
+        /* =========================================================================== */
         
-        .tl-card:hover { transform: translateY(-3px) scale(1.02) !important; box-shadow: 0 15px 45px rgba(90, 143, 168, 0.2); }
         .tl-month { font-family: 'Dancing Script', cursive; font-size: 1.2rem; color: var(--accent-pink); display: block; margin-bottom: 0.5rem; font-weight: 600; }
         .tl-card h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--text-dark); margin-bottom: 0.8rem; line-height: 1.3;}
         .tl-card p { font-size: 0.95rem; color: var(--text-mid); line-height: 1.6; }
@@ -235,6 +231,7 @@
         .modal-body::-webkit-scrollbar-thumb { background: var(--powder-blue); border-radius: 10px; }
         .modal-body p { margin-bottom: 1rem; }
 
+
         /* ===================== GALLERY ===================== */
         .gallery-section { padding: 6rem 0; background: var(--white); overflow-x: hidden;}
         .gallery-header { text-align: center; margin-bottom: 5rem; padding: 0 1.5rem; }
@@ -254,7 +251,7 @@
         .lightbox-close { position: absolute; top: 20px; right: 30px; color: white; font-size: 3rem; cursor: pointer; background: none; border: none; outline: none; transition: color 0.3s; }
         .lightbox-close:hover { color: var(--accent-pink); }
 
-        /* ===================== SURAT CINTA ===================== */
+        /* ===================== SURAT CINTA (FIX KEMUNCULAN) ===================== */
         .letter-section { padding: 6rem 1.5rem 10rem 1.5rem; background: var(--white); overflow: visible; transition: padding-bottom 1.2s ease; }
         .letter-header { text-align: center; margin-bottom: 5rem; }
         .env-container { perspective: 1200px; width: 100%; display: flex; justify-content: center; }
@@ -349,11 +346,13 @@
             .photo-caption { font-size: 1.2rem; bottom: 10px; }
 
             /* FIX ALIGNMENT HP: Kotak aman, Teks kiri, Titik pas di tengah garis! */
-            .timeline-line { left: calc(1.5rem + 15px); } 
-            .tl-item { grid-template-columns: 30px 1fr !important; gap: 15px; }
+            .timeline-line { left: 25px; transform: none; } 
+            .timeline-progress { left: 25px; transform: none; }
+            .tl-item { grid-template-columns: 50px 1fr !important; gap: 10px; }
             .tl-item.left .tl-card-wrap, .tl-item.right .tl-card-wrap { grid-column: 2 !important; text-align: left; max-width: 100%; }
             .tl-card { padding: 2.5rem 1.5rem; }
             .tl-item.left .tl-dot-wrap, .tl-item.right .tl-dot-wrap { grid-column: 1 !important; justify-content: center !important; }
+            
             .tl-empty { display: none; }
             .tl-item.left .tl-more { float: none;} 
 
@@ -457,12 +456,11 @@
     </div>
     
     <div class="timeline">
-        <div class="timeline-line">
-            <div class="timeline-progress" id="timeline-progress"></div>
-        </div>
+        <div class="timeline-line"></div>
+        <div class="timeline-progress" id="timeline-progress"></div>
         
         <div class="tl-item left">
-            <div class="tl-card-wrap reveal-wrap anim-left">
+            <div class="tl-card-wrap">
                 <div class="tl-card">
                     <span class="tl-month">September 2025</span>
                     <h3>Momen Jadian Kita 🌸</h3>
@@ -472,11 +470,13 @@
                 </div>
             </div>
             <div class="tl-dot-wrap"><div class="tl-dot-inner"></div></div>
+            <div class="tl-empty"></div>
         </div>
         
         <div class="tl-item right">
+            <div class="tl-empty"></div>
             <div class="tl-dot-wrap"><div class="tl-dot-inner"></div></div>
-            <div class="tl-card-wrap reveal-wrap anim-right">
+            <div class="tl-card-wrap">
                 <div class="tl-card">
                     <span class="tl-month">Jalan-jalan Pertama 🚗</span>
                     <h3>Menyusul! ✨</h3>
@@ -488,7 +488,7 @@
         </div>
         
         <div class="tl-item left">
-            <div class="tl-card-wrap reveal-wrap anim-left">
+            <div class="tl-card-wrap">
                 <div class="tl-card">
                     <span class="tl-month">Hari Ini & Selamanya 💙</span>
                     <h3>Satu Tahun & Selamanya</h3>
@@ -498,6 +498,7 @@
                 </div>
             </div>
             <div class="tl-dot-wrap"><div class="tl-dot-inner"></div></div>
+            <div class="tl-empty"></div>
         </div>
     </div>
 </section>
@@ -547,7 +548,8 @@
         <span class="section-tag">untuk kamu</span>
         <h2 class="section-title">Surat Cinta 💌</h2>
     </div>
-    <div class="env-container reveal-wrap anim-zoom delay-1">
+    
+    <div class="env-container reveal-wrap anim-up delay-1">
         <div class="env-wrapper" id="env-wrapper" onclick="handleEnvelope(event)">
             <div class="env-hint" id="env-hint">Ketuk untuk mengambil surat &hearts;</div>
             <div class="env-back"></div>
@@ -556,8 +558,8 @@
                 <div class="letter-content">
                     <span class="salutation">Amanda yang kusayang,</span>
                     Satu tahun berlalu begitu cepat, tapi setiap momennya terasa sangat berharga. Kamu adalah alasan aku tersenyum setiap harinya...<br><br>
-                    Coba lo scroll pelan-pelan di bagian Perjalanan Kita deh.<br><br>
-                    Garisnya bakal jalan perlahan ngikutin layar lo ke bawah, dan kotak ceritanya bakal nyala terang pas pas kebaca di tengah.<br><br>
+                    Coba lo pelan-pelan geser timeline-nya ke tengah layar HP lo. Boom! Kotaknya nyala terang benderang bareng titiknya, dan garis pinknya ngalir ke bawah.<br><br>
+                    Suratnya juga udah balik aman sentosa, gak ghaib lagi hahaha.<br><br>
                     <span class="signature">— Aang, selamanya 💙</span>
                 </div>
             </div>
@@ -650,7 +652,7 @@
         isPlaying = !isPlaying;
     }
 
-    // --- MUNCUL PERTAMA KALI (REVEAL) ---
+    // --- SCRIPT ANIMASI SCROLL REVEAL BUMBU MAHAL ---
     const revealObserver = new IntersectionObserver(entries => {
         entries.forEach(e => {
             if (e.isIntersecting) { 
@@ -661,16 +663,20 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
     document.querySelectorAll('.reveal-wrap').forEach(el => revealObserver.observe(el));
 
-    // --- EFEK HIGHLIGHT KOTAK & TITIK (MENYALA SAAT DI TENGAH LAYAR) ---
+    // --- FIX: EFEK HIGHLIGHT KOTAK & TITIK (MENYALA SAAT DI TENGAH LAYAR) ---
     const highlightObserver = new IntersectionObserver(entries => {
         entries.forEach(e => {
             if (e.isIntersecting) {
                 e.target.classList.add('active');
             } else {
-                e.target.classList.remove('active'); // Meredup lagi pas lewat
+                e.target.classList.remove('active'); // Meredup lagi pas lewat atas/bawah
             }
         });
-    }, { threshold: 0.45 }); // Trigger nyala pas kotak 45% masuk layar
+    }, { 
+        // RootMargin ini bikin kotak NYALA cuma pas dia ada di area 20% tengah layar!
+        rootMargin: '-40% 0px -40% 0px', 
+        threshold: 0 
+    }); 
     document.querySelectorAll('.tl-item').forEach(el => highlightObserver.observe(el));
 
     // --- EFEK GARIS PROGRESS MENGALIR KE BAWAH ---
@@ -682,8 +688,11 @@
             const rect = timeline.getBoundingClientRect();
             const windowHeight = window.innerHeight;
             
-            // Garis mulai jalan pas awal timeline kena tengah layar
-            let scrollPercentage = (windowHeight / 2 - rect.top) / (rect.height);
+            // Kalkulasi titik memicu persis pas tengah layar
+            const triggerPoint = windowHeight / 2;
+            let scrollDistance = triggerPoint - rect.top;
+            
+            let scrollPercentage = scrollDistance / rect.height;
             scrollPercentage = Math.max(0, Math.min(1, scrollPercentage));
             
             progress.style.height = (scrollPercentage * 100) + '%';
