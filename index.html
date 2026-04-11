@@ -86,15 +86,11 @@
         .envelope-screen h2 { font-family: 'Playfair Display', serif; font-size: 3.2rem; color: var(--dark-blue); margin-bottom: 5px; text-shadow: 0 2px 10px rgba(255,255,255,0.8); }
         .envelope-screen p { font-family: 'Dancing Script', cursive; font-size: 1.6rem; color: #A84C65; margin-bottom: 35px; font-weight: 700; text-shadow: 0 1px 8px rgba(255,255,255,0.8); }
 
-        .btn-open {
-            background: var(--dark-blue); color: white; border: none; padding: 15px 45px; font-family: 'Nunito', sans-serif; font-size: 1.1rem; font-weight: 600; border-radius: 30px; cursor: pointer; box-shadow: 0 8px 20px rgba(45, 74, 92, 0.3); transition: all 0.3s ease;
-        }
+        .btn-open { background: var(--dark-blue); color: white; border: none; padding: 15px 45px; font-family: 'Nunito', sans-serif; font-size: 1.1rem; font-weight: 600; border-radius: 30px; cursor: pointer; box-shadow: 0 8px 20px rgba(45, 74, 92, 0.3); transition: all 0.3s ease; }
         .btn-open:hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(45, 74, 92, 0.5); background: #1f3542; }
 
         /* ===================== MUSIC BUTTON ===================== */
-        .music-btn {
-            position: fixed; bottom: 25px; right: 25px; width: 55px; height: 55px; background: var(--white); border: 2px solid var(--powder-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 9998; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.15); transition: transform 0.3s, opacity 0.5s ease; opacity: 0; pointer-events: none;
-        }
+        .music-btn { position: fixed; bottom: 25px; right: 25px; width: 55px; height: 55px; background: var(--white); border: 2px solid var(--powder-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 9998; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.15); transition: transform 0.3s, opacity 0.5s ease; opacity: 0; pointer-events: none; }
         .music-btn.show { pointer-events: auto; opacity: 1; }
         .music-btn:hover { transform: scale(1.1); }
         .music-icon { font-size: 24px; }
@@ -102,9 +98,7 @@
         @keyframes rotateMusic { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         /* ===================== HERO (PAGE 2) ===================== */
-        .hero {
-            min-height: 100svh; background-color: var(--light-blue); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 2rem;
-        }
+        .hero { min-height: 100svh; background-color: var(--light-blue); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 2rem; }
         .hero-bg-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center; z-index: 0; }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(253, 248, 245, 0.3); z-index: 1; }
         .particles { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
@@ -136,22 +130,18 @@
         /* ===================== SHARED ===================== */
         .section-tag { font-family: 'Dancing Script', cursive; font-size: 1.25rem; color: var(--accent-pink); display: block; margin-bottom: 0.5rem; }
         .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.5rem); color: var(--text-dark); line-height: 1.3; }
-        .section-inner { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
 
-        /* ===================== NEW ADVANCED SCROLL REVEAL ANIMATIONS ===================== */
+        /* ===================== SCROLL REVEAL (MUNCUL PERTAMA KALI) ===================== */
         .reveal-wrap { opacity: 0; visibility: hidden; } 
         .reveal-wrap.visible { visibility: visible; }
-
         .reveal-wrap.visible.anim-up { animation: animFadeUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
-        .reveal-wrap.visible.anim-left { animation: animFadeLeft 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
-        .reveal-wrap.visible.anim-right { animation: animFadeRight 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
-        .reveal-wrap.visible.anim-zoom { animation: animZoomIn 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
+        .reveal-wrap.visible.anim-left { animation: animFadeLeft 1s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
+        .reveal-wrap.visible.anim-right { animation: animFadeRight 1s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
         .reveal-wrap.visible.anim-masonry-item { animation: animMasonryReveal 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
 
         @keyframes animFadeUp { 0% { opacity: 0; transform: translateY(80px); } 100% { opacity: 1; transform: translateY(0); } }
-        @keyframes animFadeLeft { 0% { opacity: 0; transform: translateX(-120px); } 100% { opacity: 1; transform: translateX(0); } }
-        @keyframes animFadeRight { 0% { opacity: 0; transform: translateX(120px); } 100% { opacity: 1; transform: translateX(0); } }
-        @keyframes animZoomIn { 0% { opacity: 0; transform: scale(0.8) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes animFadeLeft { 0% { opacity: 0; transform: translateX(-80px); } 100% { opacity: 1; transform: translateX(0); } }
+        @keyframes animFadeRight { 0% { opacity: 0; transform: translateX(80px); } 100% { opacity: 1; transform: translateX(0); } }
         @keyframes animMasonryReveal { 0% { opacity: 0; transform: scale(0.9) translateY(40px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
 
         .delay-1 { animation-delay: 0.15s; }
@@ -160,21 +150,18 @@
         .delay-4 { animation-delay: 0.6s; }
         .delay-5 { animation-delay: 0.75s; }
 
-        /* ===================== TIMELINE & MODAL (FIXED ALIGNMENT & ANIMATED LINE) ===================== */
+        /* ===================== PERJALANAN (TIMELINE) SUPER RAPI & INTERAKTIF ===================== */
         .timeline-section { padding: 6rem 0; background: linear-gradient(180deg, #EFF8FD 0%, var(--cream) 100%); overflow-x: hidden; position: relative;}
         .timeline-header { text-align: center; margin-bottom: 4rem; padding: 0 1.5rem; }
-        .timeline-header p { margin-top: 1rem; color: var(--text-mid); font-size: 1rem; }
-        
         .timeline { position: relative; max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
         
-        /* GARIS BACKGROUND (PUDAR) */
+        /* Garis Pudar di Belakang */
         .timeline-line { 
             position: absolute; left: 50%; transform: translateX(-50%); 
             top: 0; bottom: 0; width: 4px; background: rgba(184,212,232,0.4); 
-            border-radius: 5px; overflow: hidden; /* Penting biar progress gak luber */
+            border-radius: 5px; z-index: 1; overflow: hidden;
         }
-        
-        /* GARIS PROGRESS (MENYALA PINK) - Dikendalikan sama JavaScript di bawah */
+        /* Garis Nyala Pink ngikutin Scroll */
         .timeline-progress {
             position: absolute; top: 0; left: 0; width: 100%; height: 0%; 
             background: var(--accent-pink); 
@@ -183,50 +170,45 @@
             border-radius: 5px;
         }
 
-        .tl-item { display: grid; grid-template-columns: 1fr 60px 1fr; align-items: center; margin-bottom: 3rem; }
+        /* FIX ALIGNMENT KOTAK & TITIK (Pakai class .left dan .right) */
+        .tl-item { display: grid; grid-template-columns: 1fr 60px 1fr; align-items: center; margin-bottom: 4rem; position: relative; z-index: 2;}
         
-        .tl-item:nth-child(odd) .tl-card-wrap  { grid-column: 1; text-align: right; margin-left: auto; }
-        .tl-item:nth-child(odd) .tl-dot-wrap   { grid-column: 2; }
-        .tl-item:nth-child(even) .tl-dot-wrap  { grid-column: 2; }
-        .tl-item:nth-child(even) .tl-card-wrap { grid-column: 3; text-align: left; margin-right: auto; }
+        .tl-item.left .tl-card-wrap { grid-column: 1; text-align: right; margin-left: auto; margin-right: 0;}
+        .tl-item.left .tl-dot-wrap { grid-column: 2; display: flex; justify-content: center; align-items: center; }
         
-        /* FIX ALIGNMENT DOT: Dibikin center sempurna pakai Flexbox */
-        .tl-dot-wrap { display: flex; justify-content: center; align-items: center; z-index: 2; height: 100%; }
-        
-        /* Kondisi Awal Dot (Redup/Kecil) */
+        .tl-item.right .tl-dot-wrap { grid-column: 2; display: flex; justify-content: center; align-items: center; }
+        .tl-item.right .tl-card-wrap { grid-column: 3; text-align: left; margin-left: 0; margin-right: auto; }
+
+        /* DOT BAWAAN (Redup) */
         .tl-dot-inner { 
-            width: 20px; height: 20px; background: var(--cream); 
+            width: 22px; height: 22px; background: var(--cream); 
             border: 4px solid rgba(184,212,232,0.8); border-radius: 50%; 
-            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1); 
-        }
-        
-        /* Saat Dot Menyala (Active) */
-        .reveal-wrap.visible .tl-dot-inner { 
-            background: var(--accent-pink); border-color: var(--deep-blue);
-            transform: scale(1.3);
-            box-shadow: 0 0 12px rgba(242, 181, 197, 0.8), 0 0 0 4px rgba(255,255,255,0.6); 
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); 
+            box-shadow: 0 0 0 4px rgba(253, 248, 245, 0.5); z-index: 3;
         }
 
+        /* KOTAK BAWAAN (Redup & Transparan) */
         .tl-card-wrap { width: 100%; max-width: 380px; }
-        
-        /* Kondisi Awal Kotak (Redup & Transparan) */
         .tl-card { 
-            background: rgba(253, 248, 245, 0.6); border-radius: 20px; padding: 3rem 2rem; 
+            background: rgba(255, 255, 255, 0.5); border-radius: 20px; padding: 3rem 2rem; 
             border: 1px solid rgba(184,212,232,0.2); 
             box-shadow: none; 
-            filter: grayscale(30%) brightness(0.9);
-            transform: scale(0.95);
-            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1); 
-            max-width: 380px; width: 100%;
+            transform: scale(0.9); opacity: 0.5; /* Efek meredup */
+            transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1); 
         }
-        
-        /* Saat Kotak Menyala (Active) pas di-scroll */
-        .reveal-wrap.visible .tl-card {
+
+        /* EFEK MENYALA SAAT DI-SCROLL (Class .active di-trigger JS) */
+        .tl-item.active .tl-card {
             background: var(--white);
+            transform: scale(1); opacity: 1;
             border: 1px solid rgba(184,212,232,0.8);
-            box-shadow: 0 10px 40px rgba(90, 143, 168, 0.15); 
-            filter: grayscale(0%) brightness(1);
-            transform: scale(1);
+            box-shadow: 0 15px 40px rgba(90, 143, 168, 0.15); 
+        }
+        .tl-item.active .tl-dot-inner {
+            background: var(--accent-pink);
+            border-color: var(--deep-blue);
+            transform: scale(1.4);
+            box-shadow: 0 0 15px var(--accent-pink), 0 0 0 4px rgba(255,255,255,0.6); 
         }
         
         .tl-card:hover { transform: translateY(-3px) scale(1.02) !important; box-shadow: 0 15px 45px rgba(90, 143, 168, 0.2); }
@@ -235,9 +217,10 @@
         .tl-card p { font-size: 0.95rem; color: var(--text-mid); line-height: 1.6; }
         .tl-detail { display: none; } 
         .tl-more { background: none; border: 1px solid var(--deep-blue); color: var(--deep-blue); padding: 8px 18px; border-radius: 20px; font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; margin-top: 1rem; transition: all 0.3s ease; outline: none; display: inline-block; }
-        .tl-item:nth-child(odd) .tl-more { float: right;} 
+        .tl-item.left .tl-more { float: right;} 
         .tl-more:hover { background: var(--deep-blue); color: var(--white); }
 
+        /* --- MODAL CERITA --- */
         .story-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(45, 74, 92, 0.6); backdrop-filter: blur(5px); z-index: 10000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
         .story-modal-overlay.active { opacity: 1; pointer-events: auto; }
         .story-modal-content { background: var(--cream); width: 90%; max-width: 650px; max-height: 85vh; border-radius: 24px; padding: 3rem 2.5rem; position: relative; box-shadow: 0 25px 60px rgba(0,0,0,0.3); transform: scale(0.8) translateY(30px); transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1); display: flex; flex-direction: column; border: 5px solid white; }
@@ -252,33 +235,13 @@
         .modal-body::-webkit-scrollbar-thumb { background: var(--powder-blue); border-radius: 10px; }
         .modal-body p { margin-bottom: 1rem; }
 
-
         /* ===================== GALLERY ===================== */
         .gallery-section { padding: 6rem 0; background: var(--white); overflow-x: hidden;}
         .gallery-header { text-align: center; margin-bottom: 5rem; padding: 0 1.5rem; }
         
-        .gallery-grid { 
-            display: block; 
-            column-count: 3; 
-            column-gap: 2rem;
-            padding: 0 1.5rem; 
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-        
-        .photo-card-wrap {
-            break-inside: avoid; 
-            margin-bottom: 2rem; 
-            position: relative;
-            display: inline-block; 
-            width: 100%;
-        }
-
-        .photo-card {
-            background: var(--white); border-radius: 8px; padding: 12px 12px 55px 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.1); 
-            cursor: zoom-in; transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), box-shadow 0.4s ease;
-            width: 100%;
-        }
+        .gallery-grid { display: block; column-count: 3; column-gap: 2rem; padding: 0 1.5rem; max-width: 1100px; margin: 0 auto; }
+        .photo-card-wrap { break-inside: avoid; margin-bottom: 2rem; position: relative; display: inline-block; width: 100%; }
+        .photo-card { background: var(--white); border-radius: 8px; padding: 12px 12px 55px 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.1); cursor: zoom-in; transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), box-shadow 0.4s ease; width: 100%; }
         
         .photo-card:hover { transform: translateY(-15px) scale(1.03); box-shadow: 0 20px 40px rgba(90,143,168,0.2); z-index: 2; }
         .photo-card img { width: 100%; height: auto; object-fit: cover; border-radius: 4px; pointer-events: none; }
@@ -385,14 +348,14 @@
             .photo-card { padding: 8px 8px 45px 8px; }
             .photo-caption { font-size: 1.2rem; bottom: 10px; }
 
-            /* FIX MOBILE ALIGNMENT: Ukuran sejajar sempurna di HP */
-            .timeline-line { left: calc(1.5rem + 15px); } /* 1.5rem padding + 15px (setengah dari 30px kolom) */
-            .tl-item { grid-template-columns: 30px 1fr !important; grid-template-rows: auto; gap: 15px; align-items: center; }
-            .tl-item:nth-child(odd) .tl-card-wrap, .tl-item:nth-child(even) .tl-card-wrap { grid-column: 2 !important; text-align: left; max-width: 100%; }
+            /* FIX ALIGNMENT HP: Kotak aman, Teks kiri, Titik pas di tengah garis! */
+            .timeline-line { left: calc(1.5rem + 15px); } 
+            .tl-item { grid-template-columns: 30px 1fr !important; gap: 15px; }
+            .tl-item.left .tl-card-wrap, .tl-item.right .tl-card-wrap { grid-column: 2 !important; text-align: left; max-width: 100%; }
             .tl-card { padding: 2.5rem 1.5rem; }
-            .tl-item:nth-child(odd) .tl-dot-wrap, .tl-item:nth-child(even) .tl-dot-wrap { grid-column: 1 !important; justify-content: center !important; align-items: center; }
+            .tl-item.left .tl-dot-wrap, .tl-item.right .tl-dot-wrap { grid-column: 1 !important; justify-content: center !important; }
             .tl-empty { display: none; }
-            .tl-item:nth-child(odd) .tl-more { float: none;} 
+            .tl-item.left .tl-more { float: none;} 
 
             .story-modal-content { width: 95%; padding: 2.5rem 1.5rem; }
             .modal-title { font-size: 1.6rem; }
@@ -498,8 +461,8 @@
             <div class="timeline-progress" id="timeline-progress"></div>
         </div>
         
-        <div class="tl-item reveal-wrap anim-up">
-            <div class="tl-card-wrap">
+        <div class="tl-item left">
+            <div class="tl-card-wrap reveal-wrap anim-left">
                 <div class="tl-card">
                     <span class="tl-month">September 2025</span>
                     <h3>Momen Jadian Kita 🌸</h3>
@@ -509,13 +472,11 @@
                 </div>
             </div>
             <div class="tl-dot-wrap"><div class="tl-dot-inner"></div></div>
-            <div class="tl-empty"></div>
         </div>
         
-        <div class="tl-item reveal-wrap anim-up">
-            <div class="tl-empty"></div>
+        <div class="tl-item right">
             <div class="tl-dot-wrap"><div class="tl-dot-inner"></div></div>
-            <div class="tl-card-wrap">
+            <div class="tl-card-wrap reveal-wrap anim-right">
                 <div class="tl-card">
                     <span class="tl-month">Jalan-jalan Pertama 🚗</span>
                     <h3>Menyusul! ✨</h3>
@@ -526,8 +487,8 @@
             </div>
         </div>
         
-        <div class="tl-item reveal-wrap anim-up">
-            <div class="tl-card-wrap">
+        <div class="tl-item left">
+            <div class="tl-card-wrap reveal-wrap anim-left">
                 <div class="tl-card">
                     <span class="tl-month">Hari Ini & Selamanya 💙</span>
                     <h3>Satu Tahun & Selamanya</h3>
@@ -537,7 +498,6 @@
                 </div>
             </div>
             <div class="tl-dot-wrap"><div class="tl-dot-inner"></div></div>
-            <div class="tl-empty"></div>
         </div>
     </div>
 </section>
@@ -596,8 +556,8 @@
                 <div class="letter-content">
                     <span class="salutation">Amanda yang kusayang,</span>
                     Satu tahun berlalu begitu cepat, tapi setiap momennya terasa sangat berharga. Kamu adalah alasan aku tersenyum setiap harinya...<br><br>
-                    Coba lo scroll bagian perjalanan kita tadi deh. Liat garis progressnya nyala ngikutin scroll kan? Kotaknya juga nyala terang pas pas di tengah layar.<br><br>
-                    Titik timeline-nya juga udah gue ukur pakai rumus biar sejajar 100% pas di samping kotak.<br><br>
+                    Coba lo scroll pelan-pelan di bagian Perjalanan Kita deh.<br><br>
+                    Garisnya bakal jalan perlahan ngikutin layar lo ke bawah, dan kotak ceritanya bakal nyala terang pas pas kebaca di tengah.<br><br>
                     <span class="signature">— Aang, selamanya 💙</span>
                 </div>
             </div>
@@ -690,21 +650,30 @@
         isPlaying = !isPlaying;
     }
 
-    // --- SCRIPT ANIMASI SCROLL REVEAL ---
+    // --- MUNCUL PERTAMA KALI (REVEAL) ---
     const revealObserver = new IntersectionObserver(entries => {
         entries.forEach(e => {
             if (e.isIntersecting) { 
                 e.target.classList.add('visible'); 
+                revealObserver.unobserve(e.target); 
             }
         });
-    }, { 
-        threshold: 0.1, 
-        rootMargin: '0px 0px -50px 0px' 
-    });
-    
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
     document.querySelectorAll('.reveal-wrap').forEach(el => revealObserver.observe(el));
 
-    // --- SCRIPT GARIS TIMELINE (PROGRESS LINE) ---
+    // --- EFEK HIGHLIGHT KOTAK & TITIK (MENYALA SAAT DI TENGAH LAYAR) ---
+    const highlightObserver = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('active');
+            } else {
+                e.target.classList.remove('active'); // Meredup lagi pas lewat
+            }
+        });
+    }, { threshold: 0.45 }); // Trigger nyala pas kotak 45% masuk layar
+    document.querySelectorAll('.tl-item').forEach(el => highlightObserver.observe(el));
+
+    // --- EFEK GARIS PROGRESS MENGALIR KE BAWAH ---
     window.addEventListener('scroll', () => {
         const timeline = document.getElementById('timeline-section');
         const progress = document.getElementById('timeline-progress');
@@ -713,17 +682,13 @@
             const rect = timeline.getBoundingClientRect();
             const windowHeight = window.innerHeight;
             
-            // Kalkulasi seberapa jauh user nge-scroll di dalem area timeline
-            // Garis mulai ngisi pas timeline nyentuh tengah layar
+            // Garis mulai jalan pas awal timeline kena tengah layar
             let scrollPercentage = (windowHeight / 2 - rect.top) / (rect.height);
-            
-            // Bikin batas persentase cuma antara 0 sampe 100%
             scrollPercentage = Math.max(0, Math.min(1, scrollPercentage));
             
             progress.style.height = (scrollPercentage * 100) + '%';
         }
     });
-    // -----------------------------------------
 
     function openLightbox(src) {
         document.getElementById('lightbox-img').src = src;
