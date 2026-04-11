@@ -18,7 +18,7 @@
             --deep-blue: #5A8FA8;
             --dark-blue: #2D4A5C;
             --accent-pink: #F2B5C5;
-            --soft-pink: #FCE8EF;
+            --soft-pink: #FFF0F5; /* Warna pink super lembut buat kotak aktif */
             --white: #FFFFFF;
             --cream: #FDF8F5;
             --text-dark: #2D4A5C;
@@ -134,9 +134,13 @@
         .reveal-wrap { opacity: 0; visibility: hidden; } 
         .reveal-wrap.visible { visibility: visible; }
         .reveal-wrap.visible.anim-up { animation: animFadeUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
+        .reveal-wrap.visible.anim-left { animation: animFadeLeft 1s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
+        .reveal-wrap.visible.anim-right { animation: animFadeRight 1s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
         .reveal-wrap.visible.anim-masonry-item { animation: animMasonryReveal 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
 
         @keyframes animFadeUp { 0% { opacity: 0; transform: translateY(60px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes animFadeLeft { 0% { opacity: 0; transform: translateX(-80px); } 100% { opacity: 1; transform: translateX(0); } }
+        @keyframes animFadeRight { 0% { opacity: 0; transform: translateX(80px); } 100% { opacity: 1; transform: translateX(0); } }
         @keyframes animMasonryReveal { 0% { opacity: 0; transform: scale(0.9) translateY(40px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
 
         .delay-1 { animation-delay: 0.15s; }
@@ -151,13 +155,14 @@
         
         .timeline { position: relative; max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
         
-        /* FIX GARIS: Dikunci mati di tengah (PC) */
+        /* GARIS BAWAAN */
         .timeline-line { 
             position: absolute; left: 50%; transform: translateX(-50%); 
             top: 0; bottom: 0; width: 4px; background: rgba(184,212,232,0.4); 
             border-radius: 5px; z-index: 1; overflow: hidden;
         }
-        /* Garis Nyala Pink */
+        
+        /* GARIS NYALA PINK */
         .timeline-progress {
             position: absolute; top: 0; left: 50%; transform: translateX(-50%); 
             width: 4px; height: 0%; 
@@ -167,44 +172,49 @@
             border-radius: 5px; z-index: 2;
         }
 
-        /* GRID FIX: Kolom tengah 60px pasti sejajar garis */
         .tl-item { display: grid; grid-template-columns: 1fr 60px 1fr; align-items: center; margin-bottom: 4rem; position: relative; z-index: 3;}
         
-        .tl-item.left .tl-card-wrap { grid-column: 1; text-align: right; margin-left: auto; margin-right: 0;}
-        .tl-item.left .tl-dot-wrap { grid-column: 2; display: flex; justify-content: center; align-items: center; position: relative;}
+        /* FIX TEKS RATA KIRI SEMUA BIAR RAPI KAYAK REFERENSI */
+        .tl-item.left .tl-card-wrap { grid-column: 1; margin-left: auto; margin-right: 0; }
+        .tl-item.right .tl-card-wrap { grid-column: 3; margin-left: 0; margin-right: auto; }
         
-        .tl-item.right .tl-dot-wrap { grid-column: 2; display: flex; justify-content: center; align-items: center; position: relative;}
-        .tl-item.right .tl-card-wrap { grid-column: 3; text-align: left; margin-left: 0; margin-right: auto; }
+        .tl-item.left .tl-dot-wrap, .tl-item.right .tl-dot-wrap { 
+            grid-column: 2; display: flex; justify-content: center; align-items: center; position: relative;
+        }
 
-        /* DOT BAWAAN (Redup) */
+        /* DOT BAWAAN (Putih) */
         .tl-dot-inner { 
-            width: 20px; height: 20px; background: var(--cream); 
-            border: 4px solid rgba(184,212,232,0.8); border-radius: 50%; 
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); 
+            width: 22px; height: 22px; background: var(--white); 
+            border: 4px solid var(--powder-blue); border-radius: 50%; 
+            transition: all 0.4s ease; 
             position: relative; z-index: 4;
         }
 
-        /* KOTAK BAWAAN (Redup & Transparan, Gak Pake Reveal Biar Aman Animasi Nyalanya) */
         .tl-card-wrap { width: 100%; max-width: 380px; }
+        
+        /* KOTAK BAWAAN (Putih Biasa) */
         .tl-card { 
-            background: rgba(255, 255, 255, 0.4); border-radius: 20px; padding: 3rem 2rem; 
-            border: 1px solid rgba(184,212,232,0.2); 
-            opacity: 0.4; transform: scale(0.9); 
-            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1); 
+            background: var(--white); 
+            border-radius: 16px; padding: 2.5rem 2rem; 
+            border: 2px solid rgba(184,212,232,0.3); 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            transition: all 0.5s ease; 
+            text-align: left; /* FIX: Memaksa teks selalu rata kiri agar rapi */
         }
 
-        /* ===================== EFEK NYALA PAS DI TENGAH SCROLL ===================== */
+        /* ===================== EFEK NYALA WARNA PINK PAS DI-SCROLL ===================== */
         .tl-item.active .tl-card {
-            background: var(--white);
-            opacity: 1; transform: scale(1);
-            border: 1px solid var(--powder-blue);
-            box-shadow: 0 15px 40px rgba(90, 143, 168, 0.2); 
+            background: var(--soft-pink); /* Berubah jadi pink lembut */
+            border: 2px solid var(--accent-pink); /* Garis tepi jadi pink */
+            box-shadow: 0 10px 30px rgba(242, 181, 197, 0.4); 
+            transform: scale(1.05); /* Agak membesar */
         }
+        
         .tl-item.active .tl-dot-inner {
-            background: var(--accent-pink);
+            background: var(--accent-pink); /* Titik berubah warna pink solid */
             border-color: var(--accent-pink);
-            transform: scale(1.5);
-            box-shadow: 0 0 15px rgba(242, 181, 197, 0.8); 
+            transform: scale(1.4); /* Membesar */
+            box-shadow: 0 0 15px rgba(242, 181, 197, 0.8), 0 0 0 4px rgba(255,255,255,0.6); 
         }
         /* =========================================================================== */
         
@@ -213,7 +223,6 @@
         .tl-card p { font-size: 0.95rem; color: var(--text-mid); line-height: 1.6; }
         .tl-detail { display: none; } 
         .tl-more { background: none; border: 1px solid var(--deep-blue); color: var(--deep-blue); padding: 8px 18px; border-radius: 20px; font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; margin-top: 1rem; transition: all 0.3s ease; outline: none; display: inline-block; }
-        .tl-item.left .tl-more { float: right;} 
         .tl-more:hover { background: var(--deep-blue); color: var(--white); }
 
         /* --- MODAL CERITA --- */
@@ -230,7 +239,6 @@
         .modal-body::-webkit-scrollbar-track { background: transparent; }
         .modal-body::-webkit-scrollbar-thumb { background: var(--powder-blue); border-radius: 10px; }
         .modal-body p { margin-bottom: 1rem; }
-
 
         /* ===================== GALLERY ===================== */
         .gallery-section { padding: 6rem 0; background: var(--white); overflow-x: hidden;}
@@ -251,7 +259,7 @@
         .lightbox-close { position: absolute; top: 20px; right: 30px; color: white; font-size: 3rem; cursor: pointer; background: none; border: none; outline: none; transition: color 0.3s; }
         .lightbox-close:hover { color: var(--accent-pink); }
 
-        /* ===================== SURAT CINTA (FIX KEMUNCULAN) ===================== */
+        /* ===================== SURAT CINTA ===================== */
         .letter-section { padding: 6rem 1.5rem 10rem 1.5rem; background: var(--white); overflow: visible; transition: padding-bottom 1.2s ease; }
         .letter-header { text-align: center; margin-bottom: 5rem; }
         .env-container { perspective: 1200px; width: 100%; display: flex; justify-content: center; }
@@ -345,13 +353,18 @@
             .photo-card { padding: 8px 8px 45px 8px; }
             .photo-caption { font-size: 1.2rem; bottom: 10px; }
 
-            /* FIX ALIGNMENT HP: Kotak aman, Teks kiri, Titik pas di tengah garis! */
-            .timeline-line { left: 25px; transform: none; } 
-            .timeline-progress { left: 25px; transform: none; }
+            /* FIX ALIGNMENT HP (Titik Pas di Tengah Garis) */
+            .timeline-line { left: 24px; transform: none; } 
+            .timeline-progress { left: 24px; transform: none; }
+            
             .tl-item { grid-template-columns: 50px 1fr !important; gap: 10px; }
             .tl-item.left .tl-card-wrap, .tl-item.right .tl-card-wrap { grid-column: 2 !important; text-align: left; max-width: 100%; }
-            .tl-card { padding: 2.5rem 1.5rem; }
-            .tl-item.left .tl-dot-wrap, .tl-item.right .tl-dot-wrap { grid-column: 1 !important; justify-content: center !important; }
+            .tl-card { padding: 2rem 1.5rem; }
+            
+            /* Titik disejajarkan sempurna */
+            .tl-item.left .tl-dot-wrap, .tl-item.right .tl-dot-wrap { 
+                grid-column: 1 !important; justify-content: center !important; 
+            }
             
             .tl-empty { display: none; }
             .tl-item.left .tl-more { float: none;} 
@@ -460,7 +473,7 @@
         <div class="timeline-progress" id="timeline-progress"></div>
         
         <div class="tl-item left">
-            <div class="tl-card-wrap">
+            <div class="tl-card-wrap reveal-wrap anim-left">
                 <div class="tl-card">
                     <span class="tl-month">September 2025</span>
                     <h3>Momen Jadian Kita 🌸</h3>
@@ -476,7 +489,7 @@
         <div class="tl-item right">
             <div class="tl-empty"></div>
             <div class="tl-dot-wrap"><div class="tl-dot-inner"></div></div>
-            <div class="tl-card-wrap">
+            <div class="tl-card-wrap reveal-wrap anim-right">
                 <div class="tl-card">
                     <span class="tl-month">Jalan-jalan Pertama 🚗</span>
                     <h3>Menyusul! ✨</h3>
@@ -488,7 +501,7 @@
         </div>
         
         <div class="tl-item left">
-            <div class="tl-card-wrap">
+            <div class="tl-card-wrap reveal-wrap anim-left">
                 <div class="tl-card">
                     <span class="tl-month">Hari Ini & Selamanya 💙</span>
                     <h3>Satu Tahun & Selamanya</h3>
@@ -558,8 +571,8 @@
                 <div class="letter-content">
                     <span class="salutation">Amanda yang kusayang,</span>
                     Satu tahun berlalu begitu cepat, tapi setiap momennya terasa sangat berharga. Kamu adalah alasan aku tersenyum setiap harinya...<br><br>
-                    Coba lo pelan-pelan geser timeline-nya ke tengah layar HP lo. Boom! Kotaknya nyala terang benderang bareng titiknya, dan garis pinknya ngalir ke bawah.<br><br>
-                    Suratnya juga udah balik aman sentosa, gak ghaib lagi hahaha.<br><br>
+                    Kotaknya udah fix ganti warna Pink Lembut pas disentuh garis progress kan? Teksnya juga udah rapi rata kiri semua.<br><br>
+                    Suratnya juga gue pastikan nggak kemana-mana.<br><br>
                     <span class="signature">— Aang, selamanya 💙</span>
                 </div>
             </div>
@@ -652,7 +665,7 @@
         isPlaying = !isPlaying;
     }
 
-    // --- SCRIPT ANIMASI SCROLL REVEAL BUMBU MAHAL ---
+    // --- SCRIPT ANIMASI SCROLL REVEAL ---
     const revealObserver = new IntersectionObserver(entries => {
         entries.forEach(e => {
             if (e.isIntersecting) { 
@@ -663,39 +676,38 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
     document.querySelectorAll('.reveal-wrap').forEach(el => revealObserver.observe(el));
 
-    // --- FIX: EFEK HIGHLIGHT KOTAK & TITIK (MENYALA SAAT DI TENGAH LAYAR) ---
-    const highlightObserver = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-            if (e.isIntersecting) {
-                e.target.classList.add('active');
-            } else {
-                e.target.classList.remove('active'); // Meredup lagi pas lewat atas/bawah
-            }
-        });
-    }, { 
-        // RootMargin ini bikin kotak NYALA cuma pas dia ada di area 20% tengah layar!
-        rootMargin: '-40% 0px -40% 0px', 
-        threshold: 0 
-    }); 
-    document.querySelectorAll('.tl-item').forEach(el => highlightObserver.observe(el));
-
-    // --- EFEK GARIS PROGRESS MENGALIR KE BAWAH ---
+    // --- FIX: SINKRONISASI GARIS PROGRESS, TITIK & KOTAK ---
     window.addEventListener('scroll', () => {
         const timeline = document.getElementById('timeline-section');
         const progress = document.getElementById('timeline-progress');
+        const items = document.querySelectorAll('.tl-item');
         
         if(timeline && progress) {
             const rect = timeline.getBoundingClientRect();
             const windowHeight = window.innerHeight;
             
-            // Kalkulasi titik memicu persis pas tengah layar
+            // Titik trigger (tengah layar persis)
             const triggerPoint = windowHeight / 2;
-            let scrollDistance = triggerPoint - rect.top;
             
+            let scrollDistance = triggerPoint - rect.top;
             let scrollPercentage = scrollDistance / rect.height;
             scrollPercentage = Math.max(0, Math.min(1, scrollPercentage));
             
+            // Atur tinggi garis progress
             progress.style.height = (scrollPercentage * 100) + '%';
+
+            // Nyalakan kotak HANYA pas titiknya kesentuh garis (tengah layar)
+            items.forEach(item => {
+                const dot = item.querySelector('.tl-dot-inner');
+                const dotRect = dot.getBoundingClientRect();
+                const dotCenter = dotRect.top + (dotRect.height / 2);
+
+                if (triggerPoint >= dotCenter) {
+                    item.classList.add('active'); // Kotak berubah pink!
+                } else {
+                    item.classList.remove('active'); // Meredup lagi
+                }
+            });
         }
     });
 
