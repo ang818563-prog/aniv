@@ -18,7 +18,7 @@
             --deep-blue: #5A8FA8;
             --dark-blue: #2D4A5C;
             --accent-pink: #F2B5C5;
-            --soft-pink: #FFF0F5; /* Warna pink super lembut buat kotak aktif */
+            --soft-pink: #FFF0F5; /* Warna pink lembut buat kotak menyala */
             --white: #FFFFFF;
             --cream: #FDF8F5;
             --text-dark: #2D4A5C;
@@ -149,23 +149,23 @@
         .delay-4 { animation-delay: 0.6s; }
         .delay-5 { animation-delay: 0.75s; }
 
-        /* ===================== PERJALANAN (TIMELINE) FIX TOTAL ===================== */
+        /* ===================== PERJALANAN (TIMELINE) FIX SINKRONISASI ===================== */
         .timeline-section { padding: 6rem 0; background: linear-gradient(180deg, #EFF8FD 0%, var(--cream) 100%); overflow-x: hidden; position: relative;}
         .timeline-header { text-align: center; margin-bottom: 4rem; padding: 0 1.5rem; }
         
         .timeline { position: relative; max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
         
-        /* GARIS BAWAAN */
+        /* Garis Pudar di Belakang */
         .timeline-line { 
             position: absolute; left: 50%; transform: translateX(-50%); 
             top: 0; bottom: 0; width: 4px; background: rgba(184,212,232,0.4); 
             border-radius: 5px; z-index: 1; overflow: hidden;
         }
         
-        /* GARIS NYALA PINK */
+        /* Garis Nyala Pink ngikutin Scroll, ditaruh DI DALAM .timeline-line biar rapi */
         .timeline-progress {
-            position: absolute; top: 0; left: 50%; transform: translateX(-50%); 
-            width: 4px; height: 0%; 
+            position: absolute; top: 0; left: 0; 
+            width: 100%; height: 0%; 
             background: var(--accent-pink); 
             box-shadow: 0 0 10px rgba(242, 181, 197, 0.8);
             transition: height 0.1s ease-out; 
@@ -174,7 +174,7 @@
 
         .tl-item { display: grid; grid-template-columns: 1fr 60px 1fr; align-items: center; margin-bottom: 4rem; position: relative; z-index: 3;}
         
-        /* FIX TEKS RATA KIRI SEMUA BIAR RAPI KAYAK REFERENSI */
+        /* Grid Alignment */
         .tl-item.left .tl-card-wrap { grid-column: 1; margin-left: auto; margin-right: 0; }
         .tl-item.right .tl-card-wrap { grid-column: 3; margin-left: 0; margin-right: auto; }
         
@@ -182,7 +182,7 @@
             grid-column: 2; display: flex; justify-content: center; align-items: center; position: relative;
         }
 
-        /* DOT BAWAAN (Putih) */
+        /* DOT BAWAAN (Putih Biasa) */
         .tl-dot-inner { 
             width: 22px; height: 22px; background: var(--white); 
             border: 4px solid var(--powder-blue); border-radius: 50%; 
@@ -192,31 +192,32 @@
 
         .tl-card-wrap { width: 100%; max-width: 380px; }
         
-        /* KOTAK BAWAAN (Putih Biasa) */
+        /* KOTAK BAWAAN (Transparan/Redup) - FIX Teks Rata Kiri! */
         .tl-card { 
-            background: var(--white); 
-            border-radius: 16px; padding: 2.5rem 2rem; 
+            background: rgba(255, 255, 255, 0.6); border-radius: 16px; padding: 2.5rem 2rem; 
             border: 2px solid rgba(184,212,232,0.3); 
             box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            transform: scale(0.95); opacity: 0.6; /* Redup dikit biar keliatan bedanya pas nyala */
             transition: all 0.5s ease; 
-            text-align: left; /* FIX: Memaksa teks selalu rata kiri agar rapi */
+            text-align: left; /* Teks dipaksa rata kiri di semua kotak */
         }
 
-        /* ===================== EFEK NYALA WARNA PINK PAS DI-SCROLL ===================== */
+        /* ===================== EFEK NYALA WARNA PINK PAS GARIS NYENTUH TITIK ===================== */
         .tl-item.active .tl-card {
-            background: var(--soft-pink); /* Berubah jadi pink lembut */
-            border: 2px solid var(--accent-pink); /* Garis tepi jadi pink */
+            background: var(--soft-pink); 
+            border: 2px solid var(--accent-pink); 
             box-shadow: 0 10px 30px rgba(242, 181, 197, 0.4); 
-            transform: scale(1.05); /* Agak membesar */
+            transform: scale(1.05); 
+            opacity: 1;
         }
         
         .tl-item.active .tl-dot-inner {
-            background: var(--accent-pink); /* Titik berubah warna pink solid */
+            background: var(--accent-pink); 
             border-color: var(--accent-pink);
-            transform: scale(1.4); /* Membesar */
+            transform: scale(1.4); 
             box-shadow: 0 0 15px rgba(242, 181, 197, 0.8), 0 0 0 4px rgba(255,255,255,0.6); 
         }
-        /* =========================================================================== */
+        /* ========================================================================================= */
         
         .tl-month { font-family: 'Dancing Script', cursive; font-size: 1.2rem; color: var(--accent-pink); display: block; margin-bottom: 0.5rem; font-weight: 600; }
         .tl-card h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--text-dark); margin-bottom: 0.8rem; line-height: 1.3;}
@@ -353,21 +354,18 @@
             .photo-card { padding: 8px 8px 45px 8px; }
             .photo-caption { font-size: 1.2rem; bottom: 10px; }
 
-            /* FIX ALIGNMENT HP (Titik Pas di Tengah Garis) */
+            /* FIX ALIGNMENT HP: Kotak aman, Teks kiri, Titik pas di tengah garis! */
             .timeline-line { left: 24px; transform: none; } 
             .timeline-progress { left: 24px; transform: none; }
             
             .tl-item { grid-template-columns: 50px 1fr !important; gap: 10px; }
-            .tl-item.left .tl-card-wrap, .tl-item.right .tl-card-wrap { grid-column: 2 !important; text-align: left; max-width: 100%; }
+            .tl-item.left .tl-card-wrap, .tl-item.right .tl-card-wrap { grid-column: 2 !important; max-width: 100%; }
             .tl-card { padding: 2rem 1.5rem; }
             
             /* Titik disejajarkan sempurna */
             .tl-item.left .tl-dot-wrap, .tl-item.right .tl-dot-wrap { 
                 grid-column: 1 !important; justify-content: center !important; 
             }
-            
-            .tl-empty { display: none; }
-            .tl-item.left .tl-more { float: none;} 
 
             .story-modal-content { width: 95%; padding: 2.5rem 1.5rem; }
             .modal-title { font-size: 1.6rem; }
@@ -469,8 +467,9 @@
     </div>
     
     <div class="timeline">
-        <div class="timeline-line"></div>
-        <div class="timeline-progress" id="timeline-progress"></div>
+        <div class="timeline-line">
+            <div class="timeline-progress" id="timeline-progress"></div>
+        </div>
         
         <div class="tl-item left">
             <div class="tl-card-wrap reveal-wrap anim-left">
@@ -483,11 +482,9 @@
                 </div>
             </div>
             <div class="tl-dot-wrap"><div class="tl-dot-inner"></div></div>
-            <div class="tl-empty"></div>
         </div>
         
         <div class="tl-item right">
-            <div class="tl-empty"></div>
             <div class="tl-dot-wrap"><div class="tl-dot-inner"></div></div>
             <div class="tl-card-wrap reveal-wrap anim-right">
                 <div class="tl-card">
@@ -511,7 +508,6 @@
                 </div>
             </div>
             <div class="tl-dot-wrap"><div class="tl-dot-inner"></div></div>
-            <div class="tl-empty"></div>
         </div>
     </div>
 </section>
@@ -562,7 +558,7 @@
         <h2 class="section-title">Surat Cinta 💌</h2>
     </div>
     
-    <div class="env-container reveal-wrap anim-up delay-1">
+    <div class="env-container reveal-wrap anim-zoom delay-1">
         <div class="env-wrapper" id="env-wrapper" onclick="handleEnvelope(event)">
             <div class="env-hint" id="env-hint">Ketuk untuk mengambil surat &hearts;</div>
             <div class="env-back"></div>
@@ -571,8 +567,8 @@
                 <div class="letter-content">
                     <span class="salutation">Amanda yang kusayang,</span>
                     Satu tahun berlalu begitu cepat, tapi setiap momennya terasa sangat berharga. Kamu adalah alasan aku tersenyum setiap harinya...<br><br>
-                    Kotaknya udah fix ganti warna Pink Lembut pas disentuh garis progress kan? Teksnya juga udah rapi rata kiri semua.<br><br>
-                    Suratnya juga gue pastikan nggak kemana-mana.<br><br>
+                    Coba scroll ke bagian Perjalanan, pas garis progressnya nyentuh titik, titik dan kotaknya bakal langsung "nyala" warna pink barengan, sinkron abis!<br><br>
+                    Semua teks di dalam kotak juga udah gue paksa rata kiri biar enak dan rapi dibacanya.<br><br>
                     <span class="signature">— Aang, selamanya 💙</span>
                 </div>
             </div>
@@ -665,7 +661,7 @@
         isPlaying = !isPlaying;
     }
 
-    // --- SCRIPT ANIMASI SCROLL REVEAL ---
+    // --- SCRIPT ANIMASI MUNCUL PERTAMA KALI ---
     const revealObserver = new IntersectionObserver(entries => {
         entries.forEach(e => {
             if (e.isIntersecting) { 
@@ -676,36 +672,39 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
     document.querySelectorAll('.reveal-wrap').forEach(el => revealObserver.observe(el));
 
-    // --- FIX: SINKRONISASI GARIS PROGRESS, TITIK & KOTAK ---
+    // --- FIX: SINKRONISASI 100% GARIS PROGRESS & EFEK NYALA ---
     window.addEventListener('scroll', () => {
-        const timeline = document.getElementById('timeline-section');
+        const lineBg = document.querySelector('.timeline-line');
         const progress = document.getElementById('timeline-progress');
         const items = document.querySelectorAll('.tl-item');
         
-        if(timeline && progress) {
-            const rect = timeline.getBoundingClientRect();
+        if(lineBg && progress) {
+            const rect = lineBg.getBoundingClientRect();
             const windowHeight = window.innerHeight;
             
-            // Titik trigger (tengah layar persis)
+            // Titik trigger persis di tengah layar
             const triggerPoint = windowHeight / 2;
             
+            // Hitung tinggi garis progress pink
             let scrollDistance = triggerPoint - rect.top;
             let scrollPercentage = scrollDistance / rect.height;
             scrollPercentage = Math.max(0, Math.min(1, scrollPercentage));
             
-            // Atur tinggi garis progress
             progress.style.height = (scrollPercentage * 100) + '%';
 
-            // Nyalakan kotak HANYA pas titiknya kesentuh garis (tengah layar)
+            // Cek posisi tiap titik buat nyalain kotaknya
             items.forEach(item => {
                 const dot = item.querySelector('.tl-dot-inner');
-                const dotRect = dot.getBoundingClientRect();
-                const dotCenter = dotRect.top + (dotRect.height / 2);
+                if (dot) {
+                    const dotRect = dot.getBoundingClientRect();
+                    const dotCenter = dotRect.top + (dotRect.height / 2);
 
-                if (triggerPoint >= dotCenter) {
-                    item.classList.add('active'); // Kotak berubah pink!
-                } else {
-                    item.classList.remove('active'); // Meredup lagi
+                    // Nyala HANYA kalau garis progress ngelewatin / nyentuh tengah titik
+                    if (triggerPoint >= dotCenter) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
                 }
             });
         }
