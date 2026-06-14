@@ -18,7 +18,7 @@
             --deep-blue: #5A8FA8;
             --dark-blue: #2D4A5C;
             --accent-pink: #F2B5C5;
-            --soft-pink: #FFF0F5;
+            --soft-pink: #FFF0F5; /* Warna pink lembut buat kotak menyala */
             --white: #FFFFFF;
             --cream: #FDF8F5;
             --text-dark: #2D4A5C;
@@ -155,22 +155,69 @@
         
         .timeline { position: relative; max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
         
-        .timeline-line { position: absolute; left: 50%; transform: translateX(-50%); top: 0; bottom: 0; width: 4px; background: rgba(184,212,232,0.4); border-radius: 5px; z-index: 1; overflow: hidden; }
-        .timeline-progress { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 4px; height: 0%; background: var(--accent-pink); box-shadow: 0 0 10px rgba(242, 181, 197, 0.8); transition: height 0.1s ease-out; border-radius: 5px; z-index: 2; }
+        /* Garis Pudar di Belakang */
+        .timeline-line { 
+            position: absolute; left: 50%; transform: translateX(-50%); 
+            top: 0; bottom: 0; width: 4px; background: rgba(184,212,232,0.4); 
+            border-radius: 5px; z-index: 1; overflow: hidden;
+        }
+        
+        /* Garis Nyala Pink ngikutin Scroll, ditaruh DI DALAM .timeline-line biar rapi */
+        .timeline-progress {
+            position: absolute; top: 0; left: 0; 
+            width: 100%; height: 0%; 
+            background: var(--accent-pink); 
+            box-shadow: 0 0 10px rgba(242, 181, 197, 0.8);
+            transition: height 0.1s ease-out; 
+            border-radius: 5px; z-index: 2;
+        }
 
         .tl-item { display: grid; grid-template-columns: 1fr 60px 1fr; align-items: center; margin-bottom: 4rem; position: relative; z-index: 3;}
         
+        /* Grid Alignment */
         .tl-item.left .tl-card-wrap { grid-column: 1; margin-left: auto; margin-right: 0; }
         .tl-item.right .tl-card-wrap { grid-column: 3; margin-left: 0; margin-right: auto; }
-        .tl-item.left .tl-dot-wrap, .tl-item.right .tl-dot-wrap { grid-column: 2; display: flex; justify-content: center; align-items: center; position: relative; }
+        
+        .tl-item.left .tl-dot-wrap, .tl-item.right .tl-dot-wrap { 
+            grid-column: 2; display: flex; justify-content: center; align-items: center; position: relative;
+        }
 
-        .tl-dot-inner { width: 22px; height: 22px; background: var(--white); border: 4px solid var(--powder-blue); border-radius: 50%; transition: all 0.4s ease; position: relative; z-index: 4; }
+        /* DOT BAWAAN (Putih Biasa) */
+        .tl-dot-inner { 
+            width: 22px; height: 22px; background: var(--white); 
+            border: 4px solid var(--powder-blue); border-radius: 50%; 
+            transition: all 0.4s ease; 
+            position: relative; z-index: 4;
+        }
 
         .tl-card-wrap { width: 100%; max-width: 380px; }
-        .tl-card { background: rgba(255, 255, 255, 0.6); border-radius: 16px; padding: 2.5rem 2rem; border: 2px solid rgba(184,212,232,0.3); box-shadow: 0 4px 15px rgba(0,0,0,0.05); transform: scale(0.95); opacity: 0.6; transition: all 0.5s ease; text-align: left; }
+        
+        /* KOTAK BAWAAN (Redup & Transparan) - FIX Teks Rata Kiri! */
+        .tl-card { 
+            background: rgba(255, 255, 255, 0.6); border-radius: 16px; padding: 2.5rem 2rem; 
+            border: 2px solid rgba(184,212,232,0.3); 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            transform: scale(0.95); opacity: 0.6; 
+            transition: all 0.5s ease; 
+            text-align: left; 
+        }
 
-        .tl-item.active .tl-card { background: var(--soft-pink); border: 2px solid var(--accent-pink); box-shadow: 0 10px 30px rgba(242, 181, 197, 0.4); transform: scale(1.05); opacity: 1; }
-        .tl-item.active .tl-dot-inner { background: var(--accent-pink); border-color: var(--accent-pink); transform: scale(1.4); box-shadow: 0 0 15px rgba(242, 181, 197, 0.8), 0 0 0 4px rgba(255,255,255,0.6); }
+        /* ===================== EFEK NYALA WARNA PINK PAS GARIS NYENTUH TITIK ===================== */
+        .tl-item.active .tl-card {
+            background: var(--soft-pink); 
+            border: 2px solid var(--accent-pink); 
+            box-shadow: 0 10px 30px rgba(242, 181, 197, 0.4); 
+            transform: scale(1.05); 
+            opacity: 1;
+        }
+        
+        .tl-item.active .tl-dot-inner {
+            background: var(--accent-pink); 
+            border-color: var(--accent-pink);
+            transform: scale(1.4); 
+            box-shadow: 0 0 15px rgba(242, 181, 197, 0.8), 0 0 0 4px rgba(255,255,255,0.6); 
+        }
+        /* ========================================================================================= */
         
         .tl-month { font-family: 'Dancing Script', cursive; font-size: 1.2rem; color: var(--accent-pink); display: block; margin-bottom: 0.5rem; font-weight: 600; }
         .tl-card h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--text-dark); margin-bottom: 0.8rem; line-height: 1.3;}
@@ -213,7 +260,7 @@
         .lightbox-close { position: absolute; top: 20px; right: 30px; color: white; font-size: 3rem; cursor: pointer; background: none; border: none; outline: none; transition: color 0.3s; }
         .lightbox-close:hover { color: var(--accent-pink); }
 
-        /* ===================== SURAT CINTA (FIX AMAN DARI ANIMASI) ===================== */
+        /* ===================== SURAT CINTA ===================== */
         .letter-section { padding: 6rem 1.5rem 10rem 1.5rem; background: var(--white); overflow: visible; transition: padding-bottom 1.2s ease; }
         .letter-header { text-align: center; margin-bottom: 5rem; }
         .env-container { perspective: 1200px; width: 100%; display: flex; justify-content: center; }
@@ -273,9 +320,7 @@
             width: 220px; padding: 1.5rem; background: #FEF9C3; border-radius: 2px 15px 15px 15px; 
             box-shadow: 3px 6px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s ease, z-index 0.3s; 
         }
-        .reveal-wrap:nth-child(even) .sticky-note { background: #FCE8EF; transform: rotate(3deg); }
-        .reveal-wrap:nth-child(odd) .sticky-note { transform: rotate(-4deg); }
-        .reveal-wrap:nth-child(3n) .sticky-note { background: #E0F2FE; transform: rotate(1deg); }
+        
         .sticky-note:hover, .sticky-note:active { transform: scale(1.15) rotate(0deg) !important; z-index: 50; box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
         .pin { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 12px; height: 12px; background: #EF4444; border-radius: 50%; box-shadow: inset -2px -2px 4px rgba(0,0,0,0.3), 1px 2px 4px rgba(0,0,0,0.2); }
         .note-text { font-family: 'Dancing Script', cursive; font-size: 1.4rem; color: #333; line-height: 1.4; margin-bottom: 1rem; margin-top: 10px; }
@@ -307,7 +352,6 @@
             .photo-card { padding: 8px 8px 45px 8px; }
             .photo-caption { font-size: 1.2rem; bottom: 10px; }
 
-            /* FIX ALIGNMENT HP (Titik Pas di Tengah Garis) */
             .timeline-line { left: 24px; transform: none; } 
             .timeline-progress { left: 24px; transform: none; }
             
@@ -315,7 +359,6 @@
             .tl-item.left .tl-card-wrap, .tl-item.right .tl-card-wrap { grid-column: 2 !important; text-align: left; max-width: 100%; }
             .tl-card { padding: 2rem 1.5rem; }
             
-            /* Titik disejajarkan sempurna */
             .tl-item.left .tl-dot-wrap, .tl-item.right .tl-dot-wrap { 
                 grid-column: 1 !important; justify-content: center !important; 
             }
@@ -526,8 +569,7 @@
                 <div class="letter-content">
                     <span class="salutation">Amanda yang kusayang,</span>
                     Satu tahun berlalu begitu cepat, tapi setiap momennya terasa sangat berharga. Kamu adalah alasan aku tersenyum setiap harinya...<br><br>
-                    Kotaknya udah fix ganti warna Pink Lembut pas disentuh garis progress kan? Teksnya juga udah rapi rata kiri semua.<br><br>
-                    Suratnya juga gue pastikan nggak kemana-mana.<br><br>
+                    Pesannya sekarang otomatis tersimpan di Google Sheets ya!<br><br>
                     <span class="signature">— Aang, selamanya 💙</span>
                 </div>
             </div>
@@ -555,15 +597,8 @@
             <button type="submit" class="btn-submit">Kirim Pesan!</button>
         </form>
     </div>
-    <div class="sticky-board" id="sticky-board">
-        <div class="reveal-wrap anim-up delay-3">
-            <div class="sticky-note">
-                <div class="pin"></div>
-                <p class="note-text">Happy 1st anniversary Aang dan Amanda! Gemes banget kalian berdua 😍</p>
-                <p class="note-author">- Teman Kalian</p>
-            </div>
-        </div>
-    </div>
+    
+    <div class="sticky-board" id="sticky-board"></div>
 </section>
 
 <footer class="footer">
@@ -738,23 +773,83 @@
         }
     });
 
-    function submitNote(event) {
+    // ===================== BAGIAN INTEGRASI GOOGLE SHEETS API ===================== 
+    
+    // MASUKIN URL API GOOGLE SCRIPT LO DI SINI
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyWWx4QbbjtyCrlflfwXSM9czSF_OHwzoI5RoydoyO47mp0eA1xs4-OM00bD57hEnFNOQ/exec'; 
+    
+    const board = document.getElementById('sticky-board');
+
+    // FUNGSI BUAT NGAMBIL DATA PESAN DARI GOOGLE SHEETS
+    function loadNotes() {
+        board.innerHTML = '<p style="text-align:center; width:100%; color:var(--text-mid);">Memuat doa dan harapan...</p>';
+        fetch(scriptURL)
+        .then(response => response.json())
+        .then(data => {
+            board.innerHTML = '';
+            for (let i = data.length - 1; i >= 0; i--) {
+                const note = data[i];
+                const newNote = document.createElement('div');
+                const rotations = ['rotate(3deg)', 'rotate(-4deg)', 'rotate(1deg)'];
+                const bgs = ['#FEF9C3', '#FCE8EF', '#E0F2FE'];
+                const randomRot = rotations[i % 3];
+                const randomBg = bgs[i % 3];
+
+                newNote.className = 'reveal-wrap anim-up visible';
+                newNote.innerHTML = `
+                    <div class="sticky-note" style="background:${randomBg}; transform:${randomRot};">
+                        <div class="pin"></div>
+                        <p class="note-text">${note.Pesan}</p>
+                        <p class="note-author">- ${note.Nama}</p>
+                    </div>
+                `;
+                board.appendChild(newNote);
+            }
+            if(data.length === 0) {
+                board.innerHTML = '<p style="text-align:center; width:100%; color:var(--text-mid);">Jadilah yang pertama memberi ucapan! ✨</p>';
+            }
+        })
+        .catch(error => {
+            console.error('Error!', error.message);
+            board.innerHTML = '<p style="text-align:center; width:100%; color:red;">Gagal memuat pesan. Coba refresh halaman.</p>';
+        });
+    }
+
+    // Panggil fungsi load saat web dibuka
+    loadNotes();
+
+    // FUNGSI BUAT NGIRIM PESAN KE GOOGLE SHEETS
+    window.submitNote = function(event) {
         event.preventDefault();
-        const name = document.getElementById('guest-name').value;
-        const msg = document.getElementById('guest-msg').value;
-        const board = document.getElementById('sticky-board');
+        const form = document.getElementById('note-form');
+        const btnSubmit = document.querySelector('.btn-submit');
         
-        const newNote = document.createElement('div');
-        newNote.className = 'reveal-wrap anim-up visible'; 
-        newNote.innerHTML = `
-            <div class="sticky-note">
-                <div class="pin"></div>
-                <p class="note-text">${msg}</p>
-                <p class="note-author">- ${name}</p>
-            </div>
-        `;
-        board.prepend(newNote);
-        document.getElementById('note-form').reset();
+        btnSubmit.innerHTML = 'Mengirim...';
+        btnSubmit.disabled = true;
+
+        const namaValue = document.getElementById('guest-name').value;
+        const msgValue = document.getElementById('guest-msg').value;
+
+        let formData = new FormData();
+        formData.append('Nama', namaValue);
+        formData.append('Pesan', msgValue);
+
+        fetch(scriptURL, { method: 'POST', body: formData})
+        .then(response => {
+            console.log('Success!', response);
+            form.reset();
+            btnSubmit.innerHTML = 'Kirim Pesan!';
+            btnSubmit.disabled = false;
+            loadNotes(); // Muat ulang data biar pesan baru langsung muncul
+        })
+        .catch(error => {
+            console.error('Error!', error.message);
+            btnSubmit.innerHTML = 'Gagal Mengirim!';
+            setTimeout(() => {
+                btnSubmit.innerHTML = 'Kirim Pesan!';
+                btnSubmit.disabled = false;
+            }, 3000);
+        });
     }
 
     function spawnParticle() {
