@@ -246,7 +246,7 @@
         .letter-content .signature { font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: var(--deep-blue); margin-top: 2rem; display: block; text-align: right; }
 
         /* ==========================================================================
-           9. CSS: PAPAN DOA (GUESTBOOK) - FIX OVERLAPPING DI HP!
+           9. CSS: PAPAN DOA (GUESTBOOK)
            ========================================================================== */
         .wishwall-section { padding: 5rem 1.5rem; background: linear-gradient(180deg, var(--white) 0%, var(--cream) 100%); overflow: hidden; position: relative; z-index: 5;}
         .wishwall-header { text-align: center; margin-bottom: 3rem; }
@@ -261,10 +261,12 @@
 
         .sticky-board { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; max-width: 1000px; margin: 0 auto; padding-top: 2rem; }
         .sticky-note { width: 220px; padding: 1.5rem; background: #FEF9C3; border-radius: 2px 15px 15px 15px; box-shadow: 3px 6px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s ease, z-index 0.3s; }
+        
         .reveal-wrap:nth-child(even) .sticky-note { background: #FCE8EF; transform: rotate(3deg); }
         .reveal-wrap:nth-child(odd) .sticky-note { transform: rotate(-4deg); }
         .reveal-wrap:nth-child(3n) .sticky-note { background: #E0F2FE; transform: rotate(1deg); }
         .sticky-note:hover, .sticky-note:active { transform: scale(1.15) rotate(0deg) !important; z-index: 50; box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+        
         .pin { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 12px; height: 12px; background: #EF4444; border-radius: 50%; box-shadow: inset -2px -2px 4px rgba(0,0,0,0.3), 1px 2px 4px rgba(0,0,0,0.2); }
         .note-text { font-family: 'Dancing Script', cursive; font-size: 1.4rem; color: #333; line-height: 1.4; margin-bottom: 1rem; margin-top: 10px; }
         .note-author { font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 600; color: #666; text-align: right; }
@@ -295,16 +297,13 @@
             .cd-num { font-size: 1.8rem; }
             
             /* TIMELINE HP: FIX ZIG-ZAG ULAR TANGGA PRESISI TINGGI */
-            .timeline-line-pc, .timeline-progress-pc { display: none !important; } /* Matikan garis PC */
+            .timeline-line-pc, .timeline-progress-pc { display: none !important; } 
             
-            /* Jarak mutlak margin 3rem (48px) sebagai jembatan garis horizontal */
             .tl-item { 
                 margin-bottom: 3rem; padding-bottom: 0; 
-                /* FIX BULETAN MELENCENG: Pastiin alignment selalu di tengah! */
                 align-items: center; 
             }
             
-            /* Formasi Kotak Kiri & Kanan dengan kolom fix 46px */
             .tl-item.left { grid-template-columns: 46px 1fr !important; gap: 12px; }
             .tl-item.left .tl-card-wrap { grid-column: 2 !important; text-align: left; max-width: 100%; }
             .tl-item.left .tl-dot-wrap { grid-column: 1 !important; justify-content: center !important; }
@@ -312,21 +311,18 @@
             .tl-item.right { grid-template-columns: 1fr 46px !important; gap: 12px; }
             .tl-item.right .tl-card-wrap { grid-column: 1 !important; text-align: left; max-width: 100%; }
             .tl-item.right .tl-dot-wrap { grid-column: 2 !important; justify-content: center !important; }
-            
-            /* KOTAK MELENGKUNG HALUS 24PX SESUAI REQUEST */
+
             .tl-card { padding: 1.5rem 1.2rem; transform: scale(0.95); width: 100%; border-radius: 24px; }
             .tl-month { font-size: 1rem; }
             .tl-card h3 { font-size: 1.2rem; margin-bottom: 0.4rem; }
             .tl-card p { font-size: 0.85rem; line-height: 1.4; }
             .tl-more { padding: 5px 12px; font-size: 0.75rem; margin-top: 0.5rem; }
             .tl-dot-inner { width: 20px; height: 20px; border-width: 4px; } 
-            .tl-empty { display: none; }
 
             /* Galeri di HP */
-            .gallery-grid { column-count: 2; column-gap: 1.5rem; padding: 0 1rem; }
-            .photo-card-wrap { margin-bottom: 1.5rem; }
-            .photo-card { padding: 8px 8px 45px 8px; }
-            .photo-caption { font-size: 1.2rem; bottom: 10px; }
+            .gallery-wrapper { padding: 0 1rem; }
+            .gallery-item { margin-bottom: 0.5rem; padding: 6px 6px 35px 6px; }
+            .photo-caption { font-size: 1.1rem; bottom: 8px; }
 
             .story-modal-content { width: 95%; padding: 2.5rem 1.5rem; }
             .modal-title { font-size: 1.6rem; }
@@ -353,17 +349,28 @@
                 100% { transform: translateY(0); z-index: 2; height: 170px; width: 280px; left: 10px; }
             }
 
-            /* FIX: GUESTBOOK PAPAN DOA DI HP (Biar Nama Gak Ketutup!) */
+            /* FIX: GUESTBOOK PAPAN DOA DI HP KEMBALI KETUMPUK ESTETIK! */
             .wish-form { padding: 1.5rem; margin-bottom: 2rem; }
             .wish-form input, .wish-form textarea { padding: 10px; font-size: 0.95rem; }
             
-            /* Jarak antar sticky notes ditambah biar lega & gak saling nindih parah */
-            .sticky-board { gap: 15px; padding-top: 1rem; }
-            
-            /* Margin minus dihapus, width dilebarin jadi 150px biar teks nama aman */
-            .sticky-note { width: 150px; padding: 1rem; margin: 5px 0; box-shadow: 2px 5px 12px rgba(0,0,0,0.15); }
-            .note-text { font-size: 1.05rem; margin-top: 5px; margin-bottom: 0.5rem; }
-            .note-author { font-size: 0.75rem; }
+            .sticky-board { 
+                display: flex; 
+                flex-wrap: wrap; 
+                justify-content: center; 
+                gap: 0; 
+                padding-top: 1rem; 
+            }
+            .sticky-board > div { 
+                display: block; 
+            }
+            .sticky-note { 
+                width: 150px; /* Cukup lebar biar nama aman */
+                padding: 1rem; 
+                margin: -5px -12px; /* Margin numpuk estetik */
+                box-shadow: 2px 5px 12px rgba(0,0,0,0.15); 
+            }
+            .note-text { font-size: 0.95rem; margin-top: 5px; margin-bottom: 0.5rem; line-height: 1.3; } 
+            .note-author { font-size: 0.75rem; text-align: right; }
             .footer-names { font-size: 2rem; }
         }
     </style>
@@ -459,8 +466,12 @@
                 <div class="tl-card">
                     <span class="tl-month">September 2025</span>
                     <h3>Momen Jadian Kita 🌸</h3>
-                    <p>Awal indah cerita kita dimulai. Hari di mana aku berani bilang kalau aku sayang kamu.</p>
-                    <div class="tl-detail"><p>Cerita lengkapnya di sini... ✨</p></div>
+                    <p>Dari yang cuma sekadar partner proker kampus, panik karena cemburu, sampai akhirnya nekat utarain isi hati.</p>
+                    <div class="tl-detail">
+                        <p>Semuanya berawal dari proker kampus bimbingan maba. Masih inget banget momen papasan di parkiran, aku kira kamu pengunjung biasa, eh taunya kita duduk hadap-hadapan pas briefing di kantin. Waktu dibagi partner, rasanya seneng banget ternyata aku dipasangin sama cewek yang selama ini aku suka! Untung aja wacana perombakan partner waktu itu nggak jadi.</p>
+                        <p>Selama gladi, kerjaan sampinganku ya mandangin kamu diam-diam. Puncaknya pas makan siang di kelas lantai 3, kamu tiba-tiba duduk di sebelahku karena cuma aku yang kamu kenal. Aslinya aku baper parah dan salting sampai sok-sokan kabur ke kamar mandi! Hari kedua waktu partner dipisah, jujur aku cemburu banget lihat kamu bawain obat buat cowok lain. Dari situ aku nekat chat kamu duluan setelah acara evaluasi selesai karena nggak mau lost contact.</p>
+                        <p>Akhirnya tanggal 4 September aku utarain semuanya. Walau sempet ditolak yang bikin hatiku kerasa patah banget, eh beberapa jam kemudian kamu chat dan nerima aku. Momen yang nggak akan pernah aku lupain!</p>
+                    </div>
                     <button class="tl-more" onclick="openStoryModal(this)">Buka Cerita</button>
                 </div>
             </div>
@@ -470,10 +481,14 @@
         <div class="tl-item right">
             <div class="tl-card-wrap reveal-wrap anim-right">
                 <div class="tl-card">
-                    <span class="tl-month">Jalan-jalan Pertama 🚗</span>
-                    <h3>Menyusul! ✨</h3>
-                    <p>Momen tak terlupakan pas kita pertama kali jalan-jalan berdua.</p>
-                    <div class="tl-detail"><p>Isi cerita lengkapnya di sini...</p></div>
+                    <span class="tl-month">Kencan Pertama 🚗</span>
+                    <h3>Seblak & Pagi Buta ✨</h3>
+                    <p>Rela bangun pagi buta buat jemput ke kampus, dan momen canggung tapi manis pas pertama kali makan seblak berdua.</p>
+                    <div class="tl-detail">
+                        <p>Berawal dari rasa penasaran soal makanan kesukaanmu, dan muncul lah satu kata ajaib: Seblak! Esok harinya, aku kumpulin keberanian buat nawarin jemput berangkat kampus bareng. Asli, excited parah!</p>
+                        <p>Bayangin aja, kelasku anak Teknik Informatika baru mulai jam 8, tapi aku udah bangun jam 6, siap-siap, dan jam setengah 7 udah standby! Walaupun waktu itu nyaliku cuma mentok sampai nunggu di depan gang rumahmu aja, hehe. Selesai kelas, kita akhirnya jalan bareng beli seblak. Di situ rasanya canggung banget, bingung mau ngobrol apa saking deg-degannya jalan berdua sama kamu.</p>
+                        <p>Habis itu aku nganterin kamu pulang sampai bener-bener di depan rumah. Walau masih belum berani mampir ke dalem, rasanya udah bahagia banget bisa tau rumah kamu hari itu.</p>
+                    </div>
                     <button class="tl-more" onclick="openStoryModal(this)">Buka Cerita</button>
                 </div>
             </div>
@@ -487,8 +502,12 @@
                 <div class="tl-card">
                     <span class="tl-month">Hari Ini & Selamanya 💙</span>
                     <h3>Satu Tahun & Selamanya</h3>
-                    <p>Masih banyak mimpi yang akan kita kejar berdua. Terima kasih sudah bersamaku.</p>
-                    <div class="tl-detail"><p>Harapan-harapan kamu buat masa depan kalian berdua isi di sini ya!</p></div>
+                    <p>Dari yang cuma berani nunggu di depan gang, semoga kelak bisa terus melangkah bareng buat masa depan.</p>
+                    <div class="tl-detail">
+                        <p>Mengingat dulu kita sama-sama cuma punya pengalaman pacaran virtual atau orang jauh, sekarang rasanya bersyukur banget kita bisa ngelewatin semuanya secara nyata berdua. Nggak kerasa udah satu tahun berlalu dari momen-momen lucu itu.</p>
+                        <p>Dari yang awalnya cuma bisa mandangin kamu diam-diam pas briefing, salting di lantai 3, canggung makan seblak bareng, sampai cuma berani nunggu di depan gang. Harapanku di anniversary pertama ini, semoga kita bisa terus belajar bareng, saling support kesibukan kampus masing-masing, dan wujudin mimpi-mimpi kita ke depannya.</p>
+                        <p>Terima kasih ya, udah berani ngambil keputusan buat ngerubah jawaban kamu dan nerima aku di hari itu. I love you, Amanda.</p>
+                    </div>
                     <button class="tl-more" onclick="openStoryModal(this)">Buka Cerita</button>
                 </div>
             </div>
@@ -560,9 +579,9 @@
                 <div class="paper-deco">✧ ✧ ✧</div>
                 <div class="letter-content">
                     <span class="salutation">Amanda yang kusayang,</span>
-                    Satu tahun berlalu begitu cepat, tapi setiap momennya terasa sangat berharga. Kamu adalah alasan aku tersenyum setiap harinya...<br><br>
-                    Tuh liat di HP, sudut belokan garis pinknya sekarang beneran melengkung halus banget kan? Titik buletannya juga udah nempel sejajar pas di tengah-tengah.<br><br>
-                    Dan lihat papan doa di bawah, nama temen lu gak ketutup lagi! 😎<br><br>
+                    Satu tahun berlalu begitu cepat, tapi setiap momennya terasa sangat berharga. Kalau ingat lagi hari di mana kita pertama papasan di parkiran kampus, sampai akhirnya duduk berdua makan seblak dengan canggung, rasanya aku jadi cowok paling beruntung.<br><br>
+                    Terima kasih sudah memilih untuk percaya sama aku, walau awalnya sempat menolakku, hehe. Dari cowok yang dulu cuma berani nunggu jemputan di depan gang rumahmu, sampai sekarang bisa terus genggam tanganmu.<br><br>
+                    Tetap jadi Amandanya Aang ya. Mari kita buat jutaan kenangan indah lainnya.<br><br>
                     <span class="signature">— Aang, selamanya 💙</span>
                 </div>
             </div>
@@ -735,6 +754,9 @@
         svgProg.style.strokeDasharray = length;
         svgProg.style.strokeDashoffset = length; // Sembunyiin awal garis
         svgProg.dataset.length = length;
+
+        // FIX BUG FLICKER: Trigger scroll event biar garis pink langsung nyesuain posisi di HP
+        window.dispatchEvent(new Event('scroll'));
     }
 
     // Gambar ulang garis kalau layar di-resize
@@ -873,6 +895,9 @@
                 const randomBg = bgs[i % 3];
 
                 newNote.className = 'reveal-wrap anim-up visible';
+                // FIX ANIMASI: Kertas muncul satu per satu bergantian
+                newNote.style.animationDelay = `${(data.length - 1 - i) * 0.15}s`; 
+
                 newNote.innerHTML = `
                     <div class="sticky-note" style="background:${randomBg}; transform:${randomRot};">
                         <div class="pin"></div>
