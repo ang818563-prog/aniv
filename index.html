@@ -5,19 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aang & Amanda ♡ 1 Year Together</title>
     
-   <!-- Meta Tags Sosmed (Udah Pakai Link Lengkap) -->
+    <!-- Meta Tags Sosmed (Pastiin URL-nya udah URL web GitHub lu pas mau rilis) -->
     <meta property="og:title" content="Aang & Amanda ♡ 1st Anniversary">
     <meta property="og:description" content="Satu tahun perjalanan, sejuta kenangan ✨">
-    <meta property="og:image" content="https://ang818563-prog.github.io/aniv/page1.jpeg"> 
-    <meta property="og:url" content="https://ang818563-prog.github.io/aniv/">
+    <meta property="og:image" content="page1.jpeg"> 
     <meta property="og:type" content="website">
 
-    <!-- Meta Tags Khusus Twitter/X (Biar makin aman di semua sosmed) -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Aang & Amanda ♡ 1st Anniversary">
-    <meta name="twitter:description" content="Satu tahun perjalanan, sejuta kenangan ✨">
-    <meta name="twitter:image" content="https://ang818563-prog.github.io/aniv/page1.jpeg">
-    
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/833/833472.png">
 
@@ -39,19 +32,36 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--cream); }
         ::-webkit-scrollbar-thumb { background: var(--powder-blue); border-radius: 10px; }
+        
         body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text-dark); overflow-x: hidden; overflow-y: hidden; cursor: default; }
 
         /* ==========================================================================
-           2. CSS: HALAMAN AMPLOP PEMBUKA
+           2. CSS: HALAMAN AMPLOP PEMBUKA & ANIMASI KESEDOT RUANG WAKTU
            ========================================================================== */
-        .envelope-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100svh; background-image: url('page1.jpeg'); background-size: cover; background-position: center center; background-repeat: no-repeat; background-color: var(--light-blue); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1); }
+        .envelope-screen { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100svh; 
+            background-image: url('page1.jpeg'); background-size: cover; background-position: center center; background-repeat: no-repeat; 
+            background-color: var(--light-blue); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            transform-origin: center center;
+        }
+        
+        .envelope-screen.portal-open {
+            animation: suckIntoTimeSpace 1.5s cubic-bezier(0.8, -0.2, 0.2, 1) forwards;
+            pointer-events: none;
+        }
+        @keyframes suckIntoTimeSpace {
+            0% { transform: scale(1); opacity: 1; filter: blur(0) brightness(1); }
+            20% { transform: scale(1.05); filter: blur(2px) brightness(1.5); } 
+            100% { transform: scale(0) perspective(500px) translateZ(-1000px); opacity: 0; filter: blur(40px) brightness(10); border-radius: 50%; box-shadow: inset 0 0 300px var(--white); } 
+        }
+
         .envelope-content { text-align: center; animation: pulse-envelope 2s infinite ease-in-out; padding: 40px 25px; position: relative; z-index: 1; max-width: 85%; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.08); opacity: 0; transform: translateY(20px); animation: fadeInGlass 1s cubic-bezier(0.23, 1, 0.32, 1) forwards; animation-delay: 0.2s; }
         @keyframes fadeInGlass { to { opacity: 1; transform: translateY(0); } }
         .envelope-content h2, .envelope-content p, .envelope-content button { opacity: 0; transform: translateY(20px); }
         .envelope-content h2 { animation: fadeInItem 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards; animation-delay: 0.6s; font-family: 'Playfair Display', serif; font-size: 3.2rem; color: var(--dark-blue); margin-bottom: 5px; text-shadow: 0 2px 10px rgba(255,255,255,0.8); }
         .envelope-content p { animation: fadeInItem 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards; animation-delay: 0.9s; font-family: 'Dancing Script', cursive; font-size: 1.6rem; color: #A84C65; margin-bottom: 35px; font-weight: 700; text-shadow: 0 1px 8px rgba(255,255,255,0.8); }
         .envelope-content button { animation: fadeInItem 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards; animation-delay: 1.2s; background: var(--dark-blue); color: white; border: none; padding: 15px 45px; font-family: 'Nunito', sans-serif; font-size: 1.1rem; font-weight: 600; border-radius: 30px; cursor: pointer; box-shadow: 0 8px 20px rgba(45, 74, 92, 0.3); transition: all 0.3s ease; }
-        .btn-open:hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(45, 74, 92, 0.5); background: #1f3542; }
+        .btn-open:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 12px 25px rgba(45, 74, 92, 0.5); background: #1f3542; }
         @keyframes fadeInItem { to { opacity: 1; transform: translateY(0); } }
 
         /* ==========================================================================
@@ -65,9 +75,19 @@
         @keyframes rotateMusic { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         /* ==========================================================================
-           4. CSS: HERO (VIDEO BERANDA & COUNTDOWN)
+           4. CSS: HERO (EFEK TIBA DARI RUANG DAN WAKTU)
            ========================================================================== */
-        .hero { min-height: 100svh; background-color: var(--light-blue); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 2rem; }
+        .hero { 
+            min-height: 100svh; background-color: var(--light-blue); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 2rem; 
+            transform: scale(3) perspective(1000px) translateZ(500px);
+            filter: blur(25px) brightness(2.5);
+            transition: transform 2s cubic-bezier(0.1, 0.9, 0.2, 1), filter 2s ease-out;
+        }
+        .hero.start-anim {
+            transform: scale(1) perspective(1000px) translateZ(0);
+            filter: blur(0px) brightness(1);
+        }
+
         .hero-bg-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center; z-index: 0; }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(253, 248, 245, 0.3); z-index: 1; }
         .particles { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
@@ -78,18 +98,18 @@
         .start-anim .hero-content, .start-anim .hero-badge, .start-anim .hero-names, .start-anim .hero-ampersand, .start-anim .hero-divider, .start-anim .hero-date, .start-anim .countdown { animation-play-state: running; }
         @keyframes heroReveal { from { opacity: 0; transform: translateY(50px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
-        .hero-badge { display: inline-block; font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: var(--deep-blue); letter-spacing: 2px; margin-bottom: 1.5rem; padding: 0.5rem 2rem; border: 1px solid rgba(90,143,168,0.3); border-radius: 50px; background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); animation: item-reveal-up 1.5s 0.6s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
-        .hero-names { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 10vw, 7.5rem); color: var(--text-dark); line-height: 1.1; font-style: italic; text-shadow: 0 4px 15px rgba(255,255,255,0.8); animation: item-reveal-up 1.5s 0.8s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
-        .hero-ampersand { display: block; font-family: 'Dancing Script', cursive; font-size: 0.35em; font-style: normal; color: var(--accent-pink); letter-spacing: 0.5em; margin: 0.3em 0; animation: item-reveal-up 1.5s 1s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
-        .hero-divider { margin: 2rem auto; display: flex; align-items: center; justify-content: center; gap: 1rem; animation: item-reveal-up 1.5s 1.1s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
+        .hero-badge { display: inline-block; font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: var(--deep-blue); letter-spacing: 2px; margin-bottom: 1.5rem; padding: 0.5rem 2rem; border: 1px solid rgba(90,143,168,0.3); border-radius: 50px; background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); animation: item-reveal-up 1.5s 0.8s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
+        .hero-names { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 10vw, 7.5rem); color: var(--text-dark); line-height: 1.1; font-style: italic; text-shadow: 0 4px 15px rgba(255,255,255,0.8); animation: item-reveal-up 1.5s 1s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
+        .hero-ampersand { display: block; font-family: 'Dancing Script', cursive; font-size: 0.35em; font-style: normal; color: var(--accent-pink); letter-spacing: 0.5em; margin: 0.3em 0; animation: item-reveal-up 1.5s 1.2s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
+        .hero-divider { margin: 2rem auto; display: flex; align-items: center; justify-content: center; gap: 1rem; animation: item-reveal-up 1.5s 1.3s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
         .hero-divider::before, .hero-divider::after { content: ''; width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--deep-blue)); }
         .hero-divider::after { transform: scaleX(-1); }
         .hero-heart { color: var(--accent-pink); font-size: 2rem; animation: heartbeat 1.5s ease infinite; }
         @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
 
-        .hero-date { font-size: 1rem; color: var(--text-mid); letter-spacing: 5px; text-transform: uppercase; font-weight: 600; background: rgba(255,255,255,0.5); padding: 5px 15px; border-radius: 20px; animation: item-reveal-up 1.5s 1.2s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
+        .hero-date { font-size: 1rem; color: var(--text-mid); letter-spacing: 5px; text-transform: uppercase; font-weight: 600; background: rgba(255,255,255,0.5); padding: 5px 15px; border-radius: 20px; animation: item-reveal-up 1.5s 1.4s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
 
-        .countdown { margin-top: 3rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; animation: item-reveal-up 1.5s 1.4s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
+        .countdown { margin-top: 3rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; animation: item-reveal-up 1.5s 1.6s cubic-bezier(0.23,1,0.32,1) both; animation-play-state: paused; }
         .cd-item { text-align: center; background: rgba(255,255,255,0.8); backdrop-filter: blur(15px); border: 1px solid rgba(184,212,232,0.5); border-radius: 16px; padding: 1rem 1.5rem; min-width: 80px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease; }
         .cd-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 600; color: var(--dark-blue); display: block; line-height: 1; }
         .cd-label { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-mid); margin-top: 0.5rem; display: block; font-weight: 600;}
@@ -123,30 +143,20 @@
         .timeline { position: relative; max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
         
         /* WADAH SVG UNTUK MENGGAMBAR GARIS MELENGKUNG SEMPURNA */
-        .timeline-svg-container {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 1;
-        }
+        .timeline-svg-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
         
         /* GRID KOTAK CERITA */
         .tl-item { display: grid; grid-template-columns: 1fr 60px 1fr; align-items: center; margin-bottom: 4rem; position: relative; z-index: 3;}
         .tl-item.left .tl-card-wrap { grid-column: 1; margin-left: auto; margin-right: 0; }
         .tl-item.right .tl-card-wrap { grid-column: 3; margin-left: 0; margin-right: auto; }
         
-        /* TITIK BULETAN (DIJAMIN CENTER SECARA VERTIKAL) */
-        .tl-item.left .tl-dot-wrap, .tl-item.right .tl-dot-wrap { 
-            grid-column: 2; height: 100%; display: flex; justify-content: center; align-items: center; position: relative; z-index: 4; 
-        }
-
-        .tl-dot-inner { 
-            width: 26px; height: 26px; background: var(--white); 
-            border: 4px solid var(--powder-blue); border-radius: 50%; 
-            transition: all 0.2s ease; position: relative; z-index: 4;
-        }
+        /* TITIK BULETAN */
+        .tl-item.left .tl-dot-wrap, .tl-item.right .tl-dot-wrap { grid-column: 2; height: 100%; display: flex; justify-content: center; align-items: center; position: relative; z-index: 4; }
+        .tl-dot-inner { width: 26px; height: 26px; background: var(--white); border: 4px solid var(--powder-blue); border-radius: 50%; transition: all 0.2s ease; position: relative; z-index: 4; }
 
         .tl-card-wrap { width: 100%; max-width: 380px; display: flex; align-items: center; }
         
-        /* KOTAK CERITA (LEBIH MELENGKUNG: BORDER RADIUS 24PX) */
+        /* KOTAK CERITA */
         .tl-card { 
             background: rgba(255, 255, 255, 0.6); border-radius: 24px; padding: 2.5rem 2rem; width: 100%;
             border: 2px solid rgba(184,212,232,0.3); box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
@@ -266,8 +276,9 @@
         .btn-submit { background: var(--deep-blue); color: var(--white); border: none; padding: 12px 25px; border-radius: 8px; font-family: 'Nunito', sans-serif; font-weight: 600; cursor: pointer; width: 100%; transition: background 0.3s; }
         .btn-submit:hover { background: var(--dark-blue); }
 
-        .sticky-board { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; max-width: 1000px; margin: 0 auto; padding-top: 2rem; }
-        .sticky-note { width: 220px; padding: 1.5rem; background: #FEF9C3; border-radius: 2px 15px 15px 15px; box-shadow: 3px 6px 15px rgba(0,0,0,0.1); position: relative; transition: transform 0.3s ease, z-index 0.3s; }
+        .sticky-board { display: flex; flex-wrap: wrap; justify-content: center; gap: 0; padding-top: 1rem; max-width: 1000px; margin: 0 auto; }
+        .sticky-board > div { display: block; }
+        .sticky-note { width: 150px; padding: 1.5rem; margin: -5px -12px; background: #FEF9C3; border-radius: 2px 15px 15px 15px; box-shadow: 2px 5px 12px rgba(0,0,0,0.15); position: relative; transition: transform 0.3s ease, z-index 0.3s; }
         
         .reveal-wrap:nth-child(even) .sticky-note { background: #FCE8EF; transform: rotate(3deg); }
         .reveal-wrap:nth-child(odd) .sticky-note { transform: rotate(-4deg); }
@@ -275,23 +286,94 @@
         .sticky-note:hover, .sticky-note:active { transform: scale(1.15) rotate(0deg) !important; z-index: 50; box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
         
         .pin { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 12px; height: 12px; background: #EF4444; border-radius: 50%; box-shadow: inset -2px -2px 4px rgba(0,0,0,0.3), 1px 2px 4px rgba(0,0,0,0.2); }
-        .note-text { font-family: 'Dancing Script', cursive; font-size: 1.4rem; color: #333; line-height: 1.4; margin-bottom: 1rem; margin-top: 10px; }
+        .note-text { font-family: 'Dancing Script', cursive; font-size: 1.1rem; color: #333; line-height: 1.4; margin-bottom: 1rem; margin-top: 10px; }
         .note-author { font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 600; color: #666; text-align: right; }
 
+
         /* ==========================================================================
-           10. CSS: FOOTER
+           10. CSS: FOOTER CINEMATIC SLIDESHOW (NEW!)
            ========================================================================== */
-        .footer { background: linear-gradient(150deg, #3A6680 0%, var(--dark-blue) 100%); color: rgba(255,255,255,0.85); padding: 4rem 1.5rem; text-align: center; position: relative; overflow: hidden; }
-        .footer-names { font-family: 'Playfair Display', serif; font-style: italic; font-size: 2.5rem; color: var(--white); display: block; margin-bottom: 0.5rem; position: relative; }
-        .footer-date { font-family: 'Dancing Script', cursive; font-size: 1.2rem; color: var(--powder-blue); display: block; position: relative; }
-        .footer-hearts { display: flex; justify-content: center; gap: 1rem; margin: 1.5rem 0; position: relative; }
-        .footer-heart { width: 10px; height: 10px; background: var(--accent-pink); transform: rotate(-45deg); position: relative; animation: heartbeat 2s ease infinite; }
+        .footer-wrapper {
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--dark-blue);
+        }
+        
+        .footer-cinematic {
+            position: relative;
+            height: 350px; 
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Gradasi Halus Papan Doa menyatu ke Footer */
+        .footer-top-gradient {
+            position: absolute; top: 0; left: 0; width: 100%; height: 80px;
+            background: linear-gradient(180deg, var(--cream) 0%, transparent 100%);
+            z-index: 5;
+        }
+
+        /* Dark Overlay/Kaca Film Biru Gelap di atas Foto */
+        .footer-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(0deg, var(--dark-blue) 0%, rgba(45, 74, 92, 0.6) 100%);
+            z-index: 2;
+        }
+
+        /* Mesin Animasi Slideshow CSS Murni */
+        .slideshow-bg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+        .slide {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center center;
+            opacity: 0;
+            animation: cinematicSlide 25s infinite linear; /* Total durasi 25 Detik untuk 5 foto */
+        }
+        
+        /* Menggunakan 5 Foto dari Galeri Lu */
+        .slide-1 { background-image: url('foto1.png'); animation-delay: 0s; }
+        .slide-2 { background-image: url('foto2.png'); animation-delay: 5s; }
+        .slide-3 { background-image: url('foto3.png'); animation-delay: 10s; }
+        .slide-4 { background-image: url('foto4.png'); animation-delay: 15s; }
+        .slide-5 { background-image: url('foto5.png'); animation-delay: 20s; }
+
+        /* Rumus Crossfade & Zoom-In Perlahan (Ken Burns Effect) */
+        @keyframes cinematicSlide {
+            0% { opacity: 0; transform: scale(1); }
+            5% { opacity: 1; }
+            20% { opacity: 1; }
+            25% { opacity: 0; transform: scale(1.15); }
+            100% { opacity: 0; transform: scale(1.15); }
+        }
+
+        /* Konten Tulisan Nama di Tengah */
+        .footer-content { position: relative; z-index: 10; text-align: center; margin-top: -30px; }
+        .footer-names { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(2.5rem, 8vw, 3.5rem); color: var(--white); text-shadow: 0 4px 15px rgba(0,0,0,0.5); display: block; margin-bottom: 0.5rem; }
+        
+        .footer-hearts { display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem; position: relative; }
+        .footer-heart { width: 12px; height: 12px; background: var(--accent-pink); transform: rotate(-45deg); position: relative; animation: heartbeat 2s ease infinite; box-shadow: 0 0 10px rgba(242, 181, 197, 0.5); }
         .footer-heart:nth-child(2) { animation-delay: 0.3s; }
         .footer-heart:nth-child(3) { animation-delay: 0.6s; }
-        .footer-heart::before, .footer-heart::after { content: ''; position: absolute; width: 10px; height: 10px; background: var(--accent-pink); border-radius: 50%; }
-        .footer-heart::before { top: -5px; left: 0; }
-        .footer-heart::after  { left: 5px; top: 0; }
-        .footer-caption { margin-top: 2rem; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; opacity: 0.4; position: relative; }
+        .footer-heart::before, .footer-heart::after { content: ''; position: absolute; width: 12px; height: 12px; background: var(--accent-pink); border-radius: 50%; box-shadow: 0 0 10px rgba(242, 181, 197, 0.5); }
+        .footer-heart::before { top: -6px; left: 0; }
+        .footer-heart::after  { left: 6px; top: 0; }
+
+        /* Solid Bottom Bar (Pijakan Kaki Bawah) */
+        .footer-bottom-bar {
+            background: var(--dark-blue);
+            padding: 20px 15px 30px 15px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
+        }
+        .footer-date { font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: var(--powder-blue); display: block; margin-bottom: 5px; }
+        .footer-caption { font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.5); }
 
         /* ==========================================================================
            11. CSS: TAMPILAN KHUSUS HP (RESPONSIVE DEWA)
@@ -306,11 +388,7 @@
             /* TIMELINE HP: FIX ZIG-ZAG ULAR TANGGA PRESISI TINGGI */
             .timeline-line-pc, .timeline-progress-pc { display: none !important; } 
             
-            .tl-item { 
-                margin-bottom: 3rem; padding-bottom: 0; 
-                align-items: center; 
-            }
-            
+            .tl-item { margin-bottom: 3rem; padding-bottom: 0; align-items: center; }
             .tl-item.left { grid-template-columns: 46px 1fr !important; gap: 12px; }
             .tl-item.left .tl-card-wrap { grid-column: 2 !important; text-align: left; max-width: 100%; }
             .tl-item.left .tl-dot-wrap { grid-column: 1 !important; justify-content: center !important; }
@@ -356,29 +434,15 @@
                 100% { transform: translateY(0); z-index: 2; height: 170px; width: 280px; left: 10px; }
             }
 
-            /* FIX: GUESTBOOK PAPAN DOA DI HP KEMBALI KETUMPUK ESTETIK! */
+            /* GUESTBOOK PAPAN DOA DI HP */
             .wish-form { padding: 1.5rem; margin-bottom: 2rem; }
             .wish-form input, .wish-form textarea { padding: 10px; font-size: 0.95rem; }
+            .sticky-board { padding-top: 1rem; }
+            .sticky-note { width: 145px; padding: 1rem; margin: -5px -12px; }
             
-            .sticky-board { 
-                display: flex; 
-                flex-wrap: wrap; 
-                justify-content: center; 
-                gap: 0; 
-                padding-top: 1rem; 
-            }
-            .sticky-board > div { 
-                display: block; 
-            }
-            .sticky-note { 
-                width: 150px; /* Cukup lebar biar nama aman */
-                padding: 1rem; 
-                margin: -5px -12px; /* Margin numpuk estetik */
-                box-shadow: 2px 5px 12px rgba(0,0,0,0.15); 
-            }
-            .note-text { font-size: 0.95rem; margin-top: 5px; margin-bottom: 0.5rem; line-height: 1.3; } 
-            .note-author { font-size: 0.75rem; text-align: right; }
-            .footer-names { font-size: 2rem; }
+            /* Penyesuaian ukuran footer cinematic di HP */
+            .footer-cinematic { height: 300px; }
+            .footer-names { font-size: 2.2rem; }
         }
     </style>
 </head>
@@ -399,7 +463,7 @@
     <span class="music-icon" id="music-icon">🎵</span>
 </div>
 
-<!-- MODAL CERITA TIMELINE (Popup pas klik "Buka Cerita") -->
+<!-- MODAL CERITA TIMELINE -->
 <div class="story-modal-overlay" id="story-modal" onclick="closeStoryModal()">
     <div class="story-modal-content" onclick="event.stopPropagation()">
         <button class="close-modal" onclick="closeStoryModal()">&times;</button>
@@ -410,7 +474,7 @@
 </div>
 
 <!-- ==========================================================================
-     HTML: BAGIAN 1 - PEMBUKA (AMPLOP SURPRISE)
+     HTML: BAGIAN 1 - PEMBUKA (AMPLOP SURPRISE & EFEK LORONG WAKTU)
      ========================================================================== -->
 <div class="envelope-screen" id="envelope-screen">
     <div class="envelope-content">
@@ -421,7 +485,7 @@
 </div>
 
 <!-- ==========================================================================
-     HTML: BAGIAN 2 - BERANDA (VIDEO HERO)
+     HTML: BAGIAN 2 - BERANDA (VIDEO HERO & EFEK MUNCUL DARI LORONG WAKTU)
      ========================================================================== -->
 <section class="hero" id="hero-section">
     <video autoplay loop muted playsinline class="hero-bg-video">
@@ -460,7 +524,7 @@
     
     <div class="timeline">
         
-        <!-- WADAH SVG UNTUK MENGGAMBAR GARIS MELENGKUNG SEMPURNA (Anti sudut kaku!) -->
+        <!-- WADAH SVG UNTUK MENGGAMBAR GARIS MELENGKUNG SEMPURNA -->
         <svg class="timeline-svg-container" preserveAspectRatio="none">
             <path id="svg-timeline-bg" stroke="rgba(184,212,232,0.4)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" />
             <path id="svg-timeline-progress" stroke="var(--accent-pink)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" />
@@ -599,7 +663,7 @@
 </section>
 
 <!-- ==========================================================================
-     HTML: BAGIAN 6 - PAPAN DOA (GUESTBOOK) & API GOOGLE SHEETS
+     HTML: BAGIAN 6 - PAPAN DOA (GUESTBOOK)
      ========================================================================== -->
 <section class="wishwall-section" id="wishwall-section">
     <div class="wishwall-header reveal-wrap anim-up">
@@ -624,15 +688,39 @@
 </section>
 
 <!-- ==========================================================================
-     HTML: BAGIAN 7 - FOOTER
+     HTML: BAGIAN 7 - FOOTER CINEMATIC SLIDESHOW (NEW!)
      ========================================================================== -->
-<footer class="footer">
-    <div class="footer-hearts">
-        <div class="footer-heart"></div><div class="footer-heart"></div><div class="footer-heart"></div>
+<footer class="footer-wrapper">
+    <!-- Top Gradient (Biar Papan Doa ngeblend halus ke foto) -->
+    <div class="footer-top-gradient"></div>
+
+    <div class="footer-cinematic">
+        <!-- Overlay Kaca Film Gelap -->
+        <div class="footer-overlay"></div>
+
+        <!-- 5 Foto dari galeri lu sebagai background slider -->
+        <div class="slideshow-bg">
+            <div class="slide slide-1"></div>
+            <div class="slide slide-2"></div>
+            <div class="slide slide-3"></div>
+            <div class="slide slide-4"></div>
+            <div class="slide slide-5"></div>
+        </div>
+        
+        <!-- Teks Nama Utama -->
+        <div class="footer-content reveal-wrap anim-up">
+            <div class="footer-hearts">
+                <div class="footer-heart"></div><div class="footer-heart"></div><div class="footer-heart"></div>
+            </div>
+            <span class="footer-names">Aang &amp; Amanda</span>
+        </div>
     </div>
-    <span class="footer-names">Aang &amp; Amanda</span>
-    <span class="footer-date">4 September 2025 &mdash; forever &amp; always</span>
-    <p class="footer-caption">Happy 1st Anniversary</p>
+
+    <!-- Solid Bottom Bar (Pijakan Mentok Bawah) -->
+    <div class="footer-bottom-bar">
+        <span class="footer-date">4 September 2025 &mdash; forever &amp; always</span>
+        <p class="footer-caption">Happy 1st Anniversary</p>
+    </div>
 </footer>
 
 <!-- ==========================================================================
@@ -642,7 +730,7 @@
     if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
     window.onload = function() { setTimeout(function() { window.scrollTo(0, 0); }, 100); }
 
-    /* ===================== JS: MUSIK & BUKA SURPRISE ===================== */
+    /* ===================== JS: MUSIK & BUKA SURPRISE (EFEK PORTAL) ===================== */
     const bgMusic = document.getElementById('bg-music');
     const musicBtn = document.getElementById('music-toggle');
     let isPlaying = false;
@@ -652,10 +740,20 @@
         window.scrollTo(0, 0);
         document.documentElement.style.scrollBehavior = 'smooth';
 
-        document.getElementById('envelope-screen').style.transform = 'translateY(-100vh)';
-        document.body.style.overflowY = 'auto';
-        document.body.style.overflowX = 'hidden'; 
-        document.getElementById('hero-section').classList.add('start-anim');
+        const envelope = document.getElementById('envelope-screen');
+        const hero = document.getElementById('hero-section');
+        
+        // Panggil animasi Vortex Portal menghisap amplop lurus ke tengah (Warp Speed)
+        envelope.classList.add('portal-open');
+        // Panggil efek nge-zoom dari beranda
+        hero.classList.add('start-anim');
+        
+        // Tunggu portal kelar menghisap, baru aktifin scroll
+        setTimeout(() => {
+            document.body.style.overflowY = 'auto';
+            document.body.style.overflowX = 'hidden'; 
+            envelope.style.display = 'none'; // Sembunyiin permanen biar gak menuhi memori
+        }, 1500);
         
         musicBtn.classList.add('show');
         musicBtn.style.opacity = '1';
@@ -761,14 +859,18 @@
         svgProg.style.strokeDasharray = length;
         svgProg.style.strokeDashoffset = length; // Sembunyiin awal garis
         svgProg.dataset.length = length;
-
-        // FIX BUG FLICKER: Trigger scroll event biar garis pink langsung nyesuain posisi di HP
-        window.dispatchEvent(new Event('scroll'));
     }
 
     // Gambar ulang garis kalau layar di-resize
-    window.addEventListener('resize', drawTimelineSVG);
-    setTimeout(drawTimelineSVG, 500); 
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            drawTimelineSVG();
+            window.dispatchEvent(new Event('scroll'));
+        }, 100);
+    });
+    setTimeout(() => { drawTimelineSVG(); window.dispatchEvent(new Event('scroll')); }, 500);
 
     // Logika animasi scroll garis pink
     window.addEventListener('scroll', () => {
@@ -902,7 +1004,7 @@
                 const randomBg = bgs[i % 3];
 
                 newNote.className = 'reveal-wrap anim-up visible';
-                // FIX ANIMASI: Kertas muncul satu per satu bergantian
+                // FIX ANIMASI: Delay dimunculin satu-satu bergantian biar estetik
                 newNote.style.animationDelay = `${(data.length - 1 - i) * 0.15}s`; 
 
                 newNote.innerHTML = `
